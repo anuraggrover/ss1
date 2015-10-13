@@ -1,3 +1,32 @@
-<h1>Your balance is: {{balance}}</h1>
-<div class="visa"></div>
-<a href="#" data-path="/transactions">Transaction History</a>
+<div class="walletContainer">
+	<div class="walletContainer-top">
+		<div class="walletCard">
+    		<div class="walletCard-top">
+        		<div class="hologramIcon"></div>
+			        <div class="settingsIcon"></div>
+    		</div>
+    
+    		<div class="walletCard-middle">
+    		</div>
+    
+   			 <div class="walletCard-bottom">
+         		<div class="visaIcon">
+        		</div>
+    		</div>
+		</div>
+
+		<div class="walletContainer-middle">
+			<div class="walletBalance">Rs. {{balance}}</div>
+			<a class="walletHistory" href="#" data-path="/transactions">Track History</a>
+		</div>
+	</div>
+
+	<div class="walletContainer-bottom">
+		<ul>
+		    <li class="walletAction"><div class="addIcon"></div> <p>Send Money</p></li>
+		    <li class="walletAction"><div class="addIcon"></div><p>Request Money</p></li>
+		    <li class="walletAction"><div class="addIcon"></div><p>Add Money</p></li>
+		    <li class="walletAction"><div class="addIcon"></div><p>Get Physical Card</p></li>
+		</ul>
+	</div>
+</div>

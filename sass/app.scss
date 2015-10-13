@@ -1,18 +1,10 @@
-$navbar-height: 57px;
+$navbar-height: 0px;
 
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
   font-size: 14px;
-}
-
-.visa {
-  background-image: url(images/visa.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 100px;
-  height: 50px;
 }
 
 #header {
@@ -33,3 +25,112 @@ body {
   top: $navbar-height;
 }
 
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.clearfix { display: inline-block; }
+.clearfix { height: 1%; }
+.clearfix { display: block; }
+
+.walletContainer .walletContainer-top{
+  background-color:#f8f8f8;
+  padding-top: 16px;
+}
+
+.walletContainer .walletContainer-top .walletCard{
+  width: 90%;
+  height: 200px;
+  background-color: #D9B282;
+  border-radius: 10px;
+  margin: 0px auto;
+  padding:16px;
+}
+
+.walletContainer .walletContainer-top .walletCard .walletCard-top .hologramIcon{
+  background-color: #f3f1e4;
+  border-radius: 5px;
+  float: left;
+  width: 45px;
+  height: 40px;
+}
+
+.walletContainer .walletContainer-top .walletCard .walletCard-top .settingsIcon{
+  float: right;
+  width: 20px;
+  height:20px;
+  background-image: url(images/card_settings.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.walletContainer .walletContainer-top .walletCard .walletCard-middle {
+  text-align: center;
+  background-image: url(images/cardnumber.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width:250px;
+  margin:60px auto;
+  height:17px;
+}
+
+.walletContainer .walletContainer-top .walletCard .walletCard-bottom .visaIcon{
+  width: 54px;
+  height:28px;
+  float:right;
+  margin-top: 35px;
+  background-image: url(images/card_visa.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.walletContainer .walletContainer-top .walletBalance {
+  font-size: 28px;
+  font-weight: 300;
+  padding: 20px;
+  color: #33b87e;
+  display:inline-block;
+  text-align: center;
+}
+
+.walletContainer .walletContainer-middle{
+  text-align:center;
+}
+
+.walletContainer .walletContainer-top a.walletHistory{
+  padding: 20px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #794D2C;
+  text-transform: uppercase;
+}
+
+.walletContainer .walletContainer-bottom ul{
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+}
+
+.walletContainer .walletContainer-bottom .addIcon{
+  width:40px;
+  height:40px;
+  margin:0px auto;
+  background-image: url(images/add_icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.walletContainer .walletContainer-bottom li.walletAction{
+  float: left;
+  width: 50%;
+  display: inline-block;
+  border: 1px solid rgba(232, 232, 232, 0.2);
+  text-align: center;
+  padding-top: 30px;
+  box-sizing:border-box;
+}
