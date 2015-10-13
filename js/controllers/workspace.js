@@ -10,6 +10,12 @@
             balance: 3000
         }));
 
+        var self = this;
+        
+        $('body').on('click', '.sendMoney', function(){
+            if (PlatformBridge) PlatformBridge.startContactChooser();
+        });
+        
         return this;
     };
 
