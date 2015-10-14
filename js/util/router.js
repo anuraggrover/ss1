@@ -5,7 +5,7 @@
         this.routes       = {};
         this.history 	  = [];
         this.currentRoute = null;
-    }
+    };
 
     Router.prototype.route = function(route, callback) {
         this.routes[route] = callback;
@@ -23,7 +23,7 @@
     	if (this.history.length == 0) return;
     	this.currentRoute = this.history.pop();
     	this.currentRoute();
-    }
+    };
 
     module.exports = Router;
 })();

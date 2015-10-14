@@ -5,7 +5,7 @@
     W.Mustache = require('mustache.js');
 
     var platformSdk = require('./libs/js/platformSdk');
-
+    
     platformSdk.ready(function () {
         var environment = document.body.getAttribute('data-env'),
             config      = require('./config')(environment),
