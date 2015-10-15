@@ -4,8 +4,12 @@
     var WorkspaceController  = require('./controllers/workspace'),
         TransIndexController = require('./controllers/transactions/index'),
         SendMoneyController  = require('./controllers/sendmoney/index'),
-        Router               = require('./util/router'),
         TopupController      = require('./controllers/topup/index'),
+        Ftue1Controller      = require('./controllers/ftue/ftuestep1/index'),
+        Ftue2Controller      = require('./controllers/ftue/ftuestep2/index'),
+        Ftue3Controller      = require('./controllers/ftue/ftuestep3/index'),
+        Ftue4Controller      = require('./controllers/ftue/ftuestep4/index'),
+        Router               = require('./util/router'),
         utils                = require('./util/utils');
         
     var Application = function (options) {
@@ -15,7 +19,10 @@
         this.transIndexController = new TransIndexController();
         this.topupController      = new TopupController();
         this.sendMoneyController  = new SendMoneyController();
-
+        this.ftuestep1Controller  = new Ftue1Controller();
+        this.ftuestep2Controller  = new Ftue2Controller();
+        this.ftuestep3Controller  = new Ftue3Controller();
+        this.ftuestep4Controller  = new Ftue4Controller();
         // Global Function Wirtten To Handle The Return From The Contact Chooser 
 
     window.onContactChooserResult = function(resultCode,contacts) {
@@ -89,6 +96,22 @@
 
             this.router.route('/sendmoney', function(){
                 self.container.html(self.sendMoneyController.render().el);
+            });
+
+            this.router.route('/ftue_step_1', function(){
+                self.container.html(self.ftuestep1Controller.render().el);
+            });
+
+            this.router.route('/ftue_step_2', function(){
+                self.container.html(self.ftuestep2Controller.render().el);
+            });
+
+            this.router.route('/ftue_step_3', function(){
+                self.container.html(self.ftuestep3Controller.render().el);
+            });
+
+            this.router.route('/ftue_step_4', function(){
+                self.container.html(self.ftuestep4Controller.render().el);
             });
 
             this.router.navigateTo('/');

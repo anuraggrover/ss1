@@ -1,0 +1,93 @@
+
+/*FTUE ALL STEPS CSS HERE*/
+
+/*FTUE STEP 1*/
+.ftueContainer {
+  padding: 20px;
+  background-color: #f8f8f8; }
+
+.ftueContainer h2 {
+  color: rgba(0, 0, 0, 0.65);
+  margin: 20px 0px 50px 1px;
+  text-align: center; }
+
+.ftueContainer .ftueIcon {
+  background-color: #1da8e8;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin: 0px auto; }
+
+.ftueContainer h3 {
+  color: rgba(0, 0, 0, 0.65);
+  margin: 20px 0px 50px 1px;
+  text-align: center; }
+
+.ftueContainer p.ftue1-details {
+  color: #1a1a1a; }
+
+a.ftueNextButton {
+  background-color: #2ca16e;
+  color: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0px; 
+  text-decoration: none;
+  text-align: center;
+  padding: 10px;
+}
+
+/*FTUE STEP 2*/
+
+.ftue2 .hikeCardPackageIcon{
+  width: 90%;
+  height: 200px;
+  background-color:#1da8e8;
+  padding:20px;
+}
+
+.ftue2 h3{
+  color: rgba(0, 0, 0, 0.65);
+  margin: 20px 0px 50px 1px;
+  text-align: center;
+}
+
+.ftue2 .inputUserAddress {
+  width: 75%;
+  margin: 0px auto;
+}
+
+.ftue2 .inputUserAddress input {
+  width: 100%;
+  padding:10px; 
+}
+
+/*FTUE STEP 3*/
+
+.ftue3 .trackingCard{
+  width: 75%;
+  margin: 0px auto;
+  background-color:white;
+  padding:20px;
+  border-radius:10px;
+}
+
+.ftue3 .trackingCard .trackingCard-map{
+  background:url(http://www.brandeis.edu/about/images/newformat/map2.jpg);
+  width: 100%;
+  height: 200px;
+}
+
+/*FTUE STEP 4*/
+
+.ftue4 .qrScanner{
+  background-color:#1da8e8;  
+  height: 100px;
+  width: 100px;
+  margin: 0px auto;
+}
+
+
+
+
+

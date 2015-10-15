@@ -1,0 +1,36 @@
+/*Transaction History*/
+.iblock {
+  display: inline-block !important; }
+
+.txHistoryContainer {
+  margin: 20px; }
+
+.txHistoryContainer .txHistory-balance {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px; }
+
+.txHistoryContainer .txHistory-balance h3 {
+  color: #B1B1B1;
+  font-size: 14px;
+  margin: 0px 0px 8px 0px; }
+
+.txHistoryContainer .txHistory-balance p {
+  font-size: 16px;
+  color: #585858;
+  font-weight: 800;
+  margin: 0px; }
+
+.txHistoryContainer .txHistoryList {
+  border-bottom: 1px solid #eee; }
+
+.txHistoryContainer .txHistoryList .txHistoryList-item-details {
+  float: left; }
+
+.txHistoryContainer .txHistoryList .txHistoryList-item-amount {
+  float: right; }
+
+.txHistoryContainer .txHistoryList .txHistoryList-item-details .itemIcon {
+  width: 36px;
+  height: 36px;
+  background-color: #1da8e8;
+  border-radius: 50%; }
