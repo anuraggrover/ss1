@@ -1,9 +1,22 @@
-<a href="#" data-path="<<">Back</a>
-	<h1>Select Type Of Topup From the List</h1>
-	<select id="topupType">
-    	<option value="hide">-- Type --</option>
-	    <option value="cc">Credit Card</option>
-	    <option value="dc">Debit Card</option>
-	    <option value="nb">Netbanking</option> 
-	</select> 
-</ul>
+<div class="topupContainer">
+	
+	<h1>Enter amount to add</h1>
+	
+	<div class="p2pAmount">      
+      <input type="number" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Amount</label>
+    </div>
+    
+    <h1>Select Payment method</h1>
+    <span class="input-blue radio">
+    	<input type="radio" id="methodCard" name="radio-group" />
+    	<label for="radio1" >Credit/Debit Card</label>
+  	</span>
+  	<span class="input-blue radio">
+    	<input type="radio" id="netBanking" name="radio-group" />
+    	<label for="radio1" >Net Banking</label>
+  	</span>
+
+</div>

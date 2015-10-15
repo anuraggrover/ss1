@@ -12,6 +12,7 @@
     };
 
     Router.prototype.navigateTo = function(route) {
+        console.log("Navigating To Hemank ");
     	if (this.currentRoute){
     		this.history.push(this.currentRoute);
     	}

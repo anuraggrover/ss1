@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    var utils                = require('../util/utils');
+
     var WorkspaceController = function (options) {
         this.template = require('raw!../../templates/workspace.html');
     };
@@ -13,7 +15,12 @@
         var self = this;
         
         $('body').on('click', '.sendMoney', function(){
-            if (PlatformBridge) PlatformBridge.startContactChooser();
+            if (PlatformBridge) {
+                // Toggle Back and Up Press 
+                utils.toggleBackNavigation(true);
+                // Start The Contact Chooser Screen
+                PlatformBridge.startContactChooser();
+            }
         });
         
         return this;
