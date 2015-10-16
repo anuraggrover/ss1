@@ -1,0 +1,49 @@
+<div class="topupContainer2"> 
+    
+    <h3>Select Payment method</h3>
+    
+    <!-- Method One : Credit/Debit Card -->
+    <!-- <span class="input-blue-radio">
+    	<input type="radio" id="methodCard" name="radio-group" />
+    	<label for="radio1" >Credit/Debit Card</label>
+  	</span>
+ -->
+    <a href="#" class="topupCard">Credit/Debit Card</a>
+
+    <!-- Method One : Credit/Debit Card :: Details :: Hidden -->
+  	<div class="cardInputs">
+  		<input type="number" required placeholder="CARD NUMBER">
+  		<input type="text" require placeholder="EXPIRY(dd/mm)">
+  		<input type="number" required placeholder="CVV">
+  	</div>
+
+    <!-- Method Two : Net Banking --> 
+  	<!-- <span class="input-blue radio">
+    	<input type="radio" id="netBanking" name="radio-group" />
+    	<label for="radio1" >Net Banking</label>
+  	</span>
+ -->
+    <a href="#" class="topupNetBanking">Net Banking</a>
+    <!-- Net Banking :: Choose Bank And Further Details :: Hidden -->
+  	<div class="netbankingInputs">
+  		<div class="banksContainer">
+
+  			<!-- Commonly Used Banks --> 
+        {{#commonbanks}}
+        <div class="{{bankname}}">{{bankname}}</div>
+        {{/commonbanks}}
+        
+        <!-- Other Banks -->
+  			<select id="bankType">
+    			<option value="hide"> Other Bank </option>
+	    	  
+          {{#banklist}}    
+          <option value="{{bankname}}">{{bankname}}</option>
+          {{/banklist}}
+        </select>
+  		</div>
+  	</div>
+    
+</div>
+<!-- Button To Take To Payment Gateway -->
+<a class="topupNextButton" href="#" data-path="/">Add money</a>

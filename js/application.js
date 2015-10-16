@@ -4,7 +4,8 @@
     var WorkspaceController  = require('./controllers/workspace'),
         TransIndexController = require('./controllers/transactions/index'),
         SendMoneyController  = require('./controllers/sendmoney/index'),
-        TopupController      = require('./controllers/topup/index'),
+        Topup1Controller      = require('./controllers/topup/topup1/index'),
+        Topup2Controller      = require('./controllers/topup/topup2/index'),
         Ftue1Controller      = require('./controllers/ftue/ftuestep1/index'),
         Ftue2Controller      = require('./controllers/ftue/ftuestep2/index'),
         Ftue3Controller      = require('./controllers/ftue/ftuestep3/index'),
@@ -17,7 +18,8 @@
         this.router               = new Router();
         this.workspaceController  = new WorkspaceController();
         this.transIndexController = new TransIndexController();
-        this.topupController      = new TopupController();
+        this.topup1Controller     = new Topup1Controller();
+        this.topup2Controller     = new Topup2Controller();
         this.sendMoneyController  = new SendMoneyController();
         this.ftuestep1Controller  = new Ftue1Controller();
         this.ftuestep2Controller  = new Ftue2Controller();
@@ -64,6 +66,9 @@
 
             var self = this;
             console.log("Starting application...");
+            console.log("Helper Data is:");
+
+            console.log(platformSdk.appData.helperData);
 
             // Sets False To Give Control Back To Android App
             utils.toggleBackNavigation(false);
@@ -80,7 +85,7 @@
                     utils.toggleBackNavigation(true);
                     self.router.navigateTo(path);
                 }
-            });        
+            });
 
             this.router.route('/', function(){
                 self.container.html(self.workspaceController.render().el);
@@ -90,8 +95,12 @@
                 self.container.html(self.transIndexController.render().el);
             });
 
-            this.router.route('/topup', function(){
-                self.container.html(self.topupController.render().el);
+            this.router.route('/topup1', function(){
+                self.container.html(self.topup1Controller.render().el);
+            });
+
+            this.router.route('/topup2', function(){
+                self.container.html(self.topup2Controller.render().el);
             });
 
             this.router.route('/sendmoney', function(){
@@ -115,6 +124,13 @@
             });
 
             this.router.navigateTo('/');
+
+            // if(platformSdk && !platformSdk.appData.helperData.ftueDone){
+            //     console.log("FTUE has not been Completed, Take user to FTUE and update HelperData");
+            //     utils.toggleBackNavigation(true);
+            //     self.router.navigateTo('ftue_step_1');
+            // } 
+            
         }
     };
 
