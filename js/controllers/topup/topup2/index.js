@@ -40,6 +40,25 @@
             banklist: that.banklist
         }));
 
+        //var ele = document.getElementsByClassName('.boxInputs');
+
+        //ele.style.display = "none";
+
+
+        $('body').on('click', '.topupMethod', function(e){
+            e.preventDefault();
+            $(this).next('.boxInputs').toggle('fast');
+        });
+
+        // $('.boxInputs').hide();
+            
+        // $('.topupMethod').each(function() {
+        //     $(this).show(0).on('click', function(e) {
+        //         e.preventDefault();
+        //         $(this).next('.boxInputs').toggle('fast');
+        //     });
+        // });
+        
         return this;
     };
 

@@ -2,6 +2,8 @@
 
 // TOPUP 1
 
+
+
 .topupContainer1{
 	padding:20px;
 	height:100%;
@@ -28,15 +30,15 @@
 }
 
 .topupContainer1 .defaultAmounts{
-	text-align:center;
-	margin-top:40px
+	margin:40px auto;
+	max-width:90%;
 }
 
 .topupContainer1 .defaultAmounts .amount{
 	display: inline-block;
 	border:1px solid #eee;
 	border-radius:4px;
-	margin:0px 30px;
+	margin:0px 5px;
 	font-size:16px;
 	padding:10px 20px;
 }
@@ -65,6 +67,69 @@ a.topupNextButton{
 	font-size:20px;
 	color:rgba(0,0,0,0.6);
 }
+
+.topupContainer2 a.topupMethod{
+	text-decoration:none;
+	color:black;	
+}
+
+.topupContainer2 .topupMethodIcon{
+	width:100px;
+	height:100px;
+	color:#1da8e8;
+}
+
+.topupContainer2 a.topupMethod{
+	font-size:16px;
+}
+
+.topupContainer2 .boxInputs{
+	padding-bottom:20px;
+	border-bottom:1px solid #eee;
+	margin:15px 0px;
+}
+
+.topupContainer2 .boxInputs input{
+	width:90%;
+	padding:10px 10px;
+	border-radius:4px;
+	border:1px solid #eee;
+	margin:5px 0px;
+}
+
+.topupContainer2 .commonBanksContainer{
+	width:70%;
+	margin:0px auto;	
+}
+
+.topupContainer2 .commonBanksContainer .bankContainer{
+	display:inline-block;
+	margin:0px auto;
+	padding:10px;	
+}
+
+.topupContainer2 .commonBanksContainer .bankContainer .bankIcon{
+	border-radius:50%;
+	background-color:#1da8e8;
+	width:50px;
+	height:50px;
+}
+
+.topupContainer2 .commonBanksContainer .bankContainer .bankName{
+	font-size:10px;
+	text-align:center;
+	color:rgba(0,0,0,0.65);
+	margin-top:10px;
+}
+
+.topupContainer2 .boxInputs{
+	display:none;
+}
+
+
+
+
+
 
 
 
