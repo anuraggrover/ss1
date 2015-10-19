@@ -40,24 +40,28 @@
             banklist: that.banklist
         }));
 
-        //var ele = document.getElementsByClassName('.boxInputs');
-
-        //ele.style.display = "none";
-
-
         $('body').on('click', '.topupMethod', function(e){
             e.preventDefault();
             $(this).next('.boxInputs').toggle('fast');
         });
 
-        // $('.boxInputs').hide();
-            
-        // $('.topupMethod').each(function() {
-        //     $(this).show(0).on('click', function(e) {
-        //         e.preventDefault();
-        //         $(this).next('.boxInputs').toggle('fast');
-        //     });
-        // });
+        $('body').on('click', '.card', function(e){
+            //e.preventDefault();
+            $('.boxInputs-netbanking').hide();
+            $('.boxInputs-card').show();
+        });
+
+        $('body').on('click', '.netbanking', function(e){
+            //e.preventDefault();
+            $('.boxInputs-card').hide();
+            $('.boxInputs-netbanking').show();
+        });
+
+        $('body').on('click', '.bankContainer', function(e){
+            e.preventDefault();
+            $('#bankType').val($(this).find('.bankName')[0].innerHTML);
+            $('#bankType').css('color','#1da8e8');
+        });
         
         return this;
     };

@@ -64,16 +64,110 @@ a.topupNextButton{
 
 // TOPUP2
 
+.radio{
+  display: block;
+  cursor: pointer; 
+  user-select:none;
+  text-align: left;
+  &+.radio{
+    margin-top: 7px;
+  }
+  input{
+    display: none;
+    &+span{
+      display: inline-block; 
+      position: relative;
+      padding-left: 25px;
+      &:before{
+        content: '';
+        display: block; 
+        position: absolute;
+        top: -11px;
+        left: 0px;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        border: 1px solid #979797;
+        background: #fff;
+      }
+      &:after{
+        content: '';
+        display: block; 
+        width: 8px;
+        height: 8px;
+        background: #2ca16e;
+        position: absolute;
+        border-radius: 50%;
+        top: -8px;
+        left: 3px;
+        opacity: 0;
+        transform: scale(0,0); 
+        transition: all .2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+      }
+    }
+    &:checked+span:after{
+      opacity: 1;
+      transform: scale(1,1);
+    }
+  }
+}
+
 .topupContainer2 {
 	padding:20px;
 	height:100%;
-	background-color:#f8f8f8;
+	background-color:white;
 }
 
 .topupContainer2 h3 {
-	text-align:center;
-	font-size:20px;
-	color:rgba(0,0,0,0.6);
+	font-size:14px;
+	text-transform:uppercase;
+	color:#5C646D;
+}
+
+.topupContainer2 .card{
+	padding-top:27px;
+	padding-bottom:18px;
+	border-bottom:1px solid rgba(0,0,0,.14);
+}
+
+.topupContainer2 .netbanking{
+	padding-top:27px;
+	padding-bottom:18px;
+	border-bottom:1px solid rgba(0,0,0,.14);
+}
+
+.topupContainer2 .card .nb-icon{
+  width: 28px;
+  height: 18px;
+  display: inline-block;
+  background-image: url(images/cc-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.topupContainer2 .netbanking .nb-icon{
+  width: 28px;
+  display: inline-block;
+  height: 18px;
+  background-image: url(images/cc-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.topupContainer2 .netbanking span{
+	vertical-align:super;
+	color:black;
+	font-size:12px;
+}
+
+.topupContainer2 .card span{
+	vertical-align:super;
+	color:black;
+	font-size:12px;
+}
+
+.topupContainer2 .netbanking span.nb, .topupContainer2 .card span.cc{
+	padding-left:15px;
 }
 
 .topupContainer2 a.topupMethod{
@@ -91,52 +185,109 @@ a.topupNextButton{
 	font-size:16px;
 }
 
-.topupContainer2 .boxInputs{
-	padding-bottom:20px;
-	border-bottom:1px solid #eee;
-	margin:15px 0px;
+.topupContainer2 .boxInputs-card{
+	margin:19px 20px 0px 25px;
 }
 
-.topupContainer2 .boxInputs input{
-	width:90%;
+.topupContainer2 .boxInputs-card input{
 	padding:10px 10px;
 	border-radius:4px;
 	border:1px solid #eee;
 	margin:5px 0px;
 }
 
+.topupContainer2 .boxInputs-card #card_number{
+	width:93%;
+}
+
+.topupContainer2 .boxInputs-card #card_expiry{
+	width:40%;
+}
+
+.topupContainer2 .boxInputs-card #card_cvv{
+	width:40%;
+}
+
+.topupContainer2 .boxInputs-netbanking{
+	margin-top:13px;
+	text-align:center;
+}
+
 .topupContainer2 .commonBanksContainer{
-	width:70%;
-	margin:0px auto;	
+	width:90%;
+	margin-left:40px;
 }
 
 .topupContainer2 .commonBanksContainer .bankContainer{
 	display:inline-block;
-	margin:0px auto;
-	padding:10px;	
+	margin:0px 45px 17px 0px;
 }
 
 .topupContainer2 .commonBanksContainer .bankContainer .bankIcon{
-	border-radius:50%;
-	background-color:#1da8e8;
-	width:50px;
-	height:50px;
+	width: 36px;
+  	height: 36px;
+  	background-size: contain;
+  	background-repeat: no-repeat;
+}
+
+$SBI: url(images/bank-sbi.png);
+$HDFC: url(images/bank-hdfc.png);
+$ICICI: url(images/bank-icici.png);
+$AXIS: url(images/bank-axis.png);
+$CANARA: url(images/bank-canara.png);
+$KOTAK: url(images/bank-kotak.png);
+
+.topupContainer2 .commonBanksContainer .bankContainer .SBI{
+	background-image:$SBI;
+}
+.topupContainer2 .commonBanksContainer .bankContainer .HDFC{
+	background-image:$HDFC;
+}
+.topupContainer2 .commonBanksContainer .bankContainer .ICICI{
+	background-image:$ICICI;
+}
+.topupContainer2 .commonBanksContainer .bankContainer .AXIS{
+	background-image:$AXIS;
+}
+.topupContainer2 .commonBanksContainer .bankContainer .CANARA{
+	background-image:$CANARA;
+}
+.topupContainer2 .commonBanksContainer .bankContainer .KOTAK{
+	background-image:$KOTAK;
 }
 
 .topupContainer2 .commonBanksContainer .bankContainer .bankName{
 	font-size:10px;
 	text-align:center;
-	color:rgba(0,0,0,0.65);
-	margin-top:10px;
+	color:rgba(0,0,0,0.48);
+	margin-top:5px;
 }
 
-.topupContainer2 .boxInputs{
+.topupContainer2 .bankContainer select{
+	width:50%;
+	border:1px solid rgba(0,0,0,0.18);
+	background:white;
+	text-transform:uppercase;
+	margin:0px auto;
+	border-radius:5px;;
+	padding:6px 10px;
+	color:#A8A8A8;
+}	
+
+/* This is to remove the arrow of select element in IE */
+select::-ms-expand {	display: none; }
+select{
+    -webkit-appearance: none;
+    appearance: none;
+}
+@-moz-document url-prefix(){
+	.topupContainer2 .bankContainer select{border: 1px solid #CCC; border-radius: 4px; box-sizing: border-box; position: relative; overflow: hidden;}
+  .topupContainer2 .bankContainer select { width: 110%; background-position: right 30px center !important; border: none !important;}
+}
+
+.topupContainer2 .boxInputs-card, .topupContainer2 .boxInputs-netbanking{
 	display:none;
 }
-
-
-
-
 
 
 

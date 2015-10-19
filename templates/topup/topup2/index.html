@@ -1,51 +1,51 @@
 <div class="topupContainer2"> 
     
-    <h3>Select Payment method</h3>
+    <h3>Select how would you like to pay</h3>
     
-    <!-- Method One : Credit/Debit Card -->
-    <!-- <span class="input-blue-radio">
-    	<input type="radio" id="methodCard" name="radio-group" />
-    	<label for="radio1" >Credit/Debit Card</label>
-  	</span>
- -->
+    <label class="radio card">
+      <input name="radio" type="radio">
+      <span></span>
+      <div class="nb-icon"></div> 
+      <span class="cc">Credit/Debit Card</span> 
+    </label>
 
-    <a href="#" class="topupMethod">Credit/Debit Card</a>
+    <div class="boxInputs-card">
+      <input id="card_number" type="number" pattern="[0-9]*" required placeholder="CARD NUMBER" autocomplete="off">
+      <input id="card_expiry" type="text" autocomplete="off" require placeholder="EXPIRY (dd/mm)">
+      <input id="card_cvv" type="number" pattern="[0-9]*" autocomplete="off" required placeholder="CVV">
+    </div>
 
-    <!-- Method One : Credit/Debit Card :: Details :: Hidden -->
-  	<div class="boxInputs">
-  		<input type="number" required placeholder="CARD NUMBER">
-  		<input type="text" require placeholder="EXPIRY(dd/mm)">
-  		<input type="number" required placeholder="CVV">
-  	</div>
 
-    <!-- Method Two : Net Banking --> 
-  	
-    <a href="#" class="topupMethod">Net Banking</a>
-    <!-- Net Banking :: Choose Bank And Further Details :: Hidden -->
-  	<div class="boxInputs">
+    <label class="radio netbanking">
+      <input name="radio" type="radio">
+      <span></span>
+      <div class="nb-icon"></div> 
+      <span class="nb">Net Banking</span>
+    </label>
+
+    
+    <div class="boxInputs-netbanking">
   		<div class="commonBanksContainer">
 
-  			<!-- Commonly Used Banks --> 
-        {{#commonbanks}}
-        
+  			{{#commonbanks}}
         <div class="bankContainer">
           <div class="{{bankname}} bankIcon"></div>
-          <div class="{{bankname}} bankName">{{bankname}}</div>
+          <div class="bankName">{{bankname}}</div>
         </div>
         {{/commonbanks}}
-        
-        <div class="bankContainer">
-        <!-- Other Banks -->
-        <select id="bankType">
-          <option value="hide"> Other Bank </option>
-          
-          {{#banklist}}    
-          <option value="{{bankname}}">{{bankname}}</option>
-          {{/banklist}}
-        </select>
-       </div> 
-  
+
   		</div>
+      
+      <div class="bankContainer">
+          <select id="bankType">
+            <option value="hide"> Other Bank </option>
+            
+            {{#banklist}}    
+            <option value="{{bankname}}">{{bankname}}</option>
+            {{/banklist}}
+          </select>
+        </div>
+
     </div>
 
 </div>
