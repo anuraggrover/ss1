@@ -2,8 +2,6 @@
 
 // TOPUP 1
 
-
-
 .topupContainer1{
 	padding:20px;
 	height:100%;
@@ -30,21 +28,26 @@
 }
 
 .topupContainer1 .defaultAmounts{
-	margin:40px auto;
-	max-width:90%;
-}
+	text-align:center;
+	margin-top:30px
+	}
 
 .topupContainer1 .defaultAmounts .amount{
 	display: inline-block;
 	border:1px solid #eee;
 	border-radius:4px;
 	margin:0px 5px;
-	font-size:16px;
+	font-size:14px;
 	padding:10px 20px;
 }
 
+.activeamount{
+	background-color:#2ca16e;
+	color:white;	
+}
+
 a.topupNextButton{
-  background-color: #2ca16e;
+  background-color: #a1a1a1;
   color: white;
   width: 100%;
   position: absolute;
@@ -52,6 +55,11 @@ a.topupNextButton{
   text-decoration: none;
   text-align: center;
   padding: 18px 0px;
+}
+
+.activebutton{
+  background-color: #2ca16e !important;
+  color: white !important;
 }
 
 // TOPUP2
