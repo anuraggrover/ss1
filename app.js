@@ -3,9 +3,10 @@
 
     require('zepto.js');
     W.Mustache = require('mustache.js');
-
+    
     var platformSdk = require('./libs/js/platformSdk');
-
+    var swipe = require('script!./libs/js/swipe');
+    
     platformSdk.ready(function () {
         var environment = document.body.getAttribute('data-env'),
             config      = require('./config')(environment),

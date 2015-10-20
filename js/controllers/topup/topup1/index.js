@@ -18,6 +18,11 @@
 
         var that = this;
 
+        $(document).ready(function(){
+            $('#p2pValue').trigger('focus');
+            console.log("Focus");    
+        });
+
         $('body').on('click', '.amount', function(){    
 
             // Remove any older Active Default Money Values

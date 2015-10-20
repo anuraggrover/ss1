@@ -1,12 +1,15 @@
 <div class="topupContainer1">
-  <h3>Enter amount to add</h3>
+  <h3>Enter amount</h3>
   <div class="p2pAmount">  
-      <input id="p2pValue" value="" type="number" required>
+      <input id="p2pValue" value="" placeholder="0" onfocus="this.placeholder = ''" onblur="this.placeholder = '0'" type="number" required>
+  	<a class="topupNextButton" href="#" data-path="/topup2">>></a>
   </div>
-  <div class="defaultAmounts">
-  	{{#defaultAmounts}}
-    	<div class="amount">{{amount}}</div>
-    {{/defaultAmounts}}
-  </div>
+
 </div>
-<a class="topupNextButton" href="#" data-path="/topup2">Next</a>
+<div class="da-container">
+	<div class="defaultAmounts">
+	  	{{#defaultAmounts}}
+	    	<div class="amount">{{amount}}</div>
+	    {{/defaultAmounts}}
+  	</div>
+</div>

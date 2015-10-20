@@ -1,27 +1,47 @@
 
 /*FTUE ALL STEPS CSS HERE*/
 
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float:left;
+  width:100%;
+  position: relative;
+}
+
+/*FTUE TOUR*/
+
 /*FTUE STEP 1*/
 .ftue1 {
-  padding: 20px;
+  padding: 30px;
   height: 100%;
-  background-color: #f8f8f8; }
+  background-color: white; }
 
 .ftue1 h2 {
-  color: rgba(0, 0, 0, 0.65);
-  margin: 20px 0px 50px 1px;
+  color: rgba(0, 0, 0, 1);
+  font-size: 22px;
+  font-weight: medium;
+  margin: 0px 0px 15px 0px;
   text-align: center; }
 
 .ftue1 .ftueIcon {
   background-color: #1da8e8;
   border-radius: 50%;
-  width: 165px;
-  height: 165px;
-  margin: 0px auto; }
+  width: 100px;
+  height: 100px;
+  margin: 100px auto 50px auto; }
 
 .ftue1 p{
-  color: #a1a1a1;
+  color: rgba(0,0,0,0.65);
   text-align: center;
+  font-weight: 400;
   line-height: 150%
 }
 

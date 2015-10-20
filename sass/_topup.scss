@@ -10,7 +10,7 @@
 
 .topupContainer1 h3{
 	text-align:center;
-	font-size:20px;
+	font-size:14px;
 	color:rgba(0,0,0,0.6);
 }
 
@@ -20,19 +20,19 @@
 
 .topupContainer1 input {
 	border:none;
-	font-size:14px;
+	font-size:26px;
+	font-weight:600;
 	background:transparent;
 	padding:20px;
 	border-bottom:1px solid #eee;
 	text-align:center;
 }
 
-.topupContainer1 .defaultAmounts{
+.da-container .defaultAmounts{
 	text-align:center;
-	margin-top:30px
-	}
+}
 
-.topupContainer1 .defaultAmounts .amount{
+.da-container .defaultAmounts .amount{
 	display: inline-block;
 	border:1px solid #eee;
 	border-radius:4px;
@@ -42,19 +42,29 @@
 }
 
 .activeamount{
-	background-color:#2ca16e;
-	color:white;	
+	background-color:white;
+	color:#2ca16e;	
 }
 
-a.topupNextButton{
-  background-color: #a1a1a1;
+.da-container{
+  background-color: #2ca16e;
   color: white;
   width: 100%;
   position: absolute;
   bottom: 0px;
   text-decoration: none;
   text-align: center;
-  padding: 18px 0px;
+  padding: 10px 0px;
+}
+
+a.topupNextButton{
+  background-color: #a1a1a1;
+  color: white;
+  position: absolute;
+  top:6%;
+  right: 2%;
+  padding: 8px;
+  border-radius:50%;
 }
 
 .activebutton{
@@ -187,6 +197,7 @@ a.topupNextButton{
 
 .topupContainer2 .boxInputs-card{
 	margin:19px 20px 0px 25px;
+	position: relative;
 }
 
 .topupContainer2 .boxInputs-card input{
@@ -206,6 +217,12 @@ a.topupNextButton{
 
 .topupContainer2 .boxInputs-card #card_cvv{
 	width:40%;
+}
+
+.topupContainer2 .boxInputs-card .card-type-icon{
+	position: absolute;
+	top:8%;
+	right:3%;
 }
 
 .topupContainer2 .boxInputs-netbanking{
@@ -287,6 +304,17 @@ select{
 
 .topupContainer2 .boxInputs-card, .topupContainer2 .boxInputs-netbanking{
 	display:none;
+}
+
+a.topupNextButton2{
+  background-color: #a1a1a1;
+  color: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  text-decoration: none;
+  text-align: center;
+  padding: 18px 0px;
 }
 
 

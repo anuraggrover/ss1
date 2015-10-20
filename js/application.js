@@ -4,15 +4,16 @@
     var WorkspaceController  = require('./controllers/workspace'),
         TransIndexController = require('./controllers/transactions/index'),
         SendMoneyController  = require('./controllers/sendmoney/index'),
-        Topup1Controller      = require('./controllers/topup/topup1/index'),
-        Topup2Controller      = require('./controllers/topup/topup2/index'),
+        Topup1Controller     = require('./controllers/topup/topup1/index'),
+        Topup2Controller     = require('./controllers/topup/topup2/index'),
         Ftue1Controller      = require('./controllers/ftue/ftuestep1/index'),
         Ftue2Controller      = require('./controllers/ftue/ftuestep2/index'),
         Ftue3Controller      = require('./controllers/ftue/ftuestep3/index'),
         Ftue4Controller      = require('./controllers/ftue/ftuestep4/index'),
+        FtueTourController   = require('./controllers/ftue/ftuetour/index'),
         Router               = require('./util/router'),
         utils                = require('./util/utils');
-        
+
     var Application = function (options) {
         this.container            = options.container;
         this.router               = new Router();
@@ -25,8 +26,9 @@
         this.ftuestep2Controller  = new Ftue2Controller();
         this.ftuestep3Controller  = new Ftue3Controller();
         this.ftuestep4Controller  = new Ftue4Controller();
+        this.ftuetourController   = new FtueTourController();
         // Global Function Wirtten To Handle The Return From The Contact Chooser 
-
+    
     window.onContactChooserResult = function(resultCode,contacts) {
         
         // var Router = require('./util/router');
@@ -121,6 +123,10 @@
 
             this.router.route('/ftue_step_4', function(){
                 self.container.html(self.ftuestep4Controller.render().el);
+            });
+
+            this.router.route('/ftue_tour', function(){
+                self.container.html(self.ftuetourController.render().el);
             });
 
             this.router.navigateTo('/');
