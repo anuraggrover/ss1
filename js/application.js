@@ -129,7 +129,7 @@
                 self.container.html(self.ftuetourController.render().el);
             });
 
-            this.router.navigateTo('/');
+            this.router.navigateTo('/ftue_step_1');
 
             // if(platformSdk && !platformSdk.appData.helperData.ftueDone){
             //     console.log("FTUE has not been Completed, Take user to FTUE and update HelperData");

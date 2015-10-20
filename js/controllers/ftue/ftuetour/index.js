@@ -11,8 +11,7 @@
 
         setTimeout(function(){
             var elem = $('#slider')[0];
-            console.log(elem);
-
+            
             window.mySwipe = new Swipe(elem, {
                 startSlide: 0,
                 disableScroll: false,
