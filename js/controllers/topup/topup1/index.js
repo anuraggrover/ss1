@@ -9,11 +9,26 @@
                                 { amount:1000},
                                 { amount:5000}
                             ];
+        this.keypad = [
+                        { keypadvalue: 1 },
+                        { keypadvalue: 2 },
+                        { keypadvalue: 3 },
+                        { keypadvalue: 4 },
+                        { keypadvalue: 5 },
+                        { keypadvalue: 6 },
+                        { keypadvalue: 7 },
+                        { keypadvalue: 8 },
+                        { keypadvalue: 9 },
+                        { keypadvalue: '.' },
+                        { keypadvalue: 0 },
+                        { keypadvalue: '.' },
+                    ];                    
     };
 
     Topup1Controller.prototype.render = function() {
         this.el = $(Mustache.render(this.template, {
-                defaultAmounts: this.defaultAmounts
+                defaultAmounts: this.defaultAmounts,
+                keypad: this.keypad
         }));
 
         var that = this;

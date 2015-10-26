@@ -15,7 +15,10 @@
 
         platformSdk.bridge.setDebuggableEnabled(environment === Constants.STAGING_ENV);
 
-        W.Config = config;
+        W.appConfig = config;
+
+        console.log("Paltform SDK is:-");
+        console.log(platformSdk);
 
         var application = new Application({
             container: $("#container")

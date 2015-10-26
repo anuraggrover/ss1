@@ -1,6 +1,3 @@
-/**
- * Created by anuraggrover on 16/09/15.
- */
 
 (function () {
     'use strict';
@@ -12,7 +9,7 @@
             return {
                 SUB_UNSUB_DOMAIN: 'http://54.254.187.66',
                 // API_URL: 'http://coupons-api-staging.platform.hike.in'
-                API_URL: 'http://192.168.1.4:9292'
+                API_URL: 'http://projectx-staging.hike.in/hike-wallet-service'
             };
         } else if (env === Constants.PROD_ENV) {
             return {

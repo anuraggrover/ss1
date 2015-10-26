@@ -12,7 +12,8 @@
         Ftue4Controller      = require('./controllers/ftue/ftuestep4/index'),
         FtueTourController   = require('./controllers/ftue/ftuetour/index'),
         Router               = require('./util/router'),
-        utils                = require('./util/utils');
+        utils                = require('./util/utils'),
+        paymentServices      = require('./util/paymentServices');
 
     var Application = function (options) {
         this.container            = options.container;
@@ -27,22 +28,12 @@
         this.ftuestep3Controller  = new Ftue3Controller();
         this.ftuestep4Controller  = new Ftue4Controller();
         this.ftuetourController   = new FtueTourController();
-        // Global Function Wirtten To Handle The Return From The Contact Chooser 
+
+// Global Function Wirtten To Handle The Return From The Contact Chooser 
     
     window.onContactChooserResult = function(resultCode,contacts) {
         
-        // var Router = require('./util/router');
-        // var SendMoneyController  = require('./controllers/sendmoney/index');
-        
-        // var r_new = new Router();
-        // var s_new = new TopupController();
-
-        // r_new.route('/topup', function(){
-        //     $("#container").html(s_new.render().el);
-        // });
-
         console.log("Repsonse Received From Contacts Chooser");
-        // Result code 1 - Success Call
         if(resultCode === 0){
             console.log("Failed::Add Exception");
         }
@@ -50,7 +41,6 @@
          else{
             console.log("Success Response:: Routing To p2p ,Transfer");
             console.log(contacts);
-            //r_new.navigateTo('topup');
         }
         // Data In Response
         //[{"platformUid":"VgOlRuSwFYYsYe9i","thumbnail":"file:////data/data/com.bsb.hike/cache/+919643474249.jpg","name":"+919643474249"}]
@@ -68,11 +58,12 @@
 
             var self = this;
             console.log("Starting application...");
-            console.log("Helper Data is:");
 
-            console.log(platformSdk.appData.helperData);
+            // Initiating The Platform ID and Token For The User.
 
-            // Sets False To Give Control Back To Android App
+            var PLATFORM_TOKEN = platformSdk.appData.platformToken;
+            var PLATFORM_UID = platformSdk.appData.platformUid;
+        
             utils.toggleBackNavigation(false);
             platformSdk.events.subscribe('onBackPressed', self.backPressTrigger.bind(self));
             platformSdk.events.subscribe('onUpPressed', self.backPressTrigger.bind(self));
@@ -83,7 +74,6 @@
                     self.router.back();
                 }
                 else {
-                    // Sets The Control To Micro App To Route Back EveryTime Navigating To Some Other Page 
                     utils.toggleBackNavigation(true);
                     self.router.navigateTo(path);
                 }
@@ -129,13 +119,26 @@
                 self.container.html(self.ftuetourController.render().el);
             });
 
-            this.router.navigateTo('/ftue_step_1');
+            this.router.navigateTo('/');
 
-            // if(platformSdk && !platformSdk.appData.helperData.ftueDone){
-            //     console.log("FTUE has not been Completed, Take user to FTUE and update HelperData");
-            //     utils.toggleBackNavigation(true);
-            //     self.router.navigateTo('ftue_step_1');
-            // } 
+            // To Navigate TO FTUE DEPENDING ON HELPER DATA :: HELPER DATA NOT AVAILABLE AT DEV
+
+            // if(platformSdk){
+            //     setTimeout(function(){
+            //         if(platformSdk.helperData.ftueDone && platformSdk.helperData.ftueDone == 1){
+            //             utils.toggleBackNavigation(true);
+            //             self.router.navigateTo('/');
+            //         }
+            //         else{
+            //             console.log("RUNNING FTUE");
+            //             platformSdk.helperData = {'ftueDone': 1};
+            //             platformSdk.updateHelperData(platformSdk.helperData);
+               
+            //             utils.toggleBackNavigation(true);          // Set To False :: Later
+            //             self.router.navigateTo('/ftue_step_1'); // FTUE STEP
+            //         }
+            //     }, 0);
+            // }
             
         }
     };

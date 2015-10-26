@@ -3,29 +3,43 @@
 // TOPUP 1
 
 .topupContainer1{
-	padding:20px;
 	height:100%;
-	background-color:#f8f8f8;
+}
+
+.topupContainer1 .amountInput{
+  margin-top: 57px;
 }
 
 .topupContainer1 h3{
 	text-align:center;
-	font-size:14px;
-	color:rgba(0,0,0,0.6);
-}
-
-.topupContainer1 .p2pAmount{
-	text-align:center;
+	font-size:12px;
+	color:#A3A8AC;
 }
 
 .topupContainer1 input {
 	border:none;
-	font-size:26px;
+	font-size:30px;
 	font-weight:600;
-	background:transparent;
-	padding:20px;
+  background:transparent;
+	padding:20px 20px 25px 20px;
 	border-bottom:1px solid #eee;
 	text-align:center;
+}
+
+::-webkit-input-placeholder {
+   color: #5C646D;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #5C646D;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #5C646D;  
+}
+
+:-ms-input-placeholder {  
+   color: #5C646D;  
 }
 
 .da-container .defaultAmounts{
@@ -50,26 +64,66 @@
   background-color: #2ca16e;
   color: white;
   width: 100%;
-  position: absolute;
-  bottom: 0px;
   text-decoration: none;
   text-align: center;
   padding: 10px 0px;
 }
 
-a.topupNextButton{
-  background-color: #a1a1a1;
-  color: white;
-  position: absolute;
-  top:6%;
-  right: 2%;
-  padding: 8px;
-  border-radius:50%;
-}
-
 .activebutton{
   background-color: #2ca16e !important;
   color: white !important;
+}
+
+
+// Keypad Number Pad CSS
+
+.span4
+{
+    width: 80px;
+    float: left;
+    margin: 0 8px 10px 8px;
+}
+
+.phone
+{
+    margin-top: 15px;
+    background: #fff;
+}
+
+.num-pad
+{
+    padding-left: 15px;
+}
+
+
+.num
+{
+    border: 1px solid #9e9e9e;
+    -webkit-border-radius: 999px;
+    border-radius: 999px;
+    -moz-border-radius: 999px;
+    height: 80px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+}
+.num:hover
+{
+    background-color: #9e9e9e;
+    color: #fff;
+    transition-property: background-color .2s linear 0s;
+    -moz-transition: background-color .2s linear 0s;
+    -webkit-transition: background-color .2s linear 0s;
+    -o-transition: background-color .2s linear 0s;
+}
+.txt
+{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Lato' , sans-serif;
+    line-height: 30px;
+    color: #333;
 }
 
 // TOPUP2

@@ -34,7 +34,6 @@
     Topup2Controller.prototype.render = function() {
         
         var that = this;
-
         this.el = $(Mustache.render(this.template, {
             commonbanks: that.commonbanks,
             banklist: that.banklist

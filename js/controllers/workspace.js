@@ -2,6 +2,7 @@
     'use strict';
 
     var utils = require('../util/utils');
+    var paymentServices = require('../util/paymentServices');
 
     var WorkspaceController = function (options) {
         this.template = require('raw!../../templates/workspace.html');
