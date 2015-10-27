@@ -211,21 +211,42 @@ a:visited {
         -webkit-transition: all 1s; 
   }
 
-  #side-1 {
-    transform:             rotateY( 0deg );
-        -moz-transform:    rotateY( 0deg );
-        -ms-transform:     rotateY( 0deg );
-        -o-transform:      rotateY( 0deg );
-        -webkit-transform: rotateY( 0deg );
-}
+  .cardImage {
+    #side-1 {
+          transform:         rotateY( 0deg );
+          -moz-transform:    rotateY( 0deg );
+          -ms-transform:     rotateY( 0deg );
+          -o-transform:      rotateY( 0deg );
+          -webkit-transform: rotateY( 0deg );
+    }
 
-#side-2 {
-    transform:             rotateY( 180deg );
-        -moz-transform:    rotateY( 180deg );
-        -ms-transform:     rotateY( 180deg );
-        -o-transform:      rotateY( 180deg );
-        -webkit-transform: rotateY( 180deg );
-}
+    #side-2 {
+          transform:         rotateY( 180deg );
+          -moz-transform:    rotateY( 180deg );
+          -ms-transform:     rotateY( 180deg );
+          -o-transform:      rotateY( 180deg );
+          -webkit-transform: rotateY( 180deg );
+    }
+  }
+
+  .cardImage.flip {
+    #side-1 {
+          transform:         rotateY( 180deg );
+          -moz-transform:    rotateY( 180deg );
+          -ms-transform:     rotateY( 180deg );
+          -o-transform:      rotateY( 180deg );
+          -webkit-transform: rotateY( 180deg );
+    }
+
+    #side-2 {
+          transform:         rotateY( 0deg );
+          -moz-transform:    rotateY( 0deg );
+          -ms-transform:     rotateY( 0deg );
+          -o-transform:      rotateY( 0deg );
+          -webkit-transform: rotateY( 0deg );
+    }
+  }
+  
 
 .flip-side-1 {    
     transform:             rotateY( 0deg ) !important;
