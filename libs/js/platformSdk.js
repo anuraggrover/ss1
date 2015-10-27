@@ -543,22 +543,21 @@
     var messageId;
 
     window.initiateBridge = function(platformVersion, appType, appMessageId) {
-        if(appMessageId) messageId = appMessageId;
-        if(appType=="M"){
+        if (appMessageId) messageId = appMessageId;
+        if (appType=="M"){
             var bridgeObj = msgClasses.bridgeClass0;
-        }else{
+        } else {
             var bridgeObj = nonMsgClasses.bridgeClass1;
-
         }
+
         for (var i = 1; i <= parseInt(platformVersion); i++) {
             bridgeObj = Object.create(bridgeObj);
-            if(appType=="M"){
+            if (appType=="M"){
                 var tempBridgeObj = eval("msgClasses.bridgeClass" + i);
-            }else{
+            } else {
                 var tempBridgeObj = eval("nonMsgClasses.bridgeClass" + i);
-
             }
-            //console.log("msg", tempBridgeObj);
+
             for (var key in tempBridgeObj) {
                 if (tempBridgeObj.hasOwnProperty(key)) {
                     bridgeObj[key] = tempBridgeObj[key];
@@ -567,7 +566,6 @@
 
             if (appType === "NM") {
                 var tempBridgeObj = eval("nonMsgClasses.bridgeClass" + i);
-                //console.log("Nonmsg", tempBridgeObj);
                 for (var key in tempBridgeObj) {
                     if (tempBridgeObj.hasOwnProperty(key)) {
                         bridgeObj[key] = tempBridgeObj[key];
@@ -578,10 +576,12 @@
         return bridgeObj;
     };
 
-})(window)
-window.nativeError=function(str){
+})(window);
+
+window.nativeError = function(str){
     console.log(str);
-}
+};
+
 window.platformSdk = function(window, undefined) {
     "use strict";
 
@@ -631,39 +631,31 @@ window.platformSdk = function(window, undefined) {
 
     var platformBridge = window.initiateBridge(platformVersion, appType,messageId);
 
-    //var platformBridge = window.PlatformBridge;
     var fireAppInit = function() {
-        if(appType && appType =="M"){
-
-
+        if(appType && appType == "M"){
             var cardHeight = document.body.offsetHeight;
             if (platformBridge) platformSdk.ui.onLoadFinished(cardHeight + "");
 
             setTimeout(function() {
                 cardHeight = document.body.offsetHeight;
 
-                if (Math.abs(window.innerHeight - cardHeight) > 5)
-                    platformSdk.ui.resize(cardHeight);
+                if (Math.abs(window.innerHeight - cardHeight) > 5) platformSdk.ui.resize(cardHeight);
                 if (platformBridge) platformSdk.events.publish('onnativeready');
                 else platformSdk.events.publish('webview/data/loaded');
             }, 100);
-        }else{
-            //if (platformSdk) platformSdk.events.publish('onnativeready');
-            //else
-            // platformSdk.events.publish('webview/data/loaded');
-            if(typeof PlatformBridge != 'undefined')
-                PlatformBridge.onLoadFinished("0");
+        } else {
+            if (platformSdk.checkBridge()) platformSdk.events.publish('onnativeready');
+            else platformSdk.events.publish('webview/data/loaded');
         }
     };
 
-    if(typeof PlatformBridge != 'undefined'){
+    if (typeof PlatformBridge != 'undefined'){
         //PlatformBridge.setDebuggableEnabled(true);
     }
 
     window.onload = fireAppInit;
 
     var setData = function(msisdn, helperData, isSent, uid, appVersion) {
-        // platformSdk.utils.log("inSetData");
         var appData = {
             msisdn: msisdn,
             isSent: isSent,
@@ -689,11 +681,8 @@ window.platformSdk = function(window, undefined) {
 
         if (appData.hd) {
             appData.helperData = JSON.parse(appData.hd);
-
             delete appData.hd;
         }
-
-        // platformSdk.utils.log("init");
 
         if (!appData.msisdn) {
             // platformSdk.utils.log("msisdn is null");
@@ -733,7 +722,7 @@ window.platformSdk = function(window, undefined) {
         VERSION: '0.0.1',
         card: '',
         msisdn: null,
-        bridgeEnabled: true,
+        bridgeEnabled: false,
         platformVersion: platformVersion,
         appType: appType,
         messageId: messageId,
@@ -742,13 +731,20 @@ window.platformSdk = function(window, undefined) {
         ready: function(fn) {
             var that = this;
             var start = platformSdk.events.subscribe('webview/data/loaded', function() {
-                that.bridgeEnabled = that.checkBridge();
+                platformSdk.isDevice = that.bridgeEnabled = that.checkBridge();
+                
+                if (platformSdk.platformUid === undefined || platformSdk.platformUid === ""){
+                    platformSdk.platformUid = 'VhzmGOSwNYkM6JHE';
+                    platformSdk.platformToken = 'mACoHN4G0DI=';
+                }
+                
                 if (typeof fn === "function") fn();
                 start.remove();
             });
         },
         checkBridge: function() {
-            return typeof PlatformBridge === "undefined" ? false : true;
+            if (PlatformBridge && PlatformBridge.stub) return false;
+            else return typeof PlatformBridge === "undefined" ? false : true;
         },
         blockChatThread: function() {
             platformBridge.blockChatThread("true");

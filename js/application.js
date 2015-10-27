@@ -57,12 +57,7 @@
         start: function () {
 
             var self = this;
-            console.log("Starting application...");
-
-            // Initiating The Platform ID and Token For The User.
-
-            var PLATFORM_TOKEN = platformSdk.appData.platformToken;
-            var PLATFORM_UID = platformSdk.appData.platformUid;
+            self.$el = $(this.container);
         
             utils.toggleBackNavigation(false);
             platformSdk.events.subscribe('onBackPressed', self.backPressTrigger.bind(self));
@@ -80,43 +75,43 @@
             });
 
             this.router.route('/', function(){
-                self.container.html(self.workspaceController.render().el);
+                self.workspaceController.render(self.container);
             });
 
             this.router.route('/transactions', function(){
-                self.container.html(self.transIndexController.render().el);
+                self.$el.html(self.transIndexController.render().el);
             });
 
             this.router.route('/topup1', function(){
-                self.container.html(self.topup1Controller.render().el);
+                self.$el.html(self.topup1Controller.render().el);
             });
 
             this.router.route('/topup2', function(){
-                self.container.html(self.topup2Controller.render().el);
+                self.$el.html(self.topup2Controller.render().el);
             });
 
             this.router.route('/sendmoney', function(){
-                self.container.html(self.sendMoneyController.render().el);
+                self.$el.html(self.sendMoneyController.render().el);
             });
 
             this.router.route('/ftue_step_1', function(){
-                self.container.html(self.ftuestep1Controller.render().el);
+                self.$el.html(self.ftuestep1Controller.render().el);
             });
 
             this.router.route('/ftue_step_2', function(){
-                self.container.html(self.ftuestep2Controller.render().el);
+                self.$el.html(self.ftuestep2Controller.render().el);
             });
 
             this.router.route('/ftue_step_3', function(){
-                self.container.html(self.ftuestep3Controller.render().el);
+                self.$el.html(self.ftuestep3Controller.render().el);
             });
 
             this.router.route('/ftue_step_4', function(){
-                self.container.html(self.ftuestep4Controller.render().el);
+                self.$el.html(self.ftuestep4Controller.render().el);
             });
 
             this.router.route('/ftue_tour', function(){
-                self.container.html(self.ftuetourController.render().el);
+                self.$el.html(self.ftuetourController.render().el);
             });
 
             this.router.navigateTo('/');

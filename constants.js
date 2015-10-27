@@ -6,6 +6,7 @@
     'use strict';
 
     module.exports = {
+        DEV_ENV: 'dev',
         STAGING_ENV: 'staging',
         PROD_ENV:    'prod',
 

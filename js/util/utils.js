@@ -15,7 +15,6 @@
         },
         memoizationCache = {},
         basePrefix = 'id_',
-        platformSdk = require('../../libs/js/platformSdk'),
         idCounter = 1;
 
     module.exports = {

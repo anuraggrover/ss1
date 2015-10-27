@@ -1,118 +1,93 @@
-
-(function (W) {
+(function (W, platformSdk, utils) {
     'use strict';
 
-    var platformSdk = require('../../libs/js/platformSdk'),
-        utils = require('./utils'),
-        BASE_ISSUE_URL = 'http://projectx-staging.hike.in/hike-wallet-service' + '/wallet/',
-        PaymentService;
-
-        console.log(BASE_ISSUE_URL);
-
-    PaymentService = function () {
-    };
-
+    var PaymentService = function () {};
     PaymentService.prototype = {
-        
-        // SERVICE GET CALL
-
-        doGet: function (params) {
+        communicate: function (params, fn, x) {
             var that = this,
-                requestUrl = BASE_ISSUE_URL+params.url;
-    
-            console.log('calling service GET', requestUrl);
+                requestUrl = appConfig.API_URL + '/wallet/' + params.url,
+                startTime = Date.now(),
+                endTime;
 
-            $.ajax({
-                type: 'GET',
-                timeout: 30000,
-                url: requestUrl,
-                headers:params.headers,
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(response){
-                    console.log("Some Error Occured");
-                    console.log(response);    
-                }
-            }); 
+            if (params.data) {
+                requestUrl = params.url + '?' + utils.serializeParams(params.data);
+            }
+
+            var success = function(res){
+                try { res = JSON.parse(decodeURIComponent(res)); } 
+                catch(e) { return false; }
+
+                fn.call(x, res);
+            };
+
+            var error = function(res){
+                console.log(res);
+            };
+
+            if (platformSdk.isDevice){
+                var data = JSON.stringify({
+                    url: requestUrl,
+                    params: params.data
+                });
+
+                platformSdk.nativeReq({
+                    fn: type === "GET" ? 'doGetRequest' : 'doPostRequest',
+                    ctx: params.ctx || that,
+                    data: params,
+                    success: success,
+                    error: error
+                });
+
+            } else {
+                platformSdk.ajax({
+                    type: 'GET',
+                    url: requestUrl,
+                    timeout: 30000,
+                    data: params.data != undefined ? JSON.stringify(params.data) : null,
+                    headers: params.headers,
+                    success: success,
+                    error: error
+                });
+            }
         },
 
-        // SERVICE POST CALL
+        activateWallet: function(fn, x){
+            var params = {'url':'activate', 'type': 'POST', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            if (typeof fn === "function") return this.communicate(params, fn, x);
+            else this.communicate(params);
+        },
 
-        // doPost: function (params) {
-        //     var that = this,
-        //         requestUrl = params.url,
-        //         startTime = Date.now(),
-        //         endTime;
+        fetchBalance: function(fn, x){
+            var params = {'url':'funds', 'type': 'GET', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            
+            if (typeof fn === "function") return this.communicate(params, fn, x);
+            else this.communicate(params);
+        },
 
-        //     if (params.data) {
-        //         requestUrl = params.url + '?' + utils.serializeParams(params.data);
-        //     }
-
-        //     console.log('calling service GET', requestUrl, startTime);
-
-        //     platformSdk.nativeReq({
-        //         fn: 'doGetRequest',
-        //         ctx: params.ctx || that,
-        //         data: requestUrl,
-        //         success: function (res) {
-        //             var response;
-
-        //             endTime = Date.now();
-
-        //             console.log( 'service GET response time', requestUrl, endTime, endTime - startTime );
-        //             console.log( 'service GET response', res );
-
-        //             try {
-        //                 res = JSON.parse(decodeURIComponent(res));
-        //                 response = JSON.parse(res.response);
-        //             } catch (e) {
-        //                 console.log('failed to parse GET response', e);
-        //             }
-
-        //             if (isAjaxSuccessful(res)) {
-        //                 console.log( 'Parsed service GET response', response );
-        //                 utils.isFunction(params.success) && params.success(response);
-        //             } else {
-        //                 utils.isFunction(params.error) && params.error(res);
-        //                 console.log('status code not 200');
-        //             }
-        //         }
-        //     });
-        // },
-
-        activatWallet: function(){
+        txHistory: function(fn, x){
             // TOKEN AND UID PASSED OVER THE CALL
-            var params = {'url':'activate','headers':{'Content-Type': 'application/json','platform_uid': 'VhzmGOSwNYkM6JHE','platform_token': 'mACoHN4G0DI='}};
-            return this.doGet(params);
+
+            var params = {'url':'transaction/list', 'type': 'GET', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            
+            if (typeof fn === "function") return this.communicate(params, fn, x);
+            else this.communicate(params);
         },
 
-        fetchBalance: function(t,uid){
-            // TOKEN AND UID PASSED OVER THE CALL
-            var params = {'url':'funds','headers':{'Content-Type': 'application/json','platform_uid': 'VhzmGOSwNYkM6JHE','platform_token': 'mACoHN4G0DI='}};
-            return this.doGet(params);
-        },
-
-        txHistory: function(){
-            // TOKEN AND UID PASSED OVER THE CALL
-            console.log("Fetching Tranfer Of Wallet History :: GET");
-            var params = {'url':'transaction/list','headers':{'Content-Type': 'application/json','platform_uid': 'VhzmGOSwNYkM6JHE','platform_token': 'mACoHN4G0DI='}};
-            return this.doGet(params);
-        },
-
-        txDetails: function(){
+        txDetails: function(fn, x){
             // TOKEN AND UID PASSED OVER THE CALL
             console.log("Fetching the Transaction Details of The Transaction :: GET");
         },
 
         fundsTransfer: function(p2pdata){
             // TOKEN AND UID PASSED OVER THE CALL
-            var params = {'url':'funds/transfer','data':{"receiverPlatformUid": p2pdata.uid,"message": p2pdata.message,"currency": p2pdata.currency,"amount": p2pdata.amount},'headers':{'Content-Type': 'application/json','platform_uid': 'VhzmGOSwNYkM6JHE','platform_token': 'mACoHN4G0DI='}};
-            return this.doGet(params);
+            var params = {'url':'funds/transfer', 'type': 'GET', 'data': {"receiverPlatformUid": p2pdata.uid,"message": p2pdata.message,"currency": p2pdata.currency,"amount": p2pdata.amount}, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            
+            if (typeof fn === "function") return this.communicate(params, fn);
+            else this.communicate(params);
         }
 
     };
 
-    module.exports = new PaymentService();
+    module.exports = PaymentService;
 
-})(window);
+})(window, platformSdk);

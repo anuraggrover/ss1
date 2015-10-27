@@ -1,23 +1,18 @@
-(function () {
+(function (W) {
     'use strict';
 
     var utils = require('../util/utils');
-    var paymentServices = require('../util/paymentServices');
+    var PaymentServices = require('../util/paymentServices');
 
     var WorkspaceController = function (options) {
         this.template = require('raw!../../templates/workspace.html');
     };
 
-    WorkspaceController.prototype.render = function() {
-        this.el = $(Mustache.render(this.template, {
-            cardbalance: 3000,
-            cardexpiry:'10/19'
-        }));
+    WorkspaceController.prototype.bind = function(){
+        var El = $(this.el);
+        var card = document.getElementsByClassName('cardImage')[0];
 
-        var self = this;
-        
-        // Send Money Contact Chooser Trigger 
-        $('body').on('click', '.sendMoney', function(){
+        El.on('click', '.sendMoney', function(){
             if (PlatformBridge) {
                 // Toggle Back and Up Press 
                 utils.toggleBackNavigation(true);
@@ -26,22 +21,36 @@
             }
         });
 
-        // Card Flip Sides
-
-        $('body').on('click', '.frontSide', function(e){  
-            event.preventDefault();
-            $('#side-2').prop('class','walletCard backSide flip-side-1');
-            $('#side-1').prop('class','walletCard frontSide flip-side-2');
+        card.addEventListener('click', function(ev){
+            ev.preventDefault();
+            this.classList.toggle('flip');
         });
+    };
 
-        $('body').on('click', '.backSide', function(e){    
-            event.preventDefault();
-            $('#side-2').prop('class','walletCard backSide');
-            $('#side-1').prop('class','walletCard frontSide');
-        });
+    WorkspaceController.prototype.render = function(ctr) {
+
+        var that = this;
+        var paymentService = new PaymentServices();
+        paymentService.fetchBalance(function(res){
+            that.el = document.createElement('div');
+            that.el.className = "walletContainer";
+            that.el.innerHTML = Mustache.render(that.template, {
+                cardbalance: res.payload.walletBalance,
+                cardexpiry:'10/19'
+            });
+            
+            ctr.appendChild(that.el);
+            that.bind();
+        }, this);
+
+        var self = this;
+        
+        // Send Money Contact Chooser Trigger 
+        
 
         return this;
     };
 
     module.exports = WorkspaceController;
-})();
+
+})(window);
