@@ -1,36 +1,82 @@
 /*Transaction History*/
 .iblock {
-  display: inline-block !important; }
+  display: inline-block !important;
+  vertical-align: middle;
+}
 
 .txHistoryContainer {
-  margin: 20px; }
+  margin: 25px 20px 0px 20px; }
 
 .txHistoryContainer .txHistory-balance {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid rgba(0,0,0,0.10);
   padding-bottom: 20px; }
 
 .txHistoryContainer .txHistory-balance h3 {
-  color: #B1B1B1;
-  font-size: 14px;
-  margin: 0px 0px 8px 0px; }
+  color: #A3A8AC;
+  font-size: 12px;
+  font-weight: 500;
+}
 
 .txHistoryContainer .txHistory-balance p {
   font-size: 16px;
-  color: #585858;
-  font-weight: 800;
-  margin: 0px; }
+  color: #5C646D;
+  font-weight: 600;
+  padding-top: 10px; }
 
 .txHistoryContainer .txHistoryList {
-  border-bottom: 1px solid #eee; }
+  border-bottom: 1px solid #eee; 
+  padding:16px 0px;
+}
+
+.txHistoryContainer .txHistoryList p.timestamp_date{
+  color:#5B636C;
+  line-height: 22px;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: 500;
+  text-align:center;
+}
+
+.txHistoryContainer .txHistoryList p.timestamp_month{
+  text-align:center;
+  color:#5B636C;
+  line-height: 10px;
+  vertical-align: middle;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.txHistoryContainer .txHistoryList .itemText{
+  margin-left: 11px;
+}
+
+.txHistoryContainer .txHistoryList .itemText p.itemHeading{
+  color:#5B636C;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.txHistoryContainer .txHistoryList .itemText p.itemSubheading{
+  color:#A3A8AC;
+  font-weight: 500;
+  font-size: 12px;
+  padding-top:5px;
+}
 
 .txHistoryContainer .txHistoryList .txHistoryList-item-details {
   float: left; }
 
 .txHistoryContainer .txHistoryList .txHistoryList-item-amount {
+  font-size: 14px;
+  color: #33B87E;
+  padding-top: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: 500;
   float: right; }
 
 .txHistoryContainer .txHistoryList .txHistoryList-item-details .itemIcon {
   width: 36px;
   height: 36px;
-  background-color: #1da8e8;
-  border-radius: 50%; }
+  background-color: rgba(0,0,0,0.14);
+  border-radius: 5px; }

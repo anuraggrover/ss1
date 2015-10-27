@@ -4,43 +4,48 @@
   <div class="amountInput">
     <h3>Enter amount to add</h3>
     <div class="p2pAmount">  
-        <input id="p2pValue" value="" placeholder="0" onfocus="this.placeholder = ''" onblur="this.placeholder = '0'" type="number" required>
+        <input id="p2pValue" value="" type="number" required disabled>
     </div>
   </div>
 
   <!-- Default Amounts Container -->
-  <div class="da-container">
-    <div class="defaultAmounts">
-      {{#defaultAmounts}}
-        <div class="amount">{{amount}}</div>
-      {{/defaultAmounts}}
+
+<div class="hikePayKeyboard">
+
+  <div class="section group da-container">
+    {{#defaultAmounts}}
+    <div class="col span_1_of_3">
+      <div class="amount">{{amount}}</div>
     </div>
+    {{/defaultAmounts}}
   </div>
 
-  <!-- Hike Numberpad -->
-  <div class="hikePayNumpad">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 col-md-offset-4 phone">
-            <div class="row1">
-                <div class="col-md-12">
-                    <div class="num-pad">
-                      {{#keypad}}
-                      <div class="span4">
-                          <div class="num">
-                              <div class="txt">
-                                  {{keypadvalue}}
-                              </div>
-                          </div>
-                      </div>
-                      {{/keypad}}
-                    </div>
-                </div>
+  <!-- Hike Numberpad :: Divided into Two Columns :: Numbers and Actions -->  
+    <!-- Numbers Here -->
+  <div class="hikePad">
+    <div class="col span_1_of_2">
+      <div class="section group">
+            {{#keypad}}
+            <div class="col span_1_of_3">
+              <div class="number_numpad">{{keypadvalue}}</div>
             </div>
-        </div>
+            {{/keypad}}
       </div>
     </div>
+
+    <!-- Buttons Here -->
+    <div class="col span_2_of_2">
+      <div class="action_cross">
+        <div class="cross-icon"></div><span></span>
+      </div>
+      <a href="#" data-path="/topup2">
+        <div class="action_next">
+          <div class="tick-icon"></div><span></span>
+        </div>
+      </a>
+    </div>  
   </div>
+</div>
 
 </div>
 

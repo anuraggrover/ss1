@@ -2,15 +2,22 @@
 
 // TOPUP 1
 
-.topupContainer1{
-	height:100%;
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.topupContainer1 .amountInput{
-  margin-top: 57px;
+.topupContainer1{
+	height:100%;
+  position: relative;
 }
 
 .topupContainer1 h3{
+  padding-top:56px;
 	text-align:center;
 	font-size:12px;
 	color:#A3A8AC;
@@ -20,10 +27,13 @@
 	border:none;
 	font-size:30px;
 	font-weight:600;
+  width: 80%;
   background:transparent;
 	padding:20px 20px 25px 20px;
 	border-bottom:1px solid #eee;
 	text-align:center;
+  margin-bottom: 77px;
+  margin-left:20px;
 }
 
 ::-webkit-input-placeholder {
@@ -42,89 +52,137 @@
    color: #5C646D;  
 }
 
-.da-container .defaultAmounts{
-	text-align:center;
+.da-container{
+  background-color: #efefef;
+  color: rgba(0,0,0,0.72);
+  width: 100%;
+  text-decoration: none;
+  padding: 14px 0px;
+  font-weight: 500;
 }
 
-.da-container .defaultAmounts .amount{
-	display: inline-block;
-	border:1px solid #eee;
-	border-radius:4px;
-	margin:0px 5px;
-	font-size:14px;
-	padding:10px 20px;
+/*  SECTIONS  */
+.section {
+  clear: both;
+  margin: 0px;
+}
+/*  COLUMN SETUP  */
+.col {
+  display: block;
+  float:left;
+}
+.col:first-child { margin-left: 0; }
+
+/*  GROUPING  */
+.group:before,
+.group:after {
+  content:"";
+  display:table;
+}
+.group:after {
+  clear:both;
+}
+.span_1_of_3 {
+  width: 32.2%;
+  text-align:center;
+}
+
+.span_1_of_2 {
+  width: 75%;
+  text-align:center;
+}
+
+.hikePayKeyboard{
+  position: absolute;
+  bottom:0px;
+}
+
+.number_numpad{
+  display: inline-block;
+  padding:16px 40px;
+  background-color:white;
+  font-weight: 500;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.60);
+}
+
+.amount{
+  border-radius:5px;
+  display: inline-block;
+  border:1px solid rgba(0,0,0,0.18);
+  padding:6px 16px;
+  background-color:white;
+  color: rgba(0, 0, 0, 0.72);
 }
 
 .activeamount{
-	background-color:white;
-	color:#2ca16e;	
+	background-color:#33B87E;
+	color:white;	
+  border:1px solid #33B87E;
 }
 
-.da-container{
-  background-color: #2ca16e;
-  color: white;
-  width: 100%;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px 0px;
+.span_2_of_2 {
+  width: 25%;
+  height: 100%;
+  text-align:center;
+}
+
+.cross-icon{
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0px auto;
+  background-image: url(images/cross-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 21px;
+  height: 15px;
+}
+
+.tick-icon{
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0px auto;
+  width: 23px;
+  height: 17px;
+  background-image: url(images/tick-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.hikePad{
+  height: 208px;
+}
+
+.action_next{
+  height: 75%;
+  background-color:#eee;
+}
+
+.action_cross{
+  height: 25%;
+}
+
+.action_next span{
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.action_cross span{
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .activebutton{
   background-color: #2ca16e !important;
-  color: white !important;
 }
+
+
 
 
 // Keypad Number Pad CSS
 
-.span4
-{
-    width: 80px;
-    float: left;
-    margin: 0 8px 10px 8px;
-}
-
-.phone
-{
-    margin-top: 15px;
-    background: #fff;
-}
-
-.num-pad
-{
-    padding-left: 15px;
-}
-
-
-.num
-{
-    border: 1px solid #9e9e9e;
-    -webkit-border-radius: 999px;
-    border-radius: 999px;
-    -moz-border-radius: 999px;
-    height: 80px;
-    background-color: #fff;
-    color: #333;
-    cursor: pointer;
-}
-.num:hover
-{
-    background-color: #9e9e9e;
-    color: #fff;
-    transition-property: background-color .2s linear 0s;
-    -moz-transition: background-color .2s linear 0s;
-    -webkit-transition: background-color .2s linear 0s;
-    -o-transition: background-color .2s linear 0s;
-}
-.txt
-{
-    font-size: 30px;
-    text-align: center;
-    margin-top: 15px;
-    font-family: 'Lato' , sans-serif;
-    line-height: 30px;
-    color: #333;
-}
 
 // TOPUP2
 
@@ -370,6 +428,18 @@ a.topupNextButton2{
   text-align: center;
   padding: 18px 0px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
