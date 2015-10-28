@@ -1,39 +1,52 @@
-(function () {
+(function (W, events, utils) {
     'use strict';
+    
+    var Keypad = require('../../util/keyboard');
 
     var SendMoneyController = function (options) {
         this.template = require('raw!../../../templates/sendmoney/index.html');
-        this.receiver = 'Hemank Sabharwal';
-        this.defaultAmounts = [
-                                { amount:500},
-                                { amount:1000},
-                                { amount:5000}
-                            ];
-        this.keypad = [
-                        { keypadvalue: 1 },
-                        { keypadvalue: 2 },
-                        { keypadvalue: 3 },
-                        { keypadvalue: 4 },
-                        { keypadvalue: 5 },
-                        { keypadvalue: 6 },
-                        { keypadvalue: 7 },
-                        { keypadvalue: 8 },
-                        { keypadvalue: 9 },
-                        { keypadvalue: '.' },
-                        { keypadvalue: 0 },
-                        { keypadvalue: '.' },
-                    ];
     };
 
-    SendMoneyController.prototype.render = function() {
-        this.el = $(Mustache.render(this.template, {
-            receiver:this.receiver,
-            defaultAmounts:this.defaultAmounts,
-            keypad:this.keypad
-        }));
+    SendMoneyController.prototype.destroy = function(){
+        this.captureKeys.remove();
+    };
 
-        return this;
+    SendMoneyController.prototype.bind = function(){
+        var display = document.getElementById('p2pValue');
+        var check = this.el.getElementsByClassName('action_next')[0];
+
+        check.addEventListener('click', function(ev){
+            if (this.classList.contains('activebutton')){
+                // App.router.navigateTo('/topup2');
+                
+            } 
+        });
+
+        this.captureKeys = events.subscribe('keypad.key', function(key){
+            if (/[0-9]/.test(key)) {
+                if (key.length > 1) display.value = key;
+                else display.value = display.value + key;
+
+                events.publish('keypad.deactivateAmount');
+                check.classList.add('activebutton');
+            } else if (key === "del") {
+                display.value = display.value.substring(0, display.value.length - 1);
+                if (display.value.length === 0) check.classList.remove('activebutton');
+            }
+        });
+    };
+
+    SendMoneyController.prototype.render = function(ctr) {
+
+        this.el = document.createElement('div');
+        this.el.className = "p2pContainer";
+        this.el.innerHTML = Mustache.render(this.template, { receiver: 'Dummy User' });
+
+        new Keypad(this.el);
+
+        ctr.appendChild(this.el);
+        this.bind();
     };
 
     module.exports = SendMoneyController;
-})();
+})(window, platformSdk.events, platformSdk.utils);

@@ -1,6 +1,7 @@
-(function (W, platformSdk, utils) {
+(function (W, platformSdk) {
     'use strict';
 
+    var utils = require('./utils.js');
     var PaymentService = function () {};
     PaymentService.prototype = {
         communicate: function (params, fn, x) {
@@ -8,10 +9,6 @@
                 requestUrl = appConfig.API_URL + '/wallet/' + params.url,
                 startTime = Date.now(),
                 endTime;
-
-            if (params.data) {
-                requestUrl = params.url + '?' + utils.serializeParams(params.data);
-            }
 
             var success = function(res){
                 try { res = JSON.parse(decodeURIComponent(res)); } 
@@ -40,7 +37,7 @@
 
             } else {
                 platformSdk.ajax({
-                    type: 'GET',
+                    type: params.type,
                     url: requestUrl,
                     timeout: 30000,
                     data: params.data != undefined ? JSON.stringify(params.data) : null,
@@ -61,6 +58,17 @@
             var params = {'url':'funds', 'type': 'GET', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
             
             if (typeof fn === "function") return this.communicate(params, fn, x);
+            else this.communicate(params);
+        },
+
+        addBalance: function(data, fn, x){
+            var params = {'url':'funds', 'type': 'POST', 'data': {
+                "currency": data.currency,
+                "amount": data.amt,
+                "paymentOption": data.paymentMethod
+            }, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            
+            if (typeof fn === "function") return this.communicate(params, fn);
             else this.communicate(params);
         },
 

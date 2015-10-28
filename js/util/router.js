@@ -11,12 +11,12 @@
         this.routes[route] = callback;
     };
 
-    Router.prototype.navigateTo = function(route) {
+    Router.prototype.navigateTo = function(route, data) {
         if (this.currentRoute){
     		this.history.push(this.currentRoute);
     	}
         this.currentRoute = this.routes[route];
-        this.currentRoute();
+        this.currentRoute(data);
     };
 
     Router.prototype.back = function(){
