@@ -1,0 +1,179 @@
+// CSS For TOPUP
+
+// TOPUP 1
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.p2pContainer{
+	height:100%;
+  position: relative;
+}
+
+.p2pContainer h3{
+  padding-top:56px;
+	text-align:center;
+	font-size:12px;
+	color:#A3A8AC;
+}
+
+.p2pContainer input {
+	border:none;
+	font-size:30px;
+	font-weight:600;
+  width: 80%;
+  background:transparent;
+	padding:20px 20px 25px 20px;
+	border-bottom:1px solid #eee;
+	text-align:center;
+  margin-bottom: 77px;
+  margin-left:20px;
+}
+
+::-webkit-input-placeholder {
+   color: #5C646D;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #5C646D;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #5C646D;  
+}
+
+:-ms-input-placeholder {  
+   color: #5C646D;  
+}
+
+.da-container{
+  background-color: #efefef;
+  color: rgba(0,0,0,0.72);
+  width: 100%;
+  text-decoration: none;
+  padding: 14px 0px;
+  font-weight: 500;
+}
+
+/*  SECTIONS  */
+.section {
+  clear: both;
+  margin: 0px;
+}
+/*  COLUMN SETUP  */
+.col {
+  display: block;
+  float:left;
+}
+.col:first-child { margin-left: 0; }
+
+/*  GROUPING  */
+.group:before,
+.group:after {
+  content:"";
+  display:table;
+}
+.group:after {
+  clear:both;
+}
+.span_1_of_3 {
+  width: 32.2%;
+  text-align:center;
+}
+
+.span_1_of_2 {
+  width: 75%;
+  text-align:center;
+}
+
+.hikePayKeyboard{
+  position: absolute;
+  bottom:0px;
+}
+
+.number_numpad{
+  display: inline-block;
+  padding:16px 40px;
+  background-color:white;
+  font-weight: 500;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.60);
+}
+
+.amount{
+  border-radius:5px;
+  display: inline-block;
+  border:1px solid rgba(0,0,0,0.18);
+  padding:6px 16px;
+  background-color:white;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.activeamount{
+	background-color:#33B87E;
+	color:white;	
+  border:1px solid #33B87E;
+}
+
+.span_2_of_2 {
+  width: 25%;
+  height: 100%;
+  text-align:center;
+}
+
+.cross-icon{
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0px auto;
+  background-image: url(images/cross-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 21px;
+  height: 15px;
+}
+
+.tick-icon{
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0px auto;
+  width: 23px;
+  height: 17px;
+  background-image: url(images/tick-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.hikePad{
+  height: 208px;
+}
+
+.action_next{
+  height: 75%;
+  background-color:#eee;
+}
+
+.action_cross{
+  height: 25%;
+}
+
+.action_next span{
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.action_cross span{
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.activebutton{
+  background-color: #2ca16e !important;
+}

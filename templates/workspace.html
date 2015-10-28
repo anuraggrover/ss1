@@ -1,71 +1,36 @@
+	<div class="walletContent">
+		<div class="hikeCard"></div>
 
-	<div class="walletContainer-top">		
-		<!-- Card Here -->
-		<div class="cardImage">
-			<div id="side-1" class="walletCard frontSide">
-	    		<div class="frontSideContainer">
-		    		<div class="walletCard-top">
-		        		<div class="visaIcon">
-		        		</div>
-		        		<div class="settingsIcon"></div>
-		    		</div>
-		    		
-		    		<!-- Card Number -->
-		    		<div class="walletCard-middle">
-		    		</div>
-		    		
-		    		<!-- Expiry Date -->
-		   			 <div class="walletCard-bottom">
-		         		<p class="wallet-expiry">Expires: {{cardexpiry}}</p>
-		    		</div>
-				</div>
-			</div>
-
-			<div id="side-2" class="walletCard backSide">
-				<div class="backSideContainer">
-	    			<a href="#" class="backFlip"><div class="backStrip"></div></a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="walletContainer-balance">
-			<!-- Balance Here  -->
+		<div class="walletContainer-balance clearfix">
 			<div class="walletBalance">
 				<p class="balance_heading">Current Balance</p>
 				<p class="balance_value">$ {{cardbalance}}</p>
 			</div>
-			<!-- Transaction History -->
-				<a href="#" data-path="/transactions">
-					<div class="walletHistory">View Statement</div>
-				</a>
-	</div>
-
-	<div class="walletContainer-middle">
-		
-		<!-- Offers Carousel Here -->
-		<div class="wallet-offers">
-			<a href="#" data-path="/ftue_step_1">
-				<div class="offer-icon"></div>
+			<a href="#" data-path="/transactions">
+				<div class="walletHistory">View Statement</div>
 			</a>
-			<p>40% cashback on recharge</p>
 		</div>
-
-	</div>
-	
-	<div class="walletContainer-end">
-	
-		<ul>
-			<a href="#" data-path="/sendmoney">
-				<li>
-					<span>Send Money</span>
-				</li>
-			</a>
-			<a href="#" data-path="/topup1">
-				<li>
-					<span>Add Money</span>
-				</li>
-			</a>
-		</ul>
-			
+		
+		<div class="walletAction">
+			<ul>
+				<a href="#" data-path="/sendmoney">
+					<li>
+						<div class="icon-send"></div>
+						<span>Send Money</span>
+					</li>
+				</a>	
+				<a href="#" data-path="/topup1">
+					<li>
+						<div class="icon-add"></div>
+						<span>Add Money</span>
+					</li>
+				<a>
+				<a href="#" data-path="/ftue_step_1">
+					<li>
+						<div class="icon-settings"></div>
+						<span>Settings</span>
+					</li>
+				</a>
+			</ul>
+		</div>
 	</div>

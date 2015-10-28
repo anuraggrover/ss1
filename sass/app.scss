@@ -1,6 +1,7 @@
 @import 'ftue';
 @import 'transactionHistory';
 @import 'topup';
+@import 'sendmoney';
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -57,6 +58,35 @@ body {
   padding: 0;
   font-size: 14px; }
 
+  @font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 200;
+  src: url('file:///android_asset/fonts/Roboto-Thin.ttf') format('truetype'),
+
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src:  url('file:///android_asset/fonts/Roboto-Light.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('file:///android_asset/fonts/Roboto-Regular.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('file:///android_asset/fonts/Roboto-Medium.ttf')  format('truetype') ;
+}
+
 #header {
   position: fixed;
   top: 0px;
@@ -104,113 +134,109 @@ a:visited {
 
 /* Wallet Main Page CSS*/
 
-.walletContainer{
-  background-color: #fafafa;
-  padding-top: 16px;
-  height: 100%; 
-}
-
-.walletContainer .walletContainer-top{
-  height: 35%;
-}
-
-.walletContainer .walletContainer-middle{
-  position: relative;
-  height: 40%;
-  margin-bottom: 48px;
-  background-color: white;
-}
-
-.walletContainer .walletContainer-end{
-  background: #fff;
-  height: 48px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  z-index: 1106;
-  border-top: 1px solid rgba(0,0,0,0.09);
-  bottom: 0;
-}
-
-.walletContainer-end > ul {
-  height: 48px;
-  background-color:#fafafa;
-  overflow: hidden;
-  border-bottom: 1px solid #ccc;
-}
-
-.walletContainer-end li{
-  display: inline-block;
-  width: 49%;
-  box-sizing:border-box;
-  border-right:1px solid #eaeaea;
-  text-align: center;
-  line-height: 44px;
-  font-size: 12px;
-  font-weight: normal;
-  height: 48px;
-  overflow: hidden;
-  letter-spacing: -0.5px;
-  text-transform: capitalize;
-  color: #4c4c4c;
-  vertical-align: middle;
-  position: relative;
-}
-
-.walletContainer-end span {
-  display: inline-block;
-  height: 14px;
-  vertical-align: middle;
-  line-height: 12px;
-  border-right: 1px solid #cacaca;
-  width: 100%;
-  text-transform: uppercase;
-}
-
-// .walletContainer-end .add_icon{
-//   background:url(images/addmoney.png);
-//   background-size: contain;
-//   width: 24px;
-//   height: 24px;
-//   background-repeat: no-repeat;
-// }
-
-// .walletContainer-end .send_icon{
-//   width: 24px;
-//   height: 24px;
-//   background:url(images/sendmoney.png);
-//   background-size: contain;
-//   background-repeat: no-repeat;  
-// }
-
-.walletContainer .walletContainer-top .walletCard {
-  width: 90%;
-  padding-bottom:52.9%;
-  position: absolute;
-  left:0;
-  right:0;
-  margin-left:auto;
-  margin-right:auto;
-  background-color: #4a5661;
-  border-radius: 10px;
-  margin: 0px auto;
-  backface-visibility:             hidden;
-        -moz-backface-visibility:    hidden;
-        -ms-backface-visibility:     hidden;
-        -o-backface-visibility:      hidden;
-        -webkit-backface-visibility: hidden;
-    transform-origin:             50% 50% 0px;
-        -moz-transform-origin:    50% 50% 0px;
-        -ms-transform-origin:     50% 50% 0px;
-        -o-transform-origin:      50% 50% 0px;
-        -webkit-transform-origin: 50% 50% 0px;
-    transition: all 1s;
-        -moz-transition:    all 1s;
-        -ms-transition:     all 1s;
-        -o-transition:      all 1s;
-        -webkit-transition: all 1s; 
+  .walletContainer{
+    display: table-cell;
+    vertical-align: middle;
   }
 
+  .walletContent{
+    position: absolute;
+    top:50%;
+    left:50%;
+    -webkit-transform:translate(-50%,-50%);
+  }
+
+  .hikeCard{
+    background:url(images/hikeCard.png);
+    background-size: contain;
+    width: 250px;
+    height: 160px;
+    background-repeat: no-repeat;
+  }
+
+  .walletContainer-balance{
+    margin: 25px 2px 0px 2px;
+    padding-bottom:14px;
+    border-bottom:1px solid rgba(0,0,0,0.08);
+  }
+
+.walletContainer .walletContainer-balance .walletBalance{
+  float: left;
+  display: inline-block;
+}
+
+.walletContainer .walletBalance p.balance_heading{
+  font-size: 12px;
+  color: #A3A8AC;
+  font-weight: 500;
+}
+
+.walletContainer .walletBalance p.balance_value{
+  font-size: 20px;
+  color:#5C646D;
+  text-align:left;
+  padding-top:5px;
+  font-weight: 600;
+}
+
+  .walletContainer .walletContainer-balance .walletHistory{
+    border:1px solid #33b87e;
+    border-radius:4px;
+    padding: 8px 16px;
+    float: right;
+    text-transform: uppercase;
+    font-size: 10px;
+    color: #33b87e;
+    line-height:11px;
+    display: inline-block;
+    margin-top: 5px
+}
+
+.walletAction{
+  margin-top: 11px;
+}
+
+.walletAction span{
+  vertical-align: middle;
+  margin-left: 16px;
+  color: #5B656F;
+  font-weight: 500;
+}
+
+.walletAction li{
+  text-transform: uppercase;
+  font-size: 14px;
+  padding:16px 0px;
+}
+
+.icon-add{
+    background:url(images/icon-add.png);
+    background-size: contain;
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    display: inline-block;
+    background-repeat: no-repeat;  
+}
+
+.icon-send{
+    background:url(images/icon-send.png);
+    background-size: contain;
+    width: 18px;
+    height: 14px;
+    vertical-align: middle;
+    display: inline-block;background-repeat: no-repeat;  
+}
+
+.icon-settings{
+    background:url(images/icon-settings.png);
+    background-size: contain;
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    display: inline-block;
+    background-repeat: no-repeat;  
+}
   .cardImage {
     #side-1 {
           transform:         rotateY( 0deg );
@@ -247,123 +273,3 @@ a:visited {
     }
   }
   
-
-.flip-side-1 {    
-    transform:             rotateY( 0deg ) !important;
-        -moz-transform:    rotateY( 0deg ) !important;
-        -ms-transform:     rotateY( 0deg ) !important;
-        -o-transform:      rotateY( 0deg ) !important;
-        -webkit-transform: rotateY( 0deg ) !important;
-}
-
-.flip-side-2 {
-    transform:             rotateY( 180deg ) !important;
-        -moz-transform:    rotateY( 180deg ) !important;
-        -ms-transform:     rotateY( 180deg ) !important;
-        -o-transform:      rotateY( 180deg ) !important;
-        -webkit-transform: rotateY( 180deg ) !important;
-}
-
-.walletContainer .walletCard .backSideContainer .backStrip{
-  background-color:black;
-  width: 100%;
-  height: 40px;
-  position: absolute;
-  top: 20%
-}
-  
-.walletContainer .walletContainer-top .walletCard .walletCard-top .settingsIcon {
-  position: absolute;
-  right: 10%;
-  top: 10%;
-  width: 25px;
-  height: 25px;
-  background-image: url(images/card_settings.png);
-  background-size: contain;
-  background-repeat: no-repeat; }
-
-.walletContainer .walletContainer-top .walletCard .walletCard-middle {
-  position: absolute;
-  top: 40%;
-  left: 12%;
-  background-image: url(images/cardnumber.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 250px;
-  height: 17px; }
-
-.walletContainer .walletContainer-top .walletCard .walletCard-top .visaIcon {
-  width: 54px;
-  height: 28px;
-  top:10%;
-  left: 10%;
-  position: absolute;
-  background-image: url(images/card_visa.png);
-  background-size: contain;
-  background-repeat: no-repeat; }
-
-.walletContainer .walletContainer-top .walletCard .walletCard-bottom p.wallet-expiry {
-  position: absolute;
-  color: rgba(255,255,255,0.4);
-  text-transform: uppercase;
-  position: absolute;
-  bottom:10%;
-  left:5%;  
-}
-
-.walletContainer .walletContainer-balance .walletHistory{
-  border:1px solid #33b87e;
-  border-radius:4px;
-  padding: 8px 16px;
-  float: left;
-  font-size: 12px;
-  color: #33b87e;
-  display: inline-block;
-}
-
-.walletContainer .walletContainer-balance{
-  padding:16px 28px 23px 40px;
-  height: 48px;
-}
-
-.walletContainer .walletContainer-balance .walletBalance{
-  float: left;
-  display: inline-block;
-}
-
-.walletContainer .walletContainer-balance .walletHistory{
-  float: right;
-  margin-top: 10px;
-  display: inline-block;
-}
-
-.walletContainer .walletBalance p.balance_heading{
-  font-size: 14px;
-  color: #A3A8AC;
-  font-weight: medium;
-}
-
-.walletContainer .walletBalance p.balance_value{
-  font-size: 24px;
-  color:#5C646D;
-  padding-top:11px;
-  font-weight: medium;
-}
-
-.walletContainer .walletContainer-middle .wallet-offers .offer-icon{
-  background:url(images/airtel.png);
-  margin: 0px auto;
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 40px;
-  height: 40px;
-}
-
-.walletContainer .walletContainer-middle .wallet-offers p{
-  text-align:center;
-  margin-top: 16px;
-}
-
-.walletContainer .walletContainer-middle .wallet-offers {
-  padding:33px 108px;
-}

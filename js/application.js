@@ -13,7 +13,8 @@
         FtueTourController   = require('./controllers/ftue/ftuetour/index'),
         Router               = require('./util/router'),
         utils                = require('./util/utils'),
-        paymentServices      = require('./util/paymentServices');
+        paymentServices      = require('./util/paymentServices'),
+        Keyboard                = require('./util/keyboard');
 
     var Application = function (options) {
         this.container            = options.container;

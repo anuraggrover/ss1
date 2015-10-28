@@ -1,31 +1,53 @@
 <div class="p2pContainer">
-	
-	<!-- Reciever -->
-	<div class="p2pReciever">
-		<div class="rIcon"></div>
-		<div class="rName">Hemank Sabharwal / +91-8376869645</div>
-	</div>
-
-	<!-- Amount -->
-	<div class="p2pAmount">      
-      <input type="number" required>
-      <span class="highlight"></span>
-      <span class="bar"></span>
-      <label>Amount</label>
+  
+  <!-- Enter Amount Input Screen -->
+  <div class="amountInput">
+    <h3>Enter amount to send to {{receiver}}</h3>
+    <div class="p2pAmount">  
+        <input id="p2pValue" value="" type="number" required disabled>
     </div>
-      
-    <!-- Message Optional -->  
-    <div class="p2pMessage">      
-      <input type="text">
-      <span class="highlight"></span>
-      <span class="bar"></span>
-      <label>Message</label>
+  </div>
+
+  <!-- Default Amounts Container -->
+
+<div class="hikePayKeyboard">
+
+  <div class="section group da-container">
+    {{#defaultAmounts}}
+    <div class="col span_1_of_3">
+      <div class="amount">{{amount}}</div>
+    </div>
+    {{/defaultAmounts}}
+  </div>
+
+  <!-- Hike Numberpad :: Divided into Two Columns :: Numbers and Actions -->  
+    <!-- Numbers Here -->
+  <div class="hikePad">
+    <div class="col span_1_of_2">
+      <div class="section group">
+            {{#keypad}}
+            <div class="col span_1_of_3">
+              <div data-val="{{keypadvalue}}" class="number_numpad">{{keypadvalue}}</div>
+            </div>
+            {{/keypad}}
+      </div>
     </div>
 
-    <!-- Sender -->
-	<div class="sIcon"></div>
-
-	<!-- Button That Will Keep On Changing Send Money : Confirm Pin -->
-	<a href="#" class="p2pSend">Confirm</a>
+    <!-- Buttons Here -->
+    <div class="col span_2_of_2">
+      <div class="action_cross">
+        <div class="cross-icon"></div><span></span>
+      </div>
+      <a href="#" data-path="/">
+        <div class="action_next">
+          <div class="tick-icon"></div><span></span>
+        </div>
+      </a>
+    </div>  
+  </div>
+</div>
 
 </div>
+
+
+

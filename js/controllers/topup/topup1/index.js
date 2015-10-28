@@ -7,7 +7,7 @@
         this.defaultAmounts = [
                                 { amount:500},
                                 { amount:1000},
-                                { amount:5000}
+                                { amount:2000}
                             ];
         this.keypad = [
                         { keypadvalue: 1 },
@@ -23,8 +23,6 @@
                         { keypadvalue: 0 },
                         { keypadvalue: '.' },
                     ]; 
-                    
-
     };
 
     Topup1Controller.prototype.render = function() {
@@ -32,9 +30,6 @@
                 defaultAmounts: this.defaultAmounts,
                 keypad: this.keypad
         }));
-
-
-
         var that = this;
 
         $(document).ready(function(){
@@ -74,37 +69,7 @@
              
         });
 
-        // Trigger Input Key Press :: Check Compatability With All Android Versions For On Input Event
-
-        $('body').on('input','#p2pValue',function(e){
-            
-            var input = e.currentTarget.value;
-            var ele = $('.activeamount');
-    
-            $('.action_next').toggleClass('activebutton', input);   // Toggles Active Next Button Class Based on Input Entered
-            
-            if(!input && ele){
-                ele.removeClass('activeamount');                    // Removes existing Active Amount Classes
-            }
-            else{
-                $('.amount').each(function(index){
-                    if( ($('.amount')[index].innerText) === input ){
-                        ele.removeClass('activeamount');
-                        $(this).addClass('activeamount');                // Adds Active Amount Class
-                    }
-                });
-            }
-        });
-
-        // NumPad Response
-
-        $('body').on('click', '.number_numpad', function(){    
-            
-            var key = this.innerText;
-            var p2pValue = $('#p2pValue');
-
-            $(p2pValue).val(p2pValue.val() + key);
-        });
+        // Numpad Delete Response
 
         $('body').on('click', '.action_cross', function(){        
             
@@ -113,7 +78,49 @@
             
             v = v.substring(0, v.length-1);
             $(p2pValue).val(v);
-        
+
+            $('.activeamount').removeClass('activeamount');
+            // Remove Active Button If Empty
+            if($(p2pValue).val() === ''){
+                $('.action_next').removeClass('activebutton');     
+            }
+        });
+
+        // Number Pad Append Digit
+
+        $('body').on('click', '.number_numpad', function(){    
+            
+            var key = this.innerText;
+            var p2pValue = $('#p2pValue');
+
+            $(p2pValue).val(p2pValue.val() + key);
+
+            // Activate next button
+            $('.action_next').addClass('activebutton');  
+
+            var input = $(p2pValue).val();
+            var ele = $('.activeamount');
+ 
+            if(input)
+            {
+                $('.amount').each(function(index){
+                    if( ($('.amount')[index].innerText) === input ){
+                        ele.removeClass('activeamount');
+                        $(this).addClass('activeamount');                // Adds Active Amount Class
+                    }
+                });
+            }
+
+            // var options  = {
+            //     newvalue: this.innerText,
+            //     oldvalue: $('#p2pValue').val(),
+            //     event: "append"
+            // };
+            // var keyBoard = require('../../../util/keyboard');
+            // var key = new keyBoard(options);
+            // key.appendDigit(function(val1){
+            //     $('#p2pValue').val(val1);
+            // });
         });
 
         return this;

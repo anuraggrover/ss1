@@ -21,10 +21,12 @@
             }
         });
 
-        card.addEventListener('click', function(ev){
-            ev.preventDefault();
-            this.classList.toggle('flip');
-        });
+        // Card Flip
+
+        // card.addEventListener('click', function(ev){
+        //     ev.preventDefault();
+        //     this.classList.toggle('flip');
+        // });
     };
 
     WorkspaceController.prototype.render = function(ctr) {
