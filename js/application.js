@@ -14,7 +14,7 @@
         Router               = require('./util/router'),
         utils                = require('./util/utils'),
         paymentServices      = require('./util/paymentServices'),
-        Keyboard                = require('./util/keyboard');
+        Keyboard             = require('./util/keyboard');
 
     var Application = function (options) {
         this.container            = options.container;
@@ -80,7 +80,8 @@
             });
 
             this.router.route('/transactions', function(){
-                self.$el.html(self.transIndexController.render().el);
+                //self.transIndexController.render(self.container);
+                self.$el.html(self.transIndexController.render(self.container).el);
             });
 
             this.router.route('/topup1', function(){

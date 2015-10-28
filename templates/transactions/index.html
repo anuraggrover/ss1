@@ -1,4 +1,3 @@
-<div class="txHistoryContainer">
 	
 	<div class="txHistory-balance">
 		<h3>Current balance</h3>
@@ -6,13 +5,14 @@
 	</div>
 
 	<div class="txListContainer">
+		<div id="tx">
 		{{#transactions}}
 
-		<div class="txHistoryList clearfix">		
+		<div data-sid="{{sId}}" class="txHistoryList clearfix">		
 			<div class="txHistoryList-item-details">
-				<div class="itemIcon iblock"><p class="timestamp_date">12</p><p class="timestamp_month">Oct</p></div>
+				<div class="itemIcon iblock"><p class="timestamp_date">{{tDay}}</p><p class="timestamp_month">{{tMonth}}</p></div>
 				<div class="itemText iblock">
-					<p class="itemHeading">{{tname}}</p>
+					<p class="itemHeading">{{tMessage}}</p>
 					<p class="itemSubheading">Trans. ID - {{tId}}</p>
 				</div>	
 			</div>
@@ -20,13 +20,11 @@
 			<!-- Transaction List Item Amoutn :: Red/Green Depending On Credit and Debit -->
 
 			<div class="txHistoryList-item-amount">
-				<p>{{amount}}</p>
+				<p class="{{tType}}">{{amount}}</p>
 			</div>
 
 		</div>
 
 		{{/transactions}}
+		</div>
 	</div>
-
-
-</div>

@@ -87,6 +87,10 @@ body {
   src: url('file:///android_asset/fonts/Roboto-Medium.ttf')  format('truetype') ;
 }
 
+::-webkit-scrollbar { 
+    display: none; 
+}
+
 #header {
   position: fixed;
   top: 0px;

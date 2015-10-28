@@ -5,7 +5,7 @@
 }
 
 .txHistoryContainer {
-  margin: 25px 20px 0px 20px; }
+  padding: 25px 20px 0px 20px; }
 
 .txHistoryContainer .txHistory-balance {
   border-bottom: 1px solid rgba(0,0,0,0.10);
@@ -46,6 +46,15 @@
   text-transform: uppercase;
 }
 
+.txListContainer{
+  position: absolute;
+  bottom: 20px;
+  top: 90px;
+  overflow-y: scroll;
+  left: 20px;
+  right: 20px;
+}
+
 .txHistoryContainer .txHistoryList .itemText{
   margin-left: 11px;
 }
@@ -53,7 +62,7 @@
 .txHistoryContainer .txHistoryList .itemText p.itemHeading{
   color:#5B636C;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .txHistoryContainer .txHistoryList .itemText p.itemSubheading{
@@ -67,13 +76,21 @@
   float: left; }
 
 .txHistoryContainer .txHistoryList .txHistoryList-item-amount {
-  font-size: 14px;
-  color: #33B87E;
+  font-size: 12px;
   padding-top: 10px;
   display: inline-block;
   vertical-align: middle;
   font-weight: 500;
   float: right; }
+
+.CREDIT{
+  color: #33B87E;
+}
+
+.DEBIT{
+  color: #DB3D3D;
+}
+
 
 .txHistoryContainer .txHistoryList .txHistoryList-item-details .itemIcon {
   width: 36px;

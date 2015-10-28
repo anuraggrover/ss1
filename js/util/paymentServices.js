@@ -50,24 +50,27 @@
                 });
             }
         },
-
+        //ACtivate a New Wallet (NEW USER)
         activateWallet: function(fn, x){
             var params = {'url':'activate', 'type': 'POST', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
             if (typeof fn === "function") return this.communicate(params, fn, x);
             else this.communicate(params);
         },
-
+        // Fetch balance for Waller
         fetchBalance: function(fn, x){
             var params = {'url':'funds', 'type': 'GET', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
             
             if (typeof fn === "function") return this.communicate(params, fn, x);
             else this.communicate(params);
         },
-
-        txHistory: function(fn, x){
-            // TOKEN AND UID PASSED OVER THE CALL
-
-            var params = {'url':'transaction/list', 'type': 'GET', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+        // Fetch Wallet Statement (Before :- ID if Blank - Gives Out Latest 10)
+        fetchTxHistory: function(fn, x, sId){
+            // Statement ID :: Before For Calling Next Lost Of Transactions
+            var params = {'url':'statement/list', 'type': 'GET', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            
+            if(sId){
+                params.url = params.url+'?lastStatementId='+sId;
+            }
             
             if (typeof fn === "function") return this.communicate(params, fn, x);
             else this.communicate(params);
