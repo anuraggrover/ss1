@@ -8,19 +8,17 @@
         this.template = require('raw!../../templates/workspace.html');
     };
 
-    WorkspaceController.prototype.bind = function(){
+    WorkspaceController.prototype.bind = function(App){
         var $el = $(this.el);
         var card = document.getElementsByClassName('cardImage')[0];
-
+        
         $el.on('click', '.sendMoney', function(){
             if (PlatformBridge) {
-                // Toggle Back and Up Press 
                 utils.toggleBackNavigation(true);
-                // Start The Contact Chooser Screen
-                PlatformBridge.startContactChooser();
+                //PlatformBridge.startContactChooser();
             }
         });
-
+        
         // Card Flip
 
         // card.addEventListener('click', function(ev){
@@ -31,13 +29,14 @@
 
     WorkspaceController.prototype.render = function(ctr, App, data) {
 
+        console.log(data);
         var that = this;
 
         if (data != undefined){
             that.el = document.createElement('div');
             that.el.className = "walletContainer";
             that.el.innerHTML = Mustache.render(that.template, {
-                cardbalance: "100000",  // data.payload.walletBalance
+                cardbalance: data.payload.walletBalance,
                 cardexpiry:'10/19'
             });
             
@@ -60,7 +59,7 @@
                 }
                 
                 ctr.appendChild(that.el);
-                that.bind();
+                that.bind(App);
             }, this);
         }
     };

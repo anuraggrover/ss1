@@ -11,14 +11,22 @@
         this.captureKeys.remove();
     };
 
-    SendMoneyController.prototype.bind = function(){
+    SendMoneyController.prototype.bind = function(App){
+        
         var display = document.getElementById('p2pValue');
         var check = this.el.getElementsByClassName('action_next')[0];
 
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
-                // App.router.navigateTo('/topup2');
-                
+                  var data = {
+                    uid:"VVCqo-SwSQ-Z-csS",
+                    currency: "INR",
+                    amount: display.value,
+                    message: "Funds Transfer"
+                };
+                App.PaymentService.fundsTransfer(data, function(res){
+                    App.router.navigateTo('/', res);
+                }, this);
             } 
         });
 
@@ -36,7 +44,7 @@
         });
     };
 
-    SendMoneyController.prototype.render = function(ctr) {
+    SendMoneyController.prototype.render = function(ctr, App) {
 
         this.el = document.createElement('div');
         this.el.className = "p2pContainer";
@@ -45,7 +53,7 @@
         new Keypad(this.el);
 
         ctr.appendChild(this.el);
-        this.bind();
+        this.bind(App);
     };
 
     module.exports = SendMoneyController;

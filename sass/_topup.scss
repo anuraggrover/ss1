@@ -235,7 +235,6 @@
 }
 
 .topupContainer2 {
-	padding:20px;
 	height:100%;
 	background-color:white;
 }
@@ -446,8 +445,13 @@ a.topupNextButton2{
   position: absolute;
   bottom: 0px;
   text-decoration: none;
+  text-transform: uppercase;
   text-align: center;
   padding: 18px 0px;
+}
+
+.addMoneyContainer{
+  padding:20px;
 }
 
 

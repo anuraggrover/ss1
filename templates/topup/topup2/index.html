@@ -1,5 +1,4 @@
-
-    
+<div class="addMoneyContainer">
     <h3>Select how would you like to pay {{amt}}</h3>
     
     <label class="noselect radio card">
@@ -36,18 +35,17 @@
         {{/commonbanks}}
 
   		</div>
-      
-      <div class="bankContainer">
-          <select id="bankType">
-            <option value="hide"> Other Bank </option>
-            
-            {{#banklist}}    
-            <option value="{{bankname}}">{{bankname}}</option>
-            {{/banklist}}
-          </select>
-        </div>
 
-    </div>
+     <div class="bankContainer">
+            <select id="bankType">
+              <option value="hide"> Other Bank </option>
+              
+              {{#banklist}}    
+              <option value="{{bankname}}">{{bankname}}</option>
+              {{/banklist}}
+            </select>
+          </div>
+      </div>
+</div>
 
-<!-- Button To Take To Payment Gateway -->
-<a class="topupNextButton2 addMoney" href="#">Add money</a>
+  <a class="topupNextButton2 addMoney" href="#">Add money</a>

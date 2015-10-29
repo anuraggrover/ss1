@@ -84,15 +84,15 @@
             else this.communicate(params);
         },
 
-        txDetails: function(fn, x){
-            // TOKEN AND UID PASSED OVER THE CALL
-            console.log("Fetching the Transaction Details of The Transaction :: GET");
-        },
+        fundsTransfer: function(data, fn, x){
 
-        fundsTransfer: function(p2pdata){
-            // TOKEN AND UID PASSED OVER THE CALL
-            var params = {'url':'funds/transfer', 'type': 'GET', 'data': {"receiverPlatformUid": p2pdata.uid,"message": p2pdata.message,"currency": p2pdata.currency,"amount": p2pdata.amount}, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
-            
+            var params = {'url':'funds/transfer', 'type': 'POST', 'data': {
+                "currency": data.currency,
+                "amount": data.amount,
+                "userMessage": data.message,
+                "receiverPlatformUid": data.uid
+            }, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+
             if (typeof fn === "function") return this.communicate(params, fn);
             else this.communicate(params);
         }

@@ -99,7 +99,7 @@
 
             this.router.route('/sendmoney', function(){
                 self.container.innerHTML = "";
-                self.sendMoneyController.render(self.container);
+                self.sendMoneyController.render(self.container, self);
                 // self.$el.html(self.sendMoneyController.render().el);
             });
 
