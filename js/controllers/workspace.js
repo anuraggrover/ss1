@@ -2,19 +2,17 @@
     'use strict';
 
     var utils = require('../util/utils');
-    var PaymentServices = require('../util/paymentServices');
+    // var PaymentServices = require('../util/paymentServices');
 
     var WorkspaceController = function (options) {
         this.template = require('raw!../../templates/workspace.html');
     };
 
     WorkspaceController.prototype.bind = function(){
-        var El = $(this.el);
+        var $el = $(this.el);
         var card = document.getElementsByClassName('cardImage')[0];
 
-        // Send Money Contact Chooser Trigger 
-            
-        El.on('click', '.sendMoney', function(){
+        $el.on('click', '.sendMoney', function(){
             if (PlatformBridge) {
                 // Toggle Back and Up Press 
                 utils.toggleBackNavigation(true);
@@ -31,30 +29,40 @@
         // });
     };
 
-    WorkspaceController.prototype.render = function(ctr) {
+    WorkspaceController.prototype.render = function(ctr, App, data) {
 
         var that = this;
-        var paymentService = new PaymentServices();
-        paymentService.fetchBalance(function(res){
+
+        if (data != undefined){
             that.el = document.createElement('div');
             that.el.className = "walletContainer";
             that.el.innerHTML = Mustache.render(that.template, {
-                cardbalance: res.payload.walletBalance,
+                cardbalance: "100000",  // data.payload.walletBalance
                 cardexpiry:'10/19'
             });
-            if(platformSdk.isDevice){
-                PlatformBridge.putInCache('walletBalance',res.payload.walletBalance);    
-            }
-            else{
-                localStorage.setItem('walletBalance', res.payload.walletBalance);
-            }
+            
             ctr.appendChild(that.el);
             that.bind();
-        }, this);
+        } else {
+            App.PaymentService.fetchBalance(function(res){
+                that.el = document.createElement('div');
+                that.el.className = "walletContainer";
+                that.el.innerHTML = Mustache.render(that.template, {
+                    cardbalance: res.payload.walletBalance,
+                    cardexpiry:'10/19'
+                });
 
-        var self = this;
-        
-        return this;
+                if(platformSdk.isDevice){
+                PlatformBridge.putInCache('walletBalance',res.payload.walletBalance);    
+                }
+                else{
+                    localStorage.setItem('walletBalance', res.payload.walletBalance);
+                }
+                
+                ctr.appendChild(that.el);
+                that.bind();
+            }, this);
+        }
     };
 
     module.exports = WorkspaceController;

@@ -1,130 +1,50 @@
-(function () {
+(function (W, events, utils) {
     'use strict';
 
+    var Keypad = require('../../../util/keyboard');
     var Topup1Controller = function (options) {
         this.template = require('raw!../../../../templates/topup/topup1/index.html');
-        // Default Amounts For Topup Screen
-        this.defaultAmounts = [
-                                { amount:500},
-                                { amount:1000},
-                                { amount:2000}
-                            ];
-        this.keypad = [
-                        { keypadvalue: 1 },
-                        { keypadvalue: 2 },
-                        { keypadvalue: 3 },
-                        { keypadvalue: 4 },
-                        { keypadvalue: 5 },
-                        { keypadvalue: 6 },
-                        { keypadvalue: 7 },
-                        { keypadvalue: 8 },
-                        { keypadvalue: 9 },
-                        { keypadvalue: '.' },
-                        { keypadvalue: 0 },
-                        { keypadvalue: '.' },
-                    ]; 
     };
 
-    Topup1Controller.prototype.render = function() {
-        this.el = $(Mustache.render(this.template, {
-                defaultAmounts: this.defaultAmounts,
-                keypad: this.keypad
-        }));
-        var that = this;
+    Topup1Controller.prototype.destroy = function(){
+        this.captureKeys.remove();
+    };
 
-        $(document).ready(function(){
-            window.onload = function() {
-                var labels = document.getElementsByTagName('label');
-                for (var i = 0; i < labels.length; i++) {
-                    disableSelection(labels[i]);
-                }
-            };
-            function disableSelection(element) {
-                if (typeof element.onselectstart != 'undefined') {
-                    element.onselectstart = function() { return false; };
-                } else if (typeof element.style.MozUserSelect != 'undefined') {
-                    element.style.MozUserSelect = 'none';
-                } else {
-                    element.onmousedown = function() { return false; };
-                }
-            }   
+    Topup1Controller.prototype.bind = function(App){
+        var display = document.getElementById('p2pValue');
+        var check = this.el.getElementsByClassName('action_next')[0];
+
+        check.addEventListener('click', function(ev){
+            if (this.classList.contains('activebutton')){
+                App.router.navigateTo('/topup2', { amt: display.value });
+            } 
         });
 
-        $('body').on('click', '.amount', function(){    
-            
-            // Remove any older Active Default Money Values
-            var ele = $('.activeamount');
-            var p2pValue = $('#p2pValue');
+        this.captureKeys = events.subscribe('keypad.key', function(key){
+            if (/[0-9]/.test(key)) {
+                if (key.length > 1) display.value = key;
+                else display.value = display.value + key;
 
-            ele.removeClass('activeamount');                    
-            //debugger;
-            // Add New Active Amount Class
-            $(this).addClass('activeamount');                
-            $('.action_next').addClass('activebutton');     
-
-            // Updates New Input
-            //$('#p2pValue')[0].value = this.innerHTML;
-            p2pValue.val(this.innerText);
-            //p2pValue[0].placeholder = this.innerHTML;
-             
-        });
-
-        // Numpad Delete Response
-
-        $('body').on('click', '.action_cross', function(){        
-            
-            var p2pValue = $('#p2pValue');
-            var v = p2pValue.val();
-            
-            v = v.substring(0, v.length-1);
-            $(p2pValue).val(v);
-
-            $('.activeamount').removeClass('activeamount');
-            // Remove Active Button If Empty
-            if($(p2pValue).val() === ''){
-                $('.action_next').removeClass('activebutton');     
+                events.publish('keypad.deactivateAmount');
+                check.classList.add('activebutton');
+            } else if (key === "del") {
+                display.value = display.value.substring(0, display.value.length - 1);
+                if (display.value.length === 0) check.classList.remove('activebutton');
             }
         });
+    };
 
-        // Number Pad Append Digit
+    Topup1Controller.prototype.render = function(App) {
 
-        $('body').on('click', '.number_numpad', function(){    
-            
-            var key = this.innerText;
-            var p2pValue = $('#p2pValue');
+        this.el = document.createElement('div');
+        this.el.className = "topupContainer1";
+        this.el.innerHTML = Mustache.render(this.template);
 
-            $(p2pValue).val(p2pValue.val() + key);
+        new Keypad(this.el);
 
-            // Activate next button
-            $('.action_next').addClass('activebutton');  
-
-            var input = $(p2pValue).val();
-            var ele = $('.activeamount');
- 
-            if(input)
-            {
-                $('.amount').each(function(index){
-                    if( ($('.amount')[index].innerText) === input ){
-                        ele.removeClass('activeamount');
-                        $(this).addClass('activeamount');                // Adds Active Amount Class
-                    }
-                });
-            }
-
-            // var options  = {
-            //     newvalue: this.innerText,
-            //     oldvalue: $('#p2pValue').val(),
-            //     event: "append"
-            // };
-            // var keyBoard = require('../../../util/keyboard');
-            // var key = new keyBoard(options);
-            // key.appendDigit(function(val1){
-            //     $('#p2pValue').val(val1);
-            // });
-        });
-
-        return this;
+        App.container.appendChild(this.el);
+        this.bind(App);
     };
 
     module.exports = Topup1Controller;
-})();
+})(window, platformSdk.events, platformSdk.utils);

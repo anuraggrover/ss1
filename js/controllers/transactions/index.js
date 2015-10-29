@@ -18,7 +18,6 @@
                     //Re Call Payment Api With SID
                     var paymentService = new PaymentServices();
                     paymentService.fetchTxHistory(function(res){
-                        
                         for(var i =0; i<res.payload.length;i++){
                             var new_t ={
                                 'sId':res.payload[i].statementId,

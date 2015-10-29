@@ -23,6 +23,6 @@
         });
 
         application.start();
-    });
+    }, this);
 
 })(window);

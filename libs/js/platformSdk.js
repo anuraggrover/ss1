@@ -728,7 +728,7 @@ window.platformSdk = function(window, undefined) {
         messageId: messageId,
         bridge: platformBridge,
 
-        ready: function(fn) {
+        ready: function(fn, x) {
             var that = this;
             var start = platformSdk.events.subscribe('webview/data/loaded', function() {
                 platformSdk.isDevice = that.bridgeEnabled = that.checkBridge();
@@ -738,7 +738,7 @@ window.platformSdk = function(window, undefined) {
                     platformSdk.platformToken = 'mACoHN4G0DI=';
                 }
                 
-                if (typeof fn === "function") fn();
+                if (typeof fn === "function") fn.call(x);
                 start.remove();
             });
         },

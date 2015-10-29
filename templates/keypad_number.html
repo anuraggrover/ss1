@@ -1,0 +1,35 @@
+<div class="hikePayKeyboard">
+  <div class="section group da-container">
+    {{#defaultAmounts}}
+    <div class="col span_1_of_3">
+      <div class="amount key" data-val="{{amount}}">{{amount}}</div>
+    </div>
+    {{/defaultAmounts}}
+  </div>
+
+  <!-- Hike Numberpad :: Divided into Two Columns :: Numbers and Actions -->  
+    <!-- Numbers Here -->
+  <div class="hikePad">
+    <div class="col span_1_of_2">
+      <div class="section group">
+            {{#keypad}}
+            <div class="col span_1_of_3">
+              <div data-val="{{keypadvalue}}" class="number_numpad key">{{keypadvalue}}</div>
+            </div>
+            {{/keypad}}
+      </div>
+    </div>
+
+    <!-- Buttons Here -->
+    <div class="col span_2_of_2">
+      <div class="action_cross key" data-val="del">
+        <div class="cross-icon"></div><span></span>
+      </div>
+
+      <div class="action_next">
+        <div class="tick-icon"></div><span></span>
+      </div>
+
+    </div>  
+  </div>
+</div>

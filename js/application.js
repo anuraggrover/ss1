@@ -13,7 +13,7 @@
         FtueTourController   = require('./controllers/ftue/ftuetour/index'),
         Router               = require('./util/router'),
         utils                = require('./util/utils'),
-        paymentServices      = require('./util/paymentServices'),
+        PaymentServices      = require('./util/paymentServices'),
         Keyboard             = require('./util/keyboard');
 
     var Application = function (options) {
@@ -29,6 +29,7 @@
         this.ftuestep3Controller  = new Ftue3Controller();
         this.ftuestep4Controller  = new Ftue4Controller();
         this.ftuetourController   = new FtueTourController();
+        this.PaymentService = new PaymentServices();
 
 // Global Function Wirtten To Handle The Return From The Contact Chooser 
     
@@ -68,15 +69,15 @@
                 var path = $(e.currentTarget).attr('data-path');
                 if (path === '<<'){
                     self.router.back();
-                }
-                else {
+                } else {
                     utils.toggleBackNavigation(true);
                     self.router.navigateTo(path);
                 }
             });
 
-            this.router.route('/', function(){
-                self.workspaceController.render(self.container);
+            this.router.route('/', function(data){
+                self.container.innerHTML = "";
+                self.workspaceController.render(self.container, self, data);
             });
 
             this.router.route('/transactions', function(){
@@ -85,15 +86,21 @@
             });
 
             this.router.route('/topup1', function(){
-                self.$el.html(self.topup1Controller.render().el);
+                self.container.innerHTML = "";
+                self.topup1Controller.render(self);
+                // self.$el.html(self.topup1Controller.render().el);
             });
 
-            this.router.route('/topup2', function(){
-                self.$el.html(self.topup2Controller.render().el);
+            this.router.route('/topup2', function(data){
+                self.container.innerHTML = "";
+                self.topup2Controller.render(self, data);
+                // self.$el.html(self.topup2Controller.render().el);
             });
 
             this.router.route('/sendmoney', function(){
-                self.$el.html(self.sendMoneyController.render().el);
+                self.container.innerHTML = "";
+                self.sendMoneyController.render(self.container);
+                // self.$el.html(self.sendMoneyController.render().el);
             });
 
             this.router.route('/ftue_step_1', function(){
