@@ -51,12 +51,13 @@
                     cardexpiry:'10/19'
                 });
 
-                if(platformSdk.isDevice){
-                PlatformBridge.putInCache('walletBalance',res.payload.walletBalance);    
-                }
-                else{
-                    localStorage.setItem('walletBalance', res.payload.walletBalance);
-                }
+
+                if (PlatformBridge) PlatformBridge.putInCache('walletBalance',res.payload.walletBalance);    
+                // if(platformSdk.isDevice){
+                //     PlatformBridge.putInCache('walletBalance',res.payload.walletBalance);    
+                // } else {
+                //     // localStorage.setItem('walletBalance', res.payload.walletBalance);
+                // }
                 
                 ctr.appendChild(that.el);
                 that.bind(App);
