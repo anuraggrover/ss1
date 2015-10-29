@@ -2,6 +2,7 @@
     'use strict';
 
     var Keypad = require('../../../util/keyboard');
+    
     var Topup1Controller = function (options) {
         this.template = require('raw!../../../../templates/topup/topup1/index.html');
     };

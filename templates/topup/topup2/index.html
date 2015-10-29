@@ -1,53 +1,50 @@
 
-    
-    <h3>Select how would you like to pay {{amt}}</h3>
-    
-    <label class="noselect radio card">
-      <input name="radio" type="radio">
-      <span></span>
-      <div class="nb-icon"></div> 
-      <span class="cc">Credit/Debit Card</span> 
-    </label>
-
-    <div class="boxInputs-card">
-      <input id="card_number" type="number" pattern="[0-9]*" required placeholder="CARD NUMBER" autocomplete="off">
-      <span class="card-type-icon">VISA</span>
-      <input id="card_expiry" type="text" autocomplete="off" require placeholder="EXPIRY (dd/mm)">
-      <input id="card_cvv" type="number" pattern="[0-9]*" autocomplete="off" required placeholder="CVV">
-    </div>
-
-
-    <label class="noselect radio netbanking">
-      <input name="radio" type="radio">
-      <span></span>
-      <div class="nb-icon"></div> 
-      <span class="nb">Net Banking</span>
-    </label>
-
-    
-    <div class="boxInputs-netbanking">
-  		<div class="commonBanksContainer">
-
-  			{{#commonbanks}}
-        <div class="bankContainer">
-          <div class="{{bankname}} bankIcon"></div>
-          <div class="bankName">{{bankname}}</div>
-        </div>
-        {{/commonbanks}}
-
-  		</div>
+    <div class="addMoneyContainer">
+      <h3>Select how would you like to pay {{amt}}</h3>
       
-      <div class="bankContainer">
-          <select id="bankType">
-            <option value="hide"> Other Bank </option>
-            
-            {{#banklist}}    
-            <option value="{{bankname}}">{{bankname}}</option>
-            {{/banklist}}
-          </select>
-        </div>
+      <label class="noselect radio card">
+        <input name="radio" type="radio">
+        <span></span>
+        <div class="nb-icon"></div> 
+        <span class="cc">Credit/Debit Card</span> 
+      </label>
 
+      <div class="boxInputs-card">
+        <input id="card_number" type="number" pattern="[0-9]*" required placeholder="CARD NUMBER" autocomplete="off">
+        <span class="card-type-icon">VISA</span>
+        <input id="card_expiry" type="text" autocomplete="off" require placeholder="EXPIRY (dd/mm)">
+        <input id="card_cvv" type="number" pattern="[0-9]*" autocomplete="off" required placeholder="CVV">
+      </div>
+
+      <label class="noselect radio netbanking">
+        <input name="radio" type="radio">
+        <span></span>
+        <div class="nb-icon"></div> 
+        <span class="nb">Net Banking</span>
+      </label>
+
+      
+      <div class="boxInputs-netbanking">
+    		<div class="commonBanksContainer">
+
+    			{{#commonbanks}}
+          <div class="bankContainer">
+            <div class="{{bankname}} bankIcon"></div>
+            <div class="bankName">{{bankname}}</div>
+          </div>
+          {{/commonbanks}}
+
+    		</div>
+        
+        <div class="bankContainer">
+            <select id="bankType">
+              <option value="hide"> Other Bank </option>
+              
+              {{#banklist}}    
+              <option value="{{bankname}}">{{bankname}}</option>
+              {{/banklist}}
+            </select>
+          </div>
+      </div>
     </div>
-
-<!-- Button To Take To Payment Gateway -->
-<a class="topupNextButton2 addMoney" href="#">Add money</a>
+    <a class="topupNextButton2 addMoney" href="#">Add money</a>

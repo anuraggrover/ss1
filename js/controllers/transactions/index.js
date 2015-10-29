@@ -30,7 +30,7 @@
                                 'amount':res.payload[i].amount,
                                 'tMessage':res.payload[i].transactionMessage
                             };
-                            var t_row = '<div data-sid="'+new_t.sId+'" class="txHistoryList clearfix"><div class="txHistoryList-item-details"><div class="itemIcon iblock"><p class="timestamp_date">'+new_t.tDay+'</p><p class="timestamp_month">'+new_t.tMonth+'</p></div><div class="itemText iblock"><p class="itemHeading">'+new_t.tMessage+'</p><p class="itemSubheading">Trans. ID - '+new_t.tId+'</p></div></div><div class="txHistoryList-item-amount"><p class="'+new_t.tType+'">'+new_t.amount+'</p></div></div>';
+                            var t_row = '<div data-sid="'+new_t.sId+'" class="txHistoryList clearfix"><div class="txHistoryList-item-details"><div class="itemIcon iblock"><p class="timestamp_date">'+new_t.tDay+'</p><p class="timestamp_month">'+new_t.tMonth+'</p></div><div class="itemText iblock"><p class="itemHeading">'+new_t.tMessage+'</p><p class="itemSubheading">Trans. ID - '+new_t.tId+'</p></div></div><div class="txHistoryList-item-amount"><p class="'+new_t.tType+'">₹ '+new_t.amount+'</p></div></div>';
                             $("#tx").append(t_row);
                         }
                     }, this,lastStatementId);
