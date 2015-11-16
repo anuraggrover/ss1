@@ -120,10 +120,13 @@
         // Toggle Back Navigation Set For Allowing Back and Up Press Inside The Application
 
         toggleBackNavigation: function (enable) {
+            
             enable = enable ? 'true' : 'false';
 
-            platformSdk.bridge.allowBackPress(enable);
-            platformSdk.bridge.allowUpPress(enable);
+            if (platformSdk.bridgeEnabled) {
+                platformSdk.bridge.allowBackPress(enable);
+                platformSdk.bridge.allowUpPress(enable);
+            }
         },
 
         debounce: function(func, wait, immediate) {

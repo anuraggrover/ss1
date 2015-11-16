@@ -4,7 +4,7 @@
     require('zepto.js');
     W.Mustache = require('mustache.js');
     
-    var platformSdk = require('./libs/js/platformSdk');
+    var platformSdk = require('./libs/js/platformSdk_v2.0');
     var utils = require('./js/util/utils');
     var swipe = require('script!./libs/js/swipe');
 
@@ -17,6 +17,9 @@
         if (platformSdk.bridgeEnabled) platformSdk.bridge.setDebuggableEnabled(environment === Constants.STAGING_ENV);
 
         W.appConfig = config;
+
+        if (platformSdk.platformUid === undefined || platformSdk.platformUid === "") platformSdk.platformUid = 'VhzmGOSwNYkM6JHE';
+        if (platformSdk.platformToken === undefined || platformSdk.platformToken === "") platformSdk.platformToken = 'mACoHN4G0DI=';
 
         var application = new Application({
             container: document.getElementById("container")
