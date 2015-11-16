@@ -1,4 +1,4 @@
-(function () {
+(function (W, events) {
     'use strict';
     
     var WorkspaceController  = require('./controllers/workspace'),
@@ -14,11 +14,18 @@
         Router               = require('./util/router'),
         utils                = require('./util/utils'),
         PaymentServices      = require('./util/paymentServices'),
-        Keyboard             = require('./util/keyboard');
+        Keyboard             = require('./util/keyboard'),
+        Store                = require('./util/store');
+
+    var loader = document.getElementById('loader');
+    var loadObject = events.subscribe('update.loader', function(params){
+        loader.toggleClass('loading', params.show);
+    });
 
     var Application = function (options) {
         this.container            = options.container;
         this.router               = new Router();
+        this.store                = new Store();
         this.workspaceController  = new WorkspaceController();
         this.transIndexController = new TransIndexController();
         this.topup1Controller     = new Topup1Controller();
@@ -30,30 +37,10 @@
         this.ftuestep4Controller  = new Ftue4Controller();
         this.ftuetourController   = new FtueTourController();
         this.PaymentService = new PaymentServices();
-
-// Global Function Wirtten To Handle The Return From The Contact Chooser 
-    
-    window.onContactChooserResult = function(resultCode,contacts) {
-        
-        console.log("Repsonse Received From Contacts Chooser");
-        if(resultCode === 0){
-            console.log("Failed::Add Exception");
-        }
-        //Result Code 1 :: Success 
-         else{
-            console.log("Success Response:: Routing To p2p ,Transfer");
-            console.log(contacts);
-        }
-        // Data In Response
-        //[{"platformUid":"VgOlRuSwFYYsYe9i","thumbnail":"file:////data/data/com.bsb.hike/cache/+919643474249.jpg","name":"+919643474249"}]
-        };
     };
-
-    var loader = document.getElementById('loader');
     
     Application.prototype = {
 
-        // Back Press Trigger For Back and Up Press
         backPressTrigger: function() {
             this.router.back();            
         },
@@ -154,6 +141,22 @@
         }
     };
 
+    // Global Function Wirtten To Handle The Return From The Contact Chooser 
+    // TODO. Remove this and use platformSdk.nativeReq fn.
+    
+    window.onContactChooserResult = function(resultCode,contacts) {
+    
+        console.log("Repsonse Received From Contacts Chooser");
+        if(resultCode === 0){
+            console.log("Failed::Add Exception");
+        } else {
+            console.log("Success Response:: Routing To p2p ,Transfer");
+            console.log(contacts);
+        }
+            // Data In Response
+            //[{"platformUid":"VgOlRuSwFYYsYe9i","thumbnail":"file:////data/data/com.bsb.hike/cache/+919643474249.jpg","name":"+919643474249"}]
+    };
+
     module.exports = Application;
 
-})(window);
+})(window, platformSdk.events);
