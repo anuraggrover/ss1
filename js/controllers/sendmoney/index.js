@@ -25,8 +25,21 @@
                     message: "Funds Transfer"
                 };
                 App.PaymentService.fundsTransfer(data, function(res){
-                    App.router.navigateTo('/', res);
+                    // Success Occured
+                    if(res.payload){
+                        console.log("Success Message");
+                        App.router.navigateTo('/', res);
+                    }
+                    // Error For Insufficient Funds
+                    else{
+                        console.log(res);
+                        App.router.navigateTo('/topup1');
+                    }
                 }, this);
+            }
+            else{
+                if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Enter Amount.");
+                else console.log("Please Enter Amount.");
             } 
         });
 

@@ -82,9 +82,10 @@
                 self.workspaceController.render(self.container, self, data);
             });
 
-            this.router.route('/transactions', function(){
-                //self.transIndexController.render(self.container);
-                self.$el.html(self.transIndexController.render(self.container).el);
+            this.router.route('/transactions', function(data){
+                self.container.innerHTML = "";
+                self.transIndexController.render(self.container, data);
+                //self.$el.html(self.transIndexController.render(self.container).el);
             });
 
             this.router.route('/topup1', function(){
@@ -129,23 +130,27 @@
 
             // To Navigate TO FTUE DEPENDING ON HELPER DATA :: HELPER DATA NOT AVAILABLE AT DEV
 
-            // if(platformSdk){
-            //     setTimeout(function(){
-            //         if(platformSdk.helperData.ftueDone && platformSdk.helperData.ftueDone == 1){
-            //             utils.toggleBackNavigation(true);
-            //             self.router.navigateTo('/');
-            //         }
-            //         else{
-            //             console.log("RUNNING FTUE");
-            //             platformSdk.helperData = {'ftueDone': 1};
-            //             platformSdk.updateHelperData(platformSdk.helperData);
-               
-            //             utils.toggleBackNavigation(true);          // Set To False :: Later
-            //             self.router.navigateTo('/ftue_step_1'); // FTUE STEP
-            //         }
-            //     }, 0);
-            // }
-            
+            // Here The Activate Wallet Needs To Be Run As Well
+
+            if(platformSdk && platformSdk.isDevice){
+                setTimeout(function(){
+                    // Existing User
+                    if(platformSdk.helperData.ftueDone && platformSdk.helperData.ftueDone == 1){
+                        utils.toggleBackNavigation(true);
+                        self.router.navigateTo('/');
+                    }
+                    // New User :: Activate Wallet For The New User
+                    else{
+                        this.PaymentService.activateWallet(function(res){
+                            utils.toggleBackNavigation(true);           // Set To False :: Later
+                            self.router.navigateTo('/ftue_step_1');     // FTUE STEP
+                        }, this);
+                        // Updates The Helper Data
+                        platformSdk.helperData = {'ftueDone': 1};
+                        platformSdk.updateHelperData(platformSdk.helperData);
+                    }
+                }, 0);
+            }
         }
     };
 

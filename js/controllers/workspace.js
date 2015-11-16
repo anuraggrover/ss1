@@ -1,7 +1,8 @@
-(function (W, platformSdk) {
+(function (W, platformSdk, events) {
     'use strict';
 
     var utils = require('../util/utils');
+    var hikeBalance = null;
     // var PaymentServices = require('../util/paymentServices');
 
     var WorkspaceController = function (options) {
@@ -18,7 +19,12 @@
                 //PlatformBridge.startContactChooser();
             }
         });
-        
+
+        $el.on('click', '.walletHistory', function(){
+            events.publish('update.loader', {show:true});
+            App.router.navigateTo('/transactions',hikeBalance);
+        });
+
         // Card Flip
 
         // card.addEventListener('click', function(ev){
@@ -30,12 +36,12 @@
     var loadObject = events.subscribe('update.loader', function(params){
         loader.toggleClass('loading', params.show);
     });
+
     WorkspaceController.prototype.render = function(ctr, App, data) {
 
-        console.log(data);
         var that = this;
 
-        if (data != undefined){
+        if (data !== undefined){
             that.el = document.createElement('div');
             that.el.className = "walletContainer";
             that.el.innerHTML = Mustache.render(that.template, {
@@ -47,8 +53,12 @@
             that.bind();
         } else {
             App.PaymentService.fetchBalance(function(res){
+
+                hikeBalance = res.payload.walletBalance;
+                
                 that.el = document.createElement('div');
                 that.el.className = "walletContainer";
+
                 that.el.innerHTML = Mustache.render(that.template, {
                     cardbalance: res.payload.walletBalance,
                     cardexpiry:'10/19'
@@ -71,4 +81,4 @@
 
     module.exports = WorkspaceController;
 
-})(window, platformSdk);
+})(window, platformSdk, platformSdk.events);
