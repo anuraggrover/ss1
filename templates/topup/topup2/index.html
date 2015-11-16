@@ -1,5 +1,5 @@
 <div class="addMoneyContainer">
-    <h3>Select how would you like to pay {{amt}}</h3>
+    <h3>Select how would you like to pay  ₹{{amt}}</h3>
     
     <label class="noselect radio card">
       <input name="radio" type="radio">
@@ -9,10 +9,10 @@
     </label>
 
     <div class="boxInputs-card">
-      <input id="card_number" type="number" pattern="[0-9]*" required placeholder="CARD NUMBER" autocomplete="off">
+      <input id="card_number" type="text" pattern="^\d*$" required placeholder="CARD NUMBER" autocomplete="off" maxlength="">
       <span class="card-type-icon"></span>
-      <input id="card_expiry" type="text" autocomplete="off" require placeholder="EXPIRY (MM/YY)">
-      <input id="card_cvv" type="password" pattern="[0-9]*" autocomplete="off" required placeholder="CVV">
+      <input id="card_expiry" type="text" autocomplete="off" require placeholder="EXPIRY (MM/YY)" maxlength="5">
+      <input id="card_cvv" type="password" pattern="^\d*$" autocomplete="off" required placeholder="CVV" maxlength="">
     </div>
 
 
@@ -28,9 +28,9 @@
   		<div class="commonBanksContainer">
 
   			{{#commonbanks}}
-        <div class="bankContainer">
-          <div class="{{bankname}} bankIcon"></div>
-          <div class="bankName">{{bankname}}</div>
+        <div class="bankContainer" data-bcode="{{optionCode}}">
+          <div class="{{optionCode}} bankIcon"></div>
+          <div class="bankName">{{optionName}}</div>
         </div>
         {{/commonbanks}}
 
@@ -41,11 +41,11 @@
               <option value="hide"> Other Bank </option>
               
               {{#banklist}}    
-              <option value="{{bankname}}">{{bankname}}</option>
+              <option value="{{optionCode}}">{{optionName}}</option>
               {{/banklist}}
             </select>
           </div>
       </div>
 </div>
 
-  <a class="topupNextButton2 addMoney" href="#">Add money</a>
+  <a id="payMethod" class="topupNextButton2 addMoney" href="#">Add money</a>

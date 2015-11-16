@@ -10,6 +10,14 @@
                 startTime = Date.now(),
                 endTime;
 
+            // Move To Topup Services
+            if(params.topup){
+                requestUrl = 'http://projectx-staging.hike.in/hike-topup-service/topup/paymentOptions?currency=INR';
+            }
+            if(params.initateTopup){
+                requestUrl = 'http://projectx-staging.hike.in/hike-topup-service/topup/payment/initiatePayment';
+            }
+
             var success = function(res){
                 try { res = JSON.parse(decodeURIComponent(res)); } 
                 catch(e) { return false; }
@@ -18,7 +26,9 @@
             };
 
             var error = function(res){
-                console.log(res);
+                // Error Callback
+                console.log("Error Occured");
+                //fn.call(x,res);
             };
 
             if (platformSdk.isDevice){
@@ -40,14 +50,14 @@
                     type: params.type,
                     url: requestUrl,
                     timeout: 30000,
-                    data: params.data != undefined ? JSON.stringify(params.data) : null,
+                    data: params.data !== undefined ? JSON.stringify(params.data) : null,
                     headers: params.headers,
                     success: success,
                     error: error
                 });
             }
         },
-        //ACtivate a New Wallet (NEW USER)
+        //Activate a New Wallet (OR FIRST TIME USER ONLY)
         activateWallet: function(fn, x){
             var params = {'url':'activate', 'type': 'POST', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
             if (typeof fn === "function") return this.communicate(params, fn, x);
@@ -58,6 +68,22 @@
             var params = {'url':'funds', 'type': 'GET', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
             
             if (typeof fn === "function") return this.communicate(params, fn, x);
+            else this.communicate(params);
+        },
+
+        // Get All the Available Topup Options From Server ::GET
+        getPaymentOptions: function(fn, x){
+            var params = {'topup':true, 'url':'', 'type': 'GET', 'headers':[['Content-Type', 'application/json']]};
+            
+            if (typeof fn === "function") return this.communicate(params, fn, x);
+            else this.communicate(params);
+        },
+
+        // Initiate A Payment To Get Payment Option URL
+        initiatePayment: function(data, fn, x){
+            var params = {'initateTopup':true, 'url':'', 'type': 'POST', 'data': data, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            
+            if (typeof fn === "function") return this.communicate(params, fn);
             else this.communicate(params);
         },
 

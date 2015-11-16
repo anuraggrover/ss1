@@ -1,6 +1,20 @@
 ( function (W, undefined) {
     'use strict';
 
+    HTMLElement.prototype.toggleClass = function (classToken, flag) {
+        var element = this;
+
+        if ( flag !== undefined ) {
+            if ( flag ) {
+                element.classList.add(classToken);
+            } else {
+                element.classList.remove(classToken);
+            }
+        } else {
+            element.classList.toggle(classToken);
+        }
+    };
+
     var ConnTypes = require('../../constants').ConnectionTypes,
         _extend = function ( toObj, fromObj ) {
             for( var key in fromObj ) {

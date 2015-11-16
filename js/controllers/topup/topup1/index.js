@@ -19,6 +19,15 @@
             if (this.classList.contains('activebutton')){
                 
                 events.publish('update.loader', {show:true});
+                App.PaymentService.getPaymentOptions(function(res){
+                    console.log(res);
+                    App.router.navigateTo('/topup2', { amt: display.value, data:res.payload });
+                    events.publish('update.loader', {show:false});    
+                }, this);
+            }
+            else{
+                if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Enter Amount.");
+                else console.log("Please Enter Amount.");
             } 
         });
 

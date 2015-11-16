@@ -385,25 +385,30 @@ $ICICI: url(images/bank-icici.png);
 $AXIS: url(images/bank-axis.png);
 $CANARA: url(images/bank-canara.png);
 $KOTAK: url(images/bank-kotak.png);
+$PNB: url(images/bank-kotak.png);
 
-.topupContainer2 .commonBanksContainer .bankContainer .SBI{
+.topupContainer2 .commonBanksContainer .bankContainer .NB_sbi{
 	background-image:$SBI;
 }
-.topupContainer2 .commonBanksContainer .bankContainer .HDFC{
+.topupContainer2 .commonBanksContainer .bankContainer .NB_hdfc{
 	background-image:$HDFC;
 }
-.topupContainer2 .commonBanksContainer .bankContainer .ICICI{
+.topupContainer2 .commonBanksContainer .bankContainer .NB_icici{
 	background-image:$ICICI;
 }
-.topupContainer2 .commonBanksContainer .bankContainer .AXIS{
+.topupContainer2 .commonBanksContainer .bankContainer .NB_axis{
 	background-image:$AXIS;
 }
-.topupContainer2 .commonBanksContainer .bankContainer .CANARA{
+.topupContainer2 .commonBanksContainer .bankContainer .NB_canara{
 	background-image:$CANARA;
 }
-.topupContainer2 .commonBanksContainer .bankContainer .KOTAK{
+.topupContainer2 .commonBanksContainer .bankContainer .NB_kotak{
 	background-image:$KOTAK;
 }
+.topupContainer2 .commonBanksContainer .bankContainer .NB_pnb{
+  background-image:$PNB;
+}
+
 
 .topupContainer2 .commonBanksContainer .bankContainer .bankName{
 	font-size:10px;
