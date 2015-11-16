@@ -17,7 +17,8 @@
 
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
-                App.router.navigateTo('/topup2', { amt: display.value });
+                
+                events.publish('update.loader', {show:true});
             } 
         });
 

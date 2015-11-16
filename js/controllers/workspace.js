@@ -27,6 +27,9 @@
         // });
     };
 
+    var loadObject = events.subscribe('update.loader', function(params){
+        loader.toggleClass('loading', params.show);
+    });
     WorkspaceController.prototype.render = function(ctr, App, data) {
 
         console.log(data);
@@ -51,12 +54,14 @@
                     cardexpiry:'10/19'
                 });
 
-                if(platformSdk.isDevice){
-                PlatformBridge.putInCache('walletBalance',res.payload.walletBalance);    
-                }
-                else{
-                    localStorage.setItem('walletBalance', res.payload.walletBalance);
-                }
+                events.publish('update.loader', {show:false});
+
+                // if(platformSdk.isDevice){
+                //     PlatformBridge.putInCache('walletBalance',res.payload.walletBalance);    
+                //  }
+                // else{
+                //     localStorage.setItem('walletBalance', res.payload.walletBalance);
+                // }
                 
                 ctr.appendChild(that.el);
                 that.bind(App);

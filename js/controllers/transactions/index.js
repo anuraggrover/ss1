@@ -11,8 +11,14 @@
         var El = $(this.el);
 
         $('.txListContainer').on('scroll', function() {
+                
                 if($(this).scrollTop() + $(this).height() >= this.scrollHeight) {
-                    
+
+                    var barLoader = document.getElementById('load-bar');        
+                
+                    //Switch ON Bar Loader
+                    barLoader.toggleClass('loadingBar', false);
+        
                     //Get Last Statement ID
                     var lastStatementId = $('.txHistoryList').last().attr('data-sid');
                     //Re Call Payment Api With SID
@@ -33,6 +39,9 @@
                             var t_row = '<div data-sid="'+new_t.sId+'" class="txHistoryList clearfix"><div class="txHistoryList-item-details"><div class="itemIcon iblock"><p class="timestamp_date">'+new_t.tDay+'</p><p class="timestamp_month">'+new_t.tMonth+'</p></div><div class="itemText iblock"><p class="itemHeading">'+new_t.tMessage+'</p><p class="itemSubheading">Trans. ID - '+new_t.tId+'</p></div></div><div class="txHistoryList-item-amount"><p class="'+new_t.tType+'">₹ '+new_t.amount+'</p></div></div>';
                             $("#tx").append(t_row);
                         }
+                        // Switch Off Bar Loader
+                        barLoader.toggleClass('loadingBar', true);
+                    
                     }, this,lastStatementId);
                 }
         });
@@ -95,7 +104,9 @@
                 transactions: that.transactions,
                 balance:this.bal
             });
-            
+                
+            events.publish('update.loader', {show:false});
+
             ctr.appendChild(that.el);
             that.bind();
         }, this);

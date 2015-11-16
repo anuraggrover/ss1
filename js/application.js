@@ -49,6 +49,8 @@
         };
     };
 
+    var loader = document.getElementById('loader');
+    
     Application.prototype = {
 
         // Back Press Trigger For Back and Up Press
