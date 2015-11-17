@@ -15,11 +15,13 @@
         var display = document.getElementById('p2pValue');
         var check = this.el.getElementsByClassName('action_next')[0];
 
+        display.focus();
+
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
                 
                 events.publish('update.loader', {show:true});
-                App.PaymentService.getPaymentOptions(function(res){
+                App.TopupService.getPaymentOptions(function(res){
                     console.log(res);
                     App.router.navigateTo('/topup2', { amt: display.value, data:res.payload });
                     events.publish('update.loader', {show:false});    
@@ -29,6 +31,20 @@
                 else console.log("Please Enter Amount.");
             } 
         });
+
+        var inputMoney = function(ev){
+            // TODO :: SHIFT TO CAPTURE KEY
+            //events.publish('keypad.key' , String.fromCharCode(ev.which));
+
+            if(this.value) check.classList.add('activebutton');
+            else check.classList.remove('activebutton');
+            
+            events.publish('keypad.inputPress', {ctx:this, keyEvent:ev});
+        };
+
+        // Input Events
+        display.addEventListener('keyup', inputMoney);
+    
 
         this.captureKeys = events.subscribe('keypad.key', function(key){
             if (/[0-9]/.test(key)) {

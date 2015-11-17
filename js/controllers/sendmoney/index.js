@@ -16,6 +16,8 @@
         var display = document.getElementById('p2pValue');
         var check = this.el.getElementsByClassName('action_next')[0];
 
+        display.focus();
+
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
                 
@@ -44,6 +46,19 @@
             } 
         });
 
+        var inputMoney = function(ev){
+            // TODO :: SHIFT TO CAPTURE KEY
+            //events.publish('keypad.key' , String.fromCharCode(ev.which));
+
+            if(this.value) check.classList.add('activebutton');
+            else check.classList.remove('activebutton');
+            
+            events.publish('keypad.inputPress', {ctx:this, keyEvent:ev});
+        };
+
+        // Input Events
+        display.addEventListener('keyup', inputMoney);
+    
         this.captureKeys = events.subscribe('keypad.key', function(key){
             if (/[0-9]/.test(key)) {
                 if (key.length > 1) display.value = key;

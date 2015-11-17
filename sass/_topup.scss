@@ -92,6 +92,7 @@
 }
 
 .hikePayKeyboard{
+  width:100%;
   position: absolute;
   bottom:0px;
 }
@@ -154,8 +155,10 @@
 }
 
 .action_next{
-  height: 75%;
-  background-color:#eee;
+    background: #eee;
+    padding: 14px 0px;
+    margin-top: 10px;
+    text-align: center;
 }
 
 .action_cross{

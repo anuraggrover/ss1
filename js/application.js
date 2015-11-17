@@ -14,6 +14,7 @@
         Router               = require('./util/router'),
         utils                = require('./util/utils'),
         PaymentServices      = require('./util/paymentServices'),
+        TopupServices        = require('./util/topupServices'),
         Keyboard             = require('./util/keyboard'),
         Store                = require('./util/store');
 
@@ -38,6 +39,7 @@
         this.ftuestep4Controller  = new Ftue4Controller();
         this.ftuetourController   = new FtueTourController();
         this.PaymentService       = new PaymentServices();
+        this.TopupService         = new TopupServices(); 
     };
     
     Application.prototype = {
@@ -49,7 +51,7 @@
         getRoute: function(){
             var that = this;
 
-            if (this.routeIntent != undefined){
+            if (this.routeIntent !== undefined){
                 
             } else {
                 events.publish('app.store.get', {

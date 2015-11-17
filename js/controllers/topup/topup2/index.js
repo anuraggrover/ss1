@@ -65,7 +65,7 @@
                 };
                 
                 // Initiate Payment Gets Back a URL To Be Intercepted
-                App.PaymentService.initiatePayment(data, function(res){
+                App.TopupService.initiatePayment(data, function(res){
                     console.log(res); 
                 }, this);
                 
