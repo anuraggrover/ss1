@@ -22,7 +22,8 @@
         if (platformSdk.platformToken === undefined || platformSdk.platformToken === "") platformSdk.platformToken = 'mACoHN4G0DI=';
 
         var application = new Application({
-            container: document.getElementById("container")
+            container: document.getElementById("container"),
+            route: platformSdk.link && platformSdk.link.route
         });
 
         application.start();

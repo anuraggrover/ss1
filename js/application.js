@@ -24,8 +24,9 @@
 
     var Application = function (options) {
         this.container            = options.container;
-        this.router               = new Router();
+        this.routeIntent          = options.route;
         this.store                = new Store();
+        this.router               = new Router();
         this.workspaceController  = new WorkspaceController();
         this.transIndexController = new TransIndexController();
         this.topup1Controller     = new Topup1Controller();
@@ -36,13 +37,37 @@
         this.ftuestep3Controller  = new Ftue3Controller();
         this.ftuestep4Controller  = new Ftue4Controller();
         this.ftuetourController   = new FtueTourController();
-        this.PaymentService = new PaymentServices();
+        this.PaymentService       = new PaymentServices();
     };
     
     Application.prototype = {
 
         backPressTrigger: function() {
             this.router.back();            
+        },
+
+        getRoute: function(){
+            var that = this;
+
+            if (this.routeIntent != undefined){
+                
+            } else {
+                events.publish('app.store.get', {
+                    key: '_routerCache',
+                    ctx: this,
+                    cb: function(r){
+                        if (r.status === 1){
+                            try {
+                                that.router.navigateTo(r.results.route, r.results.data);
+                            } catch(e){
+                                that.router.navigateTo('/');    
+                            }
+                        } else {
+                            that.router.navigateTo('/');
+                        }
+                    }
+                });    
+            }
         },
 
         start: function () {
@@ -113,7 +138,7 @@
                 self.$el.html(self.ftuetourController.render().el);
             });
 
-            this.router.navigateTo('/');
+            this.getRoute();
 
             // To Navigate TO FTUE DEPENDING ON HELPER DATA :: HELPER DATA NOT AVAILABLE AT DEV
 
@@ -122,20 +147,20 @@
             if(platformSdk && platformSdk.isDevice){
                 setTimeout(function(){
                     // Existing User
-                    if(platformSdk.helperData.ftueDone && platformSdk.helperData.ftueDone == 1){
-                        utils.toggleBackNavigation(true);
-                        self.router.navigateTo('/');
-                    }
+                    // if(platformSdk.helperData.ftueDone && platformSdk.helperData.ftueDone == 1){
+                    //     utils.toggleBackNavigation(true);
+                    //     self.router.navigateTo('/');
+                    // }
                     // New User :: Activate Wallet For The New User
-                    else{
-                        this.PaymentService.activateWallet(function(res){
-                            utils.toggleBackNavigation(true);           // Set To False :: Later
-                            self.router.navigateTo('/ftue_step_1');     // FTUE STEP
-                        }, this);
-                        // Updates The Helper Data
-                        platformSdk.helperData = {'ftueDone': 1};
-                        platformSdk.updateHelperData(platformSdk.helperData);
-                    }
+                    // else{
+                    //     this.PaymentService.activateWallet(function(res){
+                    //         utils.toggleBackNavigation(true);           // Set To False :: Later
+                    //         self.router.navigateTo('/ftue_step_1');     // FTUE STEP
+                    //     }, this);
+                    //     // Updates The Helper Data
+                    //     platformSdk.helperData = {'ftueDone': 1};
+                    //     platformSdk.updateHelperData(platformSdk.helperData);
+                    // }
                 }, 0);
             }
         }

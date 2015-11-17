@@ -24,9 +24,8 @@
                     App.router.navigateTo('/topup2', { amt: display.value, data:res.payload });
                     events.publish('update.loader', {show:false});    
                 }, this);
-            }
-            else{
-                if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Enter Amount.");
+            } else { 
+                if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Enter Amount");
                 else console.log("Please Enter Amount.");
             } 
         });

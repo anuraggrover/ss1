@@ -18,26 +18,27 @@
 
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
-                  var data = {
+                
+                var data = {
                     uid:"VVCqo-SwSQ-Z-csS",
                     currency: "INR",
                     amount: display.value,
                     message: "Funds Transfer"
                 };
-                App.PaymentService.fundsTransfer(data, function(res){
-                    // Success Occured
-                    if(res.payload){
+
+                App.PaymentService.fundsTransfer(data, function(res){   
+                    if (res.payload){
+                        // Success Occured
                         console.log("Success Message");
                         App.router.navigateTo('/', res);
-                    }
-                    // Error For Insufficient Funds
-                    else{
+                    } else {
+                        // Error For Insufficient Funds
                         console.log(res);
                         App.router.navigateTo('/topup1');
                     }
                 }, this);
-            }
-            else{
+
+            } else {
                 if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Enter Amount.");
                 else console.log("Please Enter Amount.");
             } 
@@ -66,8 +67,10 @@
         new Keypad(this.el);
 
         ctr.appendChild(this.el);
+        events.publish('update.loader', {show:false});
         this.bind(App);
     };
 
     module.exports = SendMoneyController;
+
 })(window, platformSdk.events, platformSdk.utils);
