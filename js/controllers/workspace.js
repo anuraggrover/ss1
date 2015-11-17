@@ -47,6 +47,30 @@
 
         var that = this;
 
+        that.el = document.createElement('div');
+        that.el.className = "walletContainer";
+
+
+        if (data != undefined){
+            console.log(data);
+
+            that.el.innerHTML = Mustache.render(that.template, {
+                cardbalance: data.payload.walletBalance
+            });
+            
+            ctr.appendChild(that.el);
+
+            _hikeBalance = data.payload.walletBalance;            
+            events.publish('update.loader', {show:false});
+            events.publish('app.store.set', {
+                key: '_wallet',
+                value: res
+            });
+            that.bind(App);
+
+            return false;
+        }
+
         events.publish('app.store.get', {
             key: '_wallet',
             ctx: this,
@@ -55,8 +79,6 @@
 
                     _hikeBalance = r.results.payload.walletBalance;
 
-                    that.el = document.createElement('div');
-                    that.el.className = "walletContainer";
                     that.el.innerHTML = Mustache.render(that.template, {
                         cardbalance: r.results.payload.walletBalance
                     });
@@ -68,7 +90,12 @@
                     App.PaymentService.fetchBalance(function(res){
                         if (_hikeBalance != res.payload.walletBalance){
                             _hikeBalance = res.payload.walletBalance;
+
                             events.publish('wallet.updateBalance', _hikeBalance);
+                            events.publish('app.store.set', {
+                                key: '_wallet',
+                                value: res
+                            });
                         }
                     });
 
@@ -77,16 +104,12 @@
                         
                         _hikeBalance = res.payload.walletBalance;
 
-                        that.el = document.createElement('div');
-                        that.el.className = "walletContainer";
-
                         that.el.innerHTML = Mustache.render(that.template, {
                             cardbalance: res.payload.walletBalance
                         });
 
-                        events.publish('update.loader', {show:false});
                         ctr.appendChild(that.el);
-                        
+                        events.publish('update.loader', {show:false});
                         that.bind(App);
 
                         // save it to store
