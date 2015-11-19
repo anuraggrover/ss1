@@ -2,7 +2,9 @@
     'use strict';
 
     var utils = require('./utils.js');
+
     var PaymentService = function () {};
+    
     PaymentService.prototype = {
         communicate: function (params, fn, x) {
             var that = this,
@@ -11,10 +13,10 @@
                 endTime;
 
             // Move To Topup Services
-            if(params.topup){
+            if (params.topup){
                 requestUrl = 'http://projectx-staging.hike.in/hike-topup-service/topup/paymentOptions?currency=INR';
             }
-            if(params.initateTopup){
+            if (params.initateTopup){
                 requestUrl = 'http://projectx-staging.hike.in/hike-topup-service/topup/payment/initiatePayment';
             }
 
@@ -22,11 +24,10 @@
                 try { res = JSON.parse(decodeURIComponent(res)); } 
                 catch(e) { return false; }
 
-                fn.call(x, res);
+                if (res.status === "SUCCESS") fn.call(x, res);
             };
 
             var error = function(res){
-                // Error Callback
                 console.log("Error Occured");
                 //fn.call(x,res);
             };
@@ -57,15 +58,28 @@
                 });
             }
         },
+
         //Activate a New Wallet (OR FIRST TIME USER ONLY)
         activateWallet: function(fn, x){
-            var params = {'url':'activate', 'type': 'POST', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            var params = {
+                'url':'activate', 
+                'type': 'POST', 
+                'headers':[['Content-Type', 'application/json'],
+                            ['platform_uid', platformSdk.appData.platformUid], 
+                            ['platform_token', platformSdk.appData.platformToken]]
+            };
+
             if (typeof fn === "function") return this.communicate(params, fn, x);
             else this.communicate(params);
         },
+
         // Fetch balance for Waller
         fetchBalance: function(fn, x){
-            var params = {'url':'funds', 'type': 'GET', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            var params = {
+                'url':'funds', 
+                'type': 'GET', 
+                'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
+            };
             
             if (typeof fn === "function") return this.communicate(params, fn, x);
             else this.communicate(params);
@@ -73,7 +87,12 @@
 
         // Get All the Available Topup Options From Server ::GET
         getPaymentOptions: function(fn, x){
-            var params = {'topup':true, 'url':'', 'type': 'GET', 'headers':[['Content-Type', 'application/json']]};
+            var params = {
+                'topup':true, 
+                'url':'', 
+                'type': 'GET', 
+                'headers':[['Content-Type', 'application/json']]
+            };
             
             if (typeof fn === "function") return this.communicate(params, fn, x);
             else this.communicate(params);
@@ -81,7 +100,13 @@
 
         // Initiate A Payment To Get Payment Option URL
         initiatePayment: function(data, fn, x){
-            var params = {'initateTopup':true, 'url':'', 'type': 'POST', 'data': data, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            var params = {
+                'initateTopup':true, 
+                'url':'', 
+                'type': 'POST', 
+                'data': data, 
+                'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
+            };
             
             if (typeof fn === "function") return this.communicate(params, fn);
             else this.communicate(params);
@@ -90,9 +115,13 @@
         // Fetch Wallet Statement (Before :- ID if Blank - Gives Out Latest 10)
         fetchTxHistory: function(fn, x, sId){
             // Statement ID :: Before For Calling Next Lost Of Transactions
-            var params = {'url':'statement/list', 'type': 'GET', 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            var params = {
+                'url':'statement/list', 
+                'type': 'GET', 
+                'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
+            };
             
-            if(sId){
+            if (sId){
                 params.url = params.url+'?lastStatementId='+sId;
             }    
             if (typeof fn === "function") return this.communicate(params, fn, x);
@@ -100,11 +129,16 @@
         },
 
         addBalance: function(data, fn, x){
-            var params = {'url':'funds', 'type': 'POST', 'data': {
-                "currency": data.currency,
-                "amount": data.amt,
-                "paymentOption": data.paymentMethod
-            }, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            var params = {
+                'url':'funds', 
+                'type': 'POST', 
+                'data': {
+                    "currency": data.currency,
+                    "amount": data.amt,
+                    "paymentOption": data.paymentMethod
+                }, 
+                'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
+            };
             
             if (typeof fn === "function") return this.communicate(params, fn);
             else this.communicate(params);
@@ -112,12 +146,17 @@
 
         fundsTransfer: function(data, fn, x){
 
-            var params = {'url':'funds/transfer', 'type': 'POST', 'data': {
-                "currency": data.currency,
-                "amount": data.amount,
-                "userMessage": data.message,
-                "receiverPlatformUid": data.uid
-            }, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            var params = {
+                'url':'funds/transfer', 
+                'type': 'POST', 
+                'data': {
+                    "currency": data.currency,
+                    "amount": data.amount,
+                    "userMessage": data.message,
+                    "receiverPlatformUid": data.uid
+                }, 
+                'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
+            };
 
             if (typeof fn === "function") return this.communicate(params, fn);
             else this.communicate(params);

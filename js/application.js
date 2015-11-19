@@ -58,9 +58,9 @@
                     key: '_routerCache',
                     ctx: this,
                     cb: function(r){
-                        if (r.status === 1){
+                        if (r.status === 1 && platformSdk.bridgeEnabled){
                             try {
-                                that.router.navigateTo(r.results.route, r.results.data);
+                                that.router.navigateTo(r.results.route, r.results.cache);
                             } catch(e){
                                 that.router.navigateTo('/');    
                             }
@@ -78,46 +78,75 @@
             self.$el = $(this.container);
         
             utils.toggleBackNavigation(false);
-            platformSdk.events.subscribe('onBackPressed', self.backPressTrigger.bind(self));
-            platformSdk.events.subscribe('onUpPressed', self.backPressTrigger.bind(self));
-
-            $('body').on('click', 'a[data-path]', function (e) {
-                var path = $(e.currentTarget).attr('data-path');
-                if (path === '<<'){
-                    self.router.back();
-                } else {
-                    utils.toggleBackNavigation(true);
-                    self.router.navigateTo(path);
-                }
+            
+            platformSdk.events.subscribe('onBackPressed', function(){
+                self.backPressTrigger();
             });
+            
+            platformSdk.events.subscribe('onUpPressed', function(){
+                self.backPressTrigger();
+            });
+
+            // $('body').on('click', 'a[data-path]', function (e) {
+            //     var path = $(e.currentTarget).attr('data-path');
+            //     if (path === '<<'){
+            //         self.router.back();
+            //     } else {
+            //         utils.toggleBackNavigation(true);
+            //         self.router.navigateTo(path);
+            //     }
+            // });
 
             this.router.route('/', function(data){
                 self.container.innerHTML = "";
                 self.workspaceController.render(self.container, self, data);
+                utils.toggleBackNavigation(false);
             });
 
             this.router.route('/transactions', function(data){
                 self.container.innerHTML = "";
                 self.transIndexController.render(self.container, data);
-                //self.$el.html(self.transIndexController.render(self.container).el);
+                utils.toggleBackNavigation(true);
             });
 
             this.router.route('/topup1', function(){
                 self.container.innerHTML = "";
                 self.topup1Controller.render(self);
-                // self.$el.html(self.topup1Controller.render().el);
+                utils.toggleBackNavigation(true);
             });
 
             this.router.route('/topup2', function(data){
                 self.container.innerHTML = "";
                 self.topup2Controller.render(self, data);
-                // self.$el.html(self.topup2Controller.render().el);
+                utils.toggleBackNavigation(true);
             });
 
             this.router.route('/sendmoney', function(){
-                self.container.innerHTML = "";
-                self.sendMoneyController.render(self.container, self);
-                // self.$el.html(self.sendMoneyController.render().el);
+
+                window.onContactChooserResult = function(resultCode, contact) {
+                    if (resultCode == 1){
+                        var res = JSON.parse(contact);
+                        var data = {
+                            uid: res[0].platformUid,
+                            currency: "INR",
+                            message: "Funds Transfer",
+                            contact: res
+                        };
+
+                        self.container.innerHTML = "";
+                        self.sendMoneyController.render(self.container, self, data);
+
+                        utils.toggleBackNavigation(true);
+                        
+                    } else {
+                        console.log("Success Response:: Routing To p2p ,Transfer");
+                        console.log("Failed::Add Exception", resultCode, contacts);
+                    }
+                };
+
+                if (platformSdk.bridgeEnabled) PlatformBridge.startContactChooserForMsisdnFilter('', 'Select a Contact');
+                else onContactChooserResult(1, '[{"platformUid":"VhzmGOSwNYkM6JHE","msisdn":"+919000000236","thumbnail":"dummy.jpg","name":"9000000236"}]');
+
             });
 
             this.router.route('/ftue_step_1', function(){
@@ -140,11 +169,18 @@
                 self.$el.html(self.ftuetourController.render().el);
             });
 
-            this.getRoute();
-
             // To Navigate TO FTUE DEPENDING ON HELPER DATA :: HELPER DATA NOT AVAILABLE AT DEV
-
             // Here The Activate Wallet Needs To Be Run As Well
+
+            if (platformSdk.bridgeEnabled && !platformSdk.appData.helperData.walletActive){
+                this.PaymentService.activateWallet(function(res){
+                    self.getRoute();
+                    platformSdk.appData.helperData.walletActive = true;
+                    platformSdk.updateHelperData(platformSdk.appData.helperData);
+                }, this);
+            } else {
+                self.getRoute();
+            }   
 
             if(platformSdk && platformSdk.isDevice){
                 setTimeout(function(){
@@ -166,22 +202,6 @@
                 }, 0);
             }
         }
-    };
-
-    // Global Function Wirtten To Handle The Return From The Contact Chooser 
-    // TODO. Remove this and use platformSdk.nativeReq fn.
-    
-    window.onContactChooserResult = function(resultCode,contacts) {
-    
-        console.log("Repsonse Received From Contacts Chooser");
-        if(resultCode === 0){
-            console.log("Failed::Add Exception");
-        } else {
-            console.log("Success Response:: Routing To p2p ,Transfer");
-            console.log(contacts);
-        }
-            // Data In Response
-            //[{"platformUid":"VgOlRuSwFYYsYe9i","thumbnail":"file:////data/data/com.bsb.hike/cache/+919643474249.jpg","name":"+919643474249"}]
     };
 
     module.exports = Application;

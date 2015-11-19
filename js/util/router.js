@@ -5,6 +5,8 @@
         this.routes       = {};
         this.history 	  = [];
         this.currentRoute = null;
+
+        this.getCache();
     };
 
     var _routerCache = {};
@@ -16,7 +18,19 @@
         });
     };
 
-    window.onbeforeunload = unload;
+    // window.onbeforeunload = unload;
+
+    Router.prototype.getCache = function(){
+        events.publish('app.store.get', {
+            key: '_routerCache',
+            ctx: this,
+            cb: function(r){
+                if (r.status === 1){
+                    this.history = r.results.history || [];
+                }
+            }
+        });  
+    };
 
     Router.prototype.route = function(route, callback) {
         this.routes[route] = callback;
@@ -30,8 +44,12 @@
         this.currentRoute = this.routes[route];
         this.currentRoute(data);
 
+        if (route === "/") this.history = [];
+
         _routerCache['route'] = route;
         _routerCache['cache'] = data;
+        _routerCache['history'] = this.history;
+
         unload();
     };
 

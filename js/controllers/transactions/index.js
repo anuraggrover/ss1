@@ -80,10 +80,10 @@
                     };
                     this.transactions.push(t);
                 }
-            }
-            else{
+            } else {
                 console.log("Display Empty Illustration Here");
             }
+
             console.log(this.transactions);
             
             that.el = document.createElement('div');
@@ -91,7 +91,7 @@
             
             that.el.innerHTML = Mustache.render(that.template, {
                 transactions: that.transactions,
-                balance:data
+                balance: data
             });
                 
             events.publish('update.loader', {show:false});

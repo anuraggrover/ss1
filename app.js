@@ -14,12 +14,20 @@
             Constants   = require('./constants'),
             Application = require('./js/application');
 
-        if (platformSdk.bridgeEnabled) platformSdk.bridge.setDebuggableEnabled(environment === Constants.STAGING_ENV);
+        if (platformSdk.bridgeEnabled) platformSdk.bridge.setDebuggableEnabled(environment === Constants.STAGING_ENV || environment === Constants.DEV_ENV);
 
         W.appConfig = config;
 
-        if (platformSdk.platformUid === undefined || platformSdk.platformUid === "") platformSdk.platformUid = 'VhzmGOSwNYkM6JHE';
-        if (platformSdk.platformToken === undefined || platformSdk.platformToken === "") platformSdk.platformToken = 'mACoHN4G0DI=';
+        if (platformSdk.appData === undefined) platformSdk.appData = {};
+
+        if ((platformSdk.appData && platformSdk.appData.platformUid === undefined) || (platformSdk.appData && platformSdk.appData.platformUid === "")) platformSdk.appData.platformUid = 'VhzmGOSwNYkM6JHE';
+        if ((platformSdk.appData && platformSdk.appData.platformToken === undefined) || (platformSdk.appData && platformSdk.appData.platformToken === "")) platformSdk.appData.platformToken = 'mACoHN4G0DI=';
+
+        try {
+            platformSdk.appData.helperData = JSON.parse(platformSdk.appData.helperData);
+        } catch(e) {
+            // platformSdk.helperData = platformSdk.appData.helperData;
+        }
 
         var application = new Application({
             container: document.getElementById("container"),

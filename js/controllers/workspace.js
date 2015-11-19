@@ -14,18 +14,34 @@
         var $el = $(this.el);
         var card = document.getElementsByClassName('cardImage')[0];
         var walletBalanceEl = this.el.getElementsByClassName('balance_value')[0];
-        
-        $el.on('click', '.sendMoney', function(){
-            if (PlatformBridge) {
-                utils.toggleBackNavigation(true);
-                //PlatformBridge.startContactChooser();
-            }
+        var settingsIcon = document.getElementsByClassName('settingsIcon')[0];
+        var btn_transactions = this.el.getElementsByClassName('walletHistory')[0];
+        var btn_sendmoney = this.el.getElementsByClassName('sendMoney')[0];
+        var btn_addmoney = this.el.getElementsByClassName('addMoney')[0];
+
+        W.urlIntercepted = function(response){
+            console.log(response);
+        };
+
+        btn_transactions.addEventListener('click', function(ev){
+            events.publish('update.loader', {show:true});
+            App.router.navigateTo('/transactions', _hikeBalance); 
         });
 
-        $el.on('click', '.walletHistory', function(){
+        btn_sendmoney.addEventListener('click', function(ev){
             events.publish('update.loader', {show:true});
-            App.router.navigateTo('/transactions', _hikeBalance);
+            App.router.navigateTo('/sendmoney', _hikeBalance);  
         });
+
+        btn_addmoney.addEventListener('click', function(ev){
+            events.publish('update.loader', {show:true});
+            App.router.navigateTo('/topup1', _hikeBalance);   
+        })
+
+        settingsIcon.addEventListener('click', function(ev){
+            PlatformBridge.openFullPage("Google", "http://google.com", '{"icpt_url":[{"url":"ndtv","type":1},{"url":"techinsider.com","type":1}]}');
+        });
+
 
         var walletBalance = events.subscribe('wallet.updateBalance', function(amt){
             walletBalance.innerHTML = amt;
@@ -64,7 +80,7 @@
             events.publish('update.loader', {show:false});
             events.publish('app.store.set', {
                 key: '_wallet',
-                value: res
+                value: data
             });
             that.bind(App);
 

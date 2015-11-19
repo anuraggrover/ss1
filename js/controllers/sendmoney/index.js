@@ -13,6 +13,7 @@
 
     SendMoneyController.prototype.bind = function(App){
         
+        var that = this;
         var display = document.getElementById('p2pValue');
         var check = this.el.getElementsByClassName('action_next')[0];
 
@@ -20,26 +21,16 @@
 
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
-                
-                var data = {
-                    uid:"VVCqo-SwSQ-Z-csS",
-                    currency: "INR",
-                    amount: display.value,
-                    message: "Funds Transfer"
-                };
-
-                App.PaymentService.fundsTransfer(data, function(res){   
+                that.data.amount = parseInt(display.value);
+                App.PaymentService.fundsTransfer(that.data, function(res){   
                     if (res.payload){
-                        // Success Occured
                         console.log("Success Message");
                         App.router.navigateTo('/', res);
                     } else {
-                        // Error For Insufficient Funds
                         console.log(res);
                         App.router.navigateTo('/topup1');
                     }
                 }, this);
-
             } else {
                 if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Enter Amount.");
                 else console.log("Please Enter Amount.");
@@ -73,8 +64,9 @@
         });
     };
 
-    SendMoneyController.prototype.render = function(ctr, App) {
+    SendMoneyController.prototype.render = function(ctr, App, data) {
 
+        this.data = data;
         this.el = document.createElement('div');
         this.el.className = "p2pContainer";
         this.el.innerHTML = Mustache.render(this.template, { receiver: 'Dummy User' });

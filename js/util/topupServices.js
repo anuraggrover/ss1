@@ -60,7 +60,7 @@
 
         // Initiate A Payment To Get Payment Option URL
         initiatePayment: function(data, fn, x){
-            var params = {'url':'payment/initiatePayment', 'type': 'POST', 'data': data, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.platformUid], ['platform_token', platformSdk.platformToken]]};
+            var params = {'url':'payment/initiatePayment', 'type': 'POST', 'data': data, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]};
             
             if (typeof fn === "function") return this.communicate(params, fn);
             else this.communicate(params);
