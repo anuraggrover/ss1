@@ -54,7 +54,7 @@
     };
 
     Router.prototype.back = function(){
-    	if (this.history.length == 0) return;
+    	if (this.history.length === 0) return;
     	this.currentRoute = this.history.pop();
     	this.currentRoute();
     };

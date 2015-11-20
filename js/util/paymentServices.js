@@ -1,8 +1,10 @@
-(function (W, platformSdk) {
+(function (W, platformSdk, events) {
     'use strict';
 
     var utils = require('./utils.js');
-
+    var Constants = require('../../constants.js');
+    var checkTimeout = null;
+    
     var PaymentService = function () {};
     
     PaymentService.prototype = {
@@ -12,15 +14,32 @@
                 startTime = Date.now(),
                 endTime;
 
-            // Move To Topup Services
-            if (params.topup){
-                requestUrl = 'http://projectx-staging.hike.in/hike-topup-service/topup/paymentOptions?currency=INR';
-            }
-            if (params.initateTopup){
-                requestUrl = 'http://projectx-staging.hike.in/hike-topup-service/topup/payment/initiatePayment';
-            }
+        //Check Internet If Error Occurs in API
+            var checkConnection = function(fn, ctx){
+                // For Devices
+                if (platformSdk.bridgeEnabled){
+                    platformSdk.nativeReq({
+                        fn: 'checkConnection',
+                        ctx: this,
+                        data: "",
+                        success: function(response){
+                            if (typeof fn === "function") fn.call(ctx,response);
+                        }
+                    }); 
+                } 
+                // For Chrome
+                else {
+                    if (navigator.onLine){
+                        if (typeof fn === "function") fn.call(ctx,navigator.onLine);
+                    } else {
+                        if (typeof fn === "function") fn.call(ctx,-1);
+                    }
+                }
+            }; 
 
             var success = function(res){
+                // If No Internet Connection Was There
+                events.publish('app/offline', {show:false});
                 try { res = JSON.parse(decodeURIComponent(res)); } 
                 catch(e) { return false; }
 
@@ -28,8 +47,21 @@
             };
 
             var error = function(res){
-                console.log("Error Occured");
-                //fn.call(x,res);
+                console.log(res);
+                // Check For Internet Connection
+                checkConnection(function(type){
+                    if(type!==0 && type!==-1){
+                        console.log("Internet Connection Working :: Some Other Error Occured");
+                        events.publish('app/offline', {show:false});
+                        //clearTimeout(checkTimeout );
+                        fn.call(x, res);
+                    }else{
+                        console.log("No Internet Connection Found");
+                        events.publish('app/offline', {show:true});
+                        // Set A Awake Call
+                        //checkTimeout = setTimeout(checkConnection, 5000);
+                    }
+                }, this);
             };
 
             if (platformSdk.isDevice){
@@ -82,33 +114,6 @@
             };
             
             if (typeof fn === "function") return this.communicate(params, fn, x);
-            else this.communicate(params);
-        },
-
-        // Get All the Available Topup Options From Server ::GET
-        getPaymentOptions: function(fn, x){
-            var params = {
-                'topup':true, 
-                'url':'', 
-                'type': 'GET', 
-                'headers':[['Content-Type', 'application/json']]
-            };
-            
-            if (typeof fn === "function") return this.communicate(params, fn, x);
-            else this.communicate(params);
-        },
-
-        // Initiate A Payment To Get Payment Option URL
-        initiatePayment: function(data, fn, x){
-            var params = {
-                'initateTopup':true, 
-                'url':'', 
-                'type': 'POST', 
-                'data': data, 
-                'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
-            };
-            
-            if (typeof fn === "function") return this.communicate(params, fn);
             else this.communicate(params);
         },
 
@@ -166,4 +171,4 @@
 
     module.exports = PaymentService;
 
-})(window, platformSdk);
+})(window, platformSdk, platformSdk.events);

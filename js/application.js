@@ -18,11 +18,30 @@
         Keyboard             = require('./util/keyboard'),
         Store                = require('./util/store');
 
+    // Full Screen Loader 
     var loader = document.getElementById('loader');
     var loadObject = events.subscribe('update.loader', function(params){
         loader.toggleClass('loading', params.show);
     });
 
+    // Vertical Bar Loader
+    // var loaderVertical = document.getElementById('loader');
+    // var loadObjectVertical = events.subscribe('update.loaderVertical', function(params){
+    //     loader.toggleClass('loading', params.show);
+    // });
+
+    // // Transaction Div Loader 
+    // var loaderTx = document.getElementById('loader');
+    // var loadObjectTx = events.subscribe('update.loaderTx', function(params){
+    //     loader.toggleClass('loading', params.show);
+    // });
+
+    // No Internet Connection Tab 
+    var noInternet = document.getElementById('nointernet');
+    var noInternetObject = events.subscribe('app/offline', function(params){
+        noInternet.toggleClass('no-internet-msg', params.show);
+    });
+    
     var Application = function (options) {
         this.container            = options.container;
         this.routeIntent          = options.route;
@@ -104,9 +123,9 @@
             });
 
             this.router.route('/transactions', function(data){
-                self.container.innerHTML = "";
                 self.transIndexController.render(self.container, data);
                 utils.toggleBackNavigation(true);
+                self.container.innerHTML = "";
             });
 
             this.router.route('/topup1', function(){

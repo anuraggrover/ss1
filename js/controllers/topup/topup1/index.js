@@ -21,8 +21,8 @@
             if (this.classList.contains('activebutton')){
                 
                 events.publish('update.loader', {show:true});
+                
                 App.TopupService.getPaymentOptions(function(res){
-                    console.log(res);
                     App.router.navigateTo('/topup2', { amt: display.value, data:res.payload });
                     events.publish('update.loader', {show:false});    
                 }, this);
@@ -63,7 +63,7 @@
     Topup1Controller.prototype.render = function(App) {
 
         this.el = document.createElement('div');
-        this.el.className = "topupContainer1";
+        this.el.className = "topupContainer1 animation_fadein";
         this.el.innerHTML = Mustache.render(this.template);
 
         new Keypad(this.el);

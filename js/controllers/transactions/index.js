@@ -4,7 +4,6 @@
     var PaymentServices = require('../../util/paymentServices');
     var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
         
-
     var IndexController = function (options) {
         this.template = require('raw!../../../templates/transactions/index.html');
     };
@@ -61,6 +60,7 @@
 
         var that = this;
         var paymentService = new PaymentServices();
+
         paymentService.fetchTxHistory(function(res){
             // Transactions List
 
@@ -87,7 +87,7 @@
             console.log(this.transactions);
             
             that.el = document.createElement('div');
-            that.el.className = "txHistoryContainer";
+            that.el.className = "txHistoryContainer animation_fadein";
             
             that.el.innerHTML = Mustache.render(that.template, {
                 transactions: that.transactions,

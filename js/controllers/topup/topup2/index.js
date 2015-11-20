@@ -398,7 +398,7 @@
     
         this.transactionObj = transactionObj;
         this.el = document.createElement('div');
-        this.el.className = "topupContainer2";
+        this.el.className = "topupContainer2 animation_fadein";
         this.el.innerHTML = Mustache.render(this.template, {
             amt: transactionObj.amt,
             commonbanks: this.commonbanks,

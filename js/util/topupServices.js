@@ -2,6 +2,9 @@
     'use strict';
 
     var utils = require('./utils.js');
+    var Constants = require('../../constants.js');
+    var checkTimeout = null;
+
     var TopupService = function () {};
     TopupService.prototype = {
         communicate: function (params, fn, x) {
@@ -9,6 +12,29 @@
                 requestUrl = 'http://projectx-staging.hike.in/hike-topup-service' + '/topup/' + params.url,
                 startTime = Date.now(),
                 endTime;
+
+            //Check Internet If Error Occurs in API
+            var checkConnection = function(fn, ctx){
+                // For Devices
+                if (platformSdk.bridgeEnabled){
+                    platformSdk.nativeReq({
+                        fn: 'checkConnection',
+                        ctx: this,
+                        data: "",
+                        success: function(response){
+                            if (typeof fn === "function") fn.call(ctx,response);
+                        }
+                    }); 
+                } 
+                // For Chrome
+                else {
+                    if (navigator.onLine){
+                        if (typeof fn === "function") fn.call(ctx,navigator.onLine);
+                    } else {
+                        if (typeof fn === "function") fn.call(ctx,-1);
+                    }
+                }
+            };
 
             var success = function(res){
                 try { res = JSON.parse(decodeURIComponent(res)); } 
@@ -19,8 +45,16 @@
 
             var error = function(res){
                 // Error Callback
-                console.log("Error Occured");
-                //fn.call(x,res);
+                checkConnection(function(result){
+                    if(result == Constants.ConnectionTypes.NO_NETWORK){
+                        console.log("No Internet Connection Found");
+                        events.publish('app/offline', {show:true});
+                    }
+                    else{
+                        console.log("Internet Connection Working :: Some Other Error Occured");        
+                        //fn.call(x,res);
+                    }
+                }, x);    
             };
 
             if (platformSdk.isDevice){
@@ -52,7 +86,12 @@
         
         // Get All the Available Topup Options From Server ::GET
         getPaymentOptions: function(fn, x){
-            var params = {'url':'paymentOptions?currency=INR', 'type': 'GET', 'headers':[['Content-Type', 'application/json']]};
+            var params = {
+                'topup':true, 
+                'url':'paymentOptions?currency=INR', 
+                'type': 'GET', 
+                'headers':[['Content-Type', 'application/json']]
+            };
             
             if (typeof fn === "function") return this.communicate(params, fn, x);
             else this.communicate(params);
@@ -60,7 +99,13 @@
 
         // Initiate A Payment To Get Payment Option URL
         initiatePayment: function(data, fn, x){
-            var params = {'url':'payment/initiatePayment', 'type': 'POST', 'data': data, 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]};
+            var params = {
+                'initateTopup':true, 
+                'url':'payment/initiatePayment', 
+                'type': 'POST', 
+                'data': data, 
+                'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
+            };
             
             if (typeof fn === "function") return this.communicate(params, fn);
             else this.communicate(params);

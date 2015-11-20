@@ -34,9 +34,9 @@
         });
 
         btn_addmoney.addEventListener('click', function(ev){
-            events.publish('update.loader', {show:true});
+            //events.publish('update.loader', {show:true});
             App.router.navigateTo('/topup1', _hikeBalance);   
-        })
+        });
 
         settingsIcon.addEventListener('click', function(ev){
             PlatformBridge.openFullPage("Google", "http://google.com", '{"icpt_url":[{"url":"ndtv","type":1},{"url":"techinsider.com","type":1}]}');
@@ -53,6 +53,7 @@
             destroy.remove();
         });
 
+        // Flip The Credit Card
         // card.addEventListener('click', function(ev){
         //     ev.preventDefault();
         //     this.classList.toggle('flip');
@@ -64,10 +65,10 @@
         var that = this;
 
         that.el = document.createElement('div');
-        that.el.className = "walletContainer";
+        that.el.className = "walletContainer animation_fadein";
 
 
-        if (data != undefined){
+        if (data !== undefined){
             console.log(data);
 
             that.el.innerHTML = Mustache.render(that.template, {
@@ -104,6 +105,7 @@
                     that.bind(App);
 
                     App.PaymentService.fetchBalance(function(res){
+                        console.log(res);
                         if (_hikeBalance != res.payload.walletBalance){
                             _hikeBalance = res.payload.walletBalance;
 
