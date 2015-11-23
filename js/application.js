@@ -4,6 +4,7 @@
     var WorkspaceController  = require('./controllers/workspace'),
         TransIndexController = require('./controllers/transactions/index'),
         SendMoneyController  = require('./controllers/sendmoney/index'),
+        TxConfirm            = require('./controllers/txconfirm'),
         Topup1Controller     = require('./controllers/topup/topup1/index'),
         Topup2Controller     = require('./controllers/topup/topup2/index'),
         Ftue1Controller      = require('./controllers/ftue/ftuestep1/index'),
@@ -52,6 +53,7 @@
         this.topup1Controller     = new Topup1Controller();
         this.topup2Controller     = new Topup2Controller();
         this.sendMoneyController  = new SendMoneyController();
+        this.txConfirmController  = new TxConfirm()
         this.ftuestep1Controller  = new Ftue1Controller();
         this.ftuestep2Controller  = new Ftue2Controller();
         this.ftuestep3Controller  = new Ftue3Controller();
@@ -106,16 +108,6 @@
                 self.backPressTrigger();
             });
 
-            // $('body').on('click', 'a[data-path]', function (e) {
-            //     var path = $(e.currentTarget).attr('data-path');
-            //     if (path === '<<'){
-            //         self.router.back();
-            //     } else {
-            //         utils.toggleBackNavigation(true);
-            //         self.router.navigateTo(path);
-            //     }
-            // });
-
             this.router.route('/', function(data){
                 self.container.innerHTML = "";
                 self.workspaceController.render(self.container, self, data);
@@ -149,7 +141,7 @@
                             uid: res[0].platformUid,
                             currency: "INR",
                             message: "Funds Transfer",
-                            contact: res
+                            contact: res[0]
                         };
 
                         self.container.innerHTML = "";
@@ -166,6 +158,13 @@
                 if (platformSdk.bridgeEnabled) PlatformBridge.startContactChooserForMsisdnFilter('', 'Select a Contact');
                 else onContactChooserResult(1, '[{"platformUid":"VhzmGOSwNYkM6JHE","msisdn":"+919000000236","thumbnail":"dummy.jpg","name":"9000000236"}]');
 
+            });
+
+            this.router.route('/txConfirmation', function(data){
+
+                self.container.innerHTML = "";
+                self.txConfirmController.render(self.container, self, data);
+                utils.toggleBackNavigation(true);
             });
 
             this.router.route('/ftue_step_1', function(){
