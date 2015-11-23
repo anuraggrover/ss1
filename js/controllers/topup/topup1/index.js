@@ -14,7 +14,7 @@
     Topup1Controller.prototype.bind = function(App){
         var display = document.getElementById('p2pValue');
         var check = this.el.getElementsByClassName('action_next')[0];
-
+        
         display.focus();
 
         check.addEventListener('click', function(ev){
@@ -35,7 +35,7 @@
         var inputMoney = function(ev){
             // TODO :: SHIFT TO CAPTURE KEY
             //events.publish('keypad.key' , String.fromCharCode(ev.which));
-
+            
             if(this.value) check.classList.add('activebutton');
             else check.classList.remove('activebutton');
             

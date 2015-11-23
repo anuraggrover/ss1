@@ -2,6 +2,12 @@
 
 // TOPUP 1
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .noselect {
     -webkit-tap-highlight-color:transparent;
     -webkit-user-select: none;
@@ -15,24 +21,32 @@
   position: relative;
 }
 
+.topupContainer1 .amountInput .p2pAmount{
+  text-align:center;
+}
+
 .topupContainer1 h3{
-  padding-top:56px;
+  padding-top:48px;
 	text-align:center;
-	font-size:12px;
+	font-size:13px;
 	color:#A3A8AC;
+  font-weight: 400;
 }
 
 .topupContainer1 input {
-	border:none;
 	font-size:30px;
-	font-weight:600;
-  width: 80%;
+  font-weight:500;
+  color: #5C646D;
   background:transparent;
-	padding:20px 20px 25px 20px;
-	border-bottom:1px solid #eee;
+	border:none;
+  width: 30%;
+  padding:13px 0px 18px 0px;
+  border-bottom:1px solid rgba(0,0,0,0.10);
 	text-align:center;
-  margin-bottom: 77px;
-  margin-left:20px;
+}
+
+.topupContainer1 .activate{
+  border-bottom:1px solid #1da8e8!important;
 }
 
 ::-webkit-input-placeholder {
@@ -52,11 +66,12 @@
 }
 
 .da-container{
-  background-color: #efefef;
-  color: rgba(0,0,0,0.72);
-  width: 100%;
+  color: #1da8e8;
+  width: 80%;
+  border-radius:4px;
+  border:1px solid #efefef;
   text-decoration: none;
-  padding: 14px 0px;
+  margin: 0px auto !important;
   font-weight: 500;
 }
 
@@ -70,7 +85,11 @@
   display: block;
   float:left;
 }
-.col:first-child { margin-left: 0; }
+.col:first-child { margin-left: 0;border-right: 1px solid #efefef; }
+
+.col:last-child { 
+  border-left: 1px solid #efefef; 
+}
 
 /*  GROUPING  */
 .group:before,
@@ -104,21 +123,20 @@
   font-weight: 500;
   font-size: 20px;
   color: rgba(0, 0, 0, 0.60);
-  -webkit-tap-highlight-color:rgba(0,0,0,1);  
 }
 
 .amount{
-  border-radius:5px;
   display: inline-block;
-  border:1px solid rgba(0,0,0,0.18);
-  padding:6px 16px;
+  padding:13px 15px;
+  font-size: 18px;
+  font-weight: 400;
   background-color:white;
-  color: rgba(0, 0, 0, 0.72);
+  color: #1da8e8;
 }
 
 .activeamount{
-	background-color:#33B87E;
-	color:white;	
+  background-color:#33B87E;
+  color:white;  
   border:1px solid #33B87E;
 }
 
@@ -155,10 +173,25 @@
 }
 
 .action_next{
-    background: #eee;
-    padding: 14px 0px;
-    margin-top: 10px;
-    text-align: center;
+  background: #1da8e8;
+  color: white;
+  padding: 20px 0px;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.action_next .next_tick{
+  width: 12px;
+  height: 10px;
+  display: inline-block;
+  background-image: url(images/add_money_tick.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.action_next p{
+  display: inline-block;
+  margin-left: 10px;
 }
 
 .action_cross{
@@ -178,7 +211,7 @@
 }
 
 .activebutton{
-  background-color: #2ca16e !important;
+  background-color: #1da8e8 !important;
 }
 
 
