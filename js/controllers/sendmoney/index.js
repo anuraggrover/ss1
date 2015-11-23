@@ -24,8 +24,9 @@
                 that.data.amount = parseInt(display.value);
                 App.PaymentService.fundsTransfer(that.data, function(res){   
                     if (res.payload){
-                        console.log("Success Message");
-                        App.router.navigateTo('/', res);
+                        res.contact = that.data.contact;
+                        App.router.navigateTo('/txConfirmation', res);
+                        // App.router.navigateTo('/', res);
                     } else {
                         console.log(res);
                         App.router.navigateTo('/topup1');
@@ -69,7 +70,7 @@
         this.data = data;
         this.el = document.createElement('div');
         this.el.className = "p2pContainer";
-        this.el.innerHTML = Mustache.render(this.template, { receiver: 'Dummy User' });
+        this.el.innerHTML = Mustache.render(this.template, { receiver: data.contact.name });
 
         new Keypad(this.el);
 
