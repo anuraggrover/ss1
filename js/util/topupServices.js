@@ -9,7 +9,7 @@
     TopupService.prototype = {
         communicate: function (params, fn, x) {
             var that = this,
-                requestUrl = 'http://172.16.3.20:8080/hike-topup-service/' + params.url,
+                requestUrl = 'http://projectx-staging.hike.in/hike-topup-service/' + params.url,
                 startTime = Date.now(),
                 endTime;
 
