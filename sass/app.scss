@@ -2,6 +2,7 @@
 @import 'transactionHistory';
 @import 'topup';
 @import 'sendmoney';
+@import 'txConfirm';
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -195,7 +196,7 @@ a:visited {
 }
 
 .walletContainer .walletContainer-balance hr{
-      width: 36px;
+    width: 36px;
     border: 1px solid #1da8e8;
     margin-top: 0.75em;
 }
@@ -208,6 +209,7 @@ a:visited {
 
 .walletAction li{
   padding:16px 0px 20px 21px;
+  -webkit-tap-highlight-color:#f5f5f5;
 }
 
 .walletAction li.addMoney{

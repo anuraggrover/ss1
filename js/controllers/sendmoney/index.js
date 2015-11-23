@@ -23,6 +23,7 @@
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
                 that.data.amount = parseInt(display.value);
+                events.publish('update.loader', {show:true});
                 App.PaymentService.fundsTransfer(that.data, function(res){   
                     if (res.payload){
                         res.contact = that.data.contact;

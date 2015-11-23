@@ -53,7 +53,7 @@
         this.topup1Controller     = new Topup1Controller();
         this.topup2Controller     = new Topup2Controller();
         this.sendMoneyController  = new SendMoneyController();
-        this.txConfirmController  = new TxConfirm()
+        this.txConfirmController  = new TxConfirm();
         this.ftuestep1Controller  = new Ftue1Controller();
         this.ftuestep2Controller  = new Ftue2Controller();
         this.ftuestep3Controller  = new Ftue3Controller();
@@ -161,7 +161,6 @@
             });
 
             this.router.route('/txConfirmation', function(data){
-
                 self.container.innerHTML = "";
                 self.txConfirmController.render(self.container, self, data);
                 utils.toggleBackNavigation(true);

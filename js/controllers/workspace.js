@@ -28,6 +28,14 @@
             App.router.navigateTo('/transactions', _hikeBalance); 
         });
 
+        btn_transactions.addEventListener('touchstart', function(ev){
+            btn_transactions.classList.add('tapState');
+        });
+
+        btn_transactions.addEventListener('touchend', function(ev){
+            btn_transactions.classList.remove('tapState'); 
+        });
+
         btn_sendmoney.addEventListener('click', function(ev){
             events.publish('update.loader', {show:true});
             App.router.navigateTo('/sendmoney', _hikeBalance);  

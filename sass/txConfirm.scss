@@ -1,0 +1,105 @@
+.confirmationMessage{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.confirm_wrapper{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    padding:0px 30px;
+}
+
+.confirm_wrapper .confirm_header{
+  text-align:center;
+}
+
+.confirm_wrapper .confirm_header img{
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+}
+
+figcaption{
+  font-size:17px;
+  color: #858585;
+}
+
+.confirm_wrapper .confirm_content {
+  margin-top: 35px;
+  padding:0px 50px;
+}
+
+.confirm_content .confirm_tx{
+  margin-bottom: 30px;
+}
+
+.confirm_wrapper .confirm_content .confirm_tx h3.confirm_tx_name{
+  font-size: 14px;
+  color: #5B636C;
+  font-weight: 400;
+}
+
+.confirm_wrapper .confirm_content .confirm_tx h4.confirm_tx_id{
+  margin-top:7px;
+  font-size: 12px;
+  color: #1D1D26;
+}
+
+.confirm_wrapper .confirm_content .confirm_tx p.confirm_tx_date{
+  font-size: 11px;
+  margin-top:6px;
+  color: #1D1D26;
+  opacity: 0.5;
+}
+
+.confirm_content .confirm_tx_summary{
+  display: inline-block;
+  width: 100%;
+  border-top :1px dashed rgba(0,0,0,0.14) ;
+  border-bottom:1px dashed rgba(0,0,0,0.14);
+  margin-bottom: 35px;
+  padding:16px 0px;
+}
+
+.confirm_content .confirm_tx_summary h3{
+  display: inline-block;
+  float: left;
+  font-size: 14px;
+  color: rgba(0,0,0,0.48);
+  line-height: 22px;
+}
+
+.confirm_content .confirm_tx_summary h2.confirm_tx_amt_summary{
+  display: inline-block;
+  float: right;
+  font-size: 23px;
+  color: #5C646D;
+} 
+
+.confirm_content .confirm_tx_thankyou{
+  font-size:9px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.16);
+  text-transform: uppercase;
+  text-align:center;
+}
+
+.confirm_wrapper .confirm_cta_wrapper{
+  margin-top :45px;
+}
+
+.confirm_wrapper .confirm_cta_wrapper .cta.blue.confirm_tx_done
+{
+  background: #1da8e8;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  width: 80%;
+  margin: 0px auto;
+  border-radius: 4px;
+  padding: 15px 0px;
+  font-weight: 400;
+}

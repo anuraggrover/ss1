@@ -12,13 +12,21 @@
     TxConfirm.prototype.bind = function(App){
         
         var that = this;
+
+        var backToHome = this.el.getElementsByClassName('confirm_tx_done')[0];
+        
+        backToHome.addEventListener('click', function(ev){
+            console.log("Routing Back To Home");
+            App.router.navigateTo('/');
+        });
+
     };
 
     TxConfirm.prototype.render = function(ctr, App, data) {
 
         this.data = data;
         this.el = document.createElement('div');
-        this.el.className = "confirmationMessage";
+        this.el.className = "confirmationMessage animation_fadein";
         this.el.innerHTML = Mustache.render(this.template, data);
 
         ctr.appendChild(this.el);
