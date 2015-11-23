@@ -34,7 +34,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .topupContainer1 input {
-	font-size:30px;
+  font-size:30px;
   font-weight:500;
   color: #5C646D;
   background:transparent;
@@ -45,7 +45,12 @@ input[type=number]::-webkit-outer-spin-button {
 	text-align:center;
 }
 
-.topupContainer1 .activate{
+.topupContainer1 .p2pAmount span{
+  color: #A3A8AC;
+  font-size: 30px;
+}
+
+.topupContainer1 .p2pAmount .activate{
   border-bottom:1px solid #1da8e8!important;
 }
 
@@ -73,6 +78,7 @@ input[type=number]::-webkit-outer-spin-button {
   text-decoration: none;
   margin: 0px auto !important;
   font-weight: 500;
+  display: block;
 }
 
 /*  SECTIONS  */
@@ -81,15 +87,13 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0px;
 }
 /*  COLUMN SETUP  */
+
 .col {
   display: block;
   float:left;
 }
-.col:first-child { margin-left: 0;border-right: 1px solid #efefef; }
 
-.col:last-child { 
-  border-left: 1px solid #efefef; 
-}
+.col:first-child { margin-left: 0; }
 
 /*  GROUPING  */
 .group:before,
@@ -101,7 +105,7 @@ input[type=number]::-webkit-outer-spin-button {
   clear:both;
 }
 .span_1_of_3 {
-  width: 32.2%;
+  width: 33.3%;
   text-align:center;
 }
 
@@ -126,7 +130,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .amount{
-  display: inline-block;
   padding:13px 15px;
   font-size: 18px;
   font-weight: 400;
@@ -135,9 +138,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .activeamount{
-  background-color:#33B87E;
-  color:white;  
-  border:1px solid #33B87E;
+  background-color:#1da8e8;
+  color:white;
+  border:1px solid #1da8e8;
 }
 
 .span_2_of_2 {

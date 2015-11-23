@@ -14,6 +14,7 @@
     Topup1Controller.prototype.bind = function(App){
         var display = document.getElementById('p2pValue');
         var check = this.el.getElementsByClassName('action_next')[0];
+        var moneyIn = this.el.getElementsByClassName('inActive')[0];
         
         display.focus();
 
@@ -36,8 +37,14 @@
             // TODO :: SHIFT TO CAPTURE KEY
             //events.publish('keypad.key' , String.fromCharCode(ev.which));
             
-            if(this.value) check.classList.add('activebutton');
-            else check.classList.remove('activebutton');
+            if(this.value) {
+                moneyIn.classList.add('activate');
+                check.classList.add('activebutton');
+            }
+            else {
+                check.classList.remove('activebutton');
+                moneyIn.classList.remove('activate');
+            }
             
             events.publish('keypad.inputPress', {ctx:this, keyEvent:ev});
         };
@@ -53,9 +60,13 @@
 
                 events.publish('keypad.deactivateAmount');
                 check.classList.add('activebutton');
+                moneyIn.classList.add('activate');
             } else if (key === "del") {
                 display.value = display.value.substring(0, display.value.length - 1);
-                if (display.value.length === 0) check.classList.remove('activebutton');
+                if (display.value.length === 0) {
+                    moneyIn.classList.add('activate');
+                    check.classList.remove('activebutton');
+                }
             }
         });
     };
