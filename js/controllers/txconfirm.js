@@ -24,6 +24,7 @@
 
     TxConfirm.prototype.render = function(ctr, App, data) {
 
+        console.log(data);
         this.data = data;
         this.el = document.createElement('div');
         this.el.className = "confirmationMessage animation_fadein";

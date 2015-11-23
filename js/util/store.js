@@ -75,6 +75,6 @@
 		this.bind();
 	};
 
-	module.exports = Store;
+	module.exports = new Store();
 
 })(window, platformSdk.events);

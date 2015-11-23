@@ -30,7 +30,6 @@
                 var data;
 
                 switch(pmethod){
-                    // Net Banking 
                     case 'NB':
                         data ={
                               "paymodeId": pmethod,
@@ -39,8 +38,6 @@
                               "amount": that.transactionObj.amt
                          }; 
                     break;
-                
-                    // Card (Visa/Master/Amex)
                     case 'CARD':
                          var ctype = cardnum.getAttribute('data-cardtype');
                          data ={
@@ -66,14 +63,31 @@
                 
                 // Initiate Payment Gets Back a URL To Be Intercepted
                 App.TopupService.initiatePayment(data, function(res){
-                    console.log(res); 
+                    if (res.status === "SUCCESS"){
+                        var url = res.payload.redirectURL;
+
+                        if (platformSdk.bridgeEnabled){
+                            PlatformBridge.openFullPage("Complete Payment", url, '{"icpt_url":[{"url":"hike-topup-service/payment/returnFromPg","type":1}]}');
+                        } else {
+                            var iframe = document.createElement('iframe');
+                            iframe.className = "redirect";
+                            document.body.appendChild(iframe);
+
+                            iframe.src = url;
+                            iframe.addEventListener('onbeforeunload', function(ev){
+                                console.log(ev);
+                            });
+                        }
+                    } else {
+                        // TODO Handle Failure
+                    }
                 }, this);
                 
                 // Add Balance API :: Temp
-                App.PaymentService.addBalance(data_temp, function(res){
-                    // If Add Balance Was Successfull :: Show Success Illustration Or FAilure Illustration Accordingly 
-                    App.router.navigateTo('/', res);
-                }, this);
+                // App.PaymentService.addBalance(data_temp, function(res){
+                //     // If Add Balance Was Successfull :: Show Success Illustration Or FAilure Illustration Accordingly 
+                //     App.router.navigateTo('/', res);
+                // }, this);
             }
             else{
                 if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Select Payment Option.");
@@ -262,7 +276,7 @@
             
             if (ev.which === 8) return;
             
-            if(this.value.length == 5) cvv.focus();
+            if (this.value.length == 5) cvv.focus();
             if (this.value.indexOf('/') === -1){
                 if (this.value.length >= 3){
                     this.value = this.value.substr(0, 2) + '/' + this.value.substr(2, this.value.length);
@@ -370,44 +384,64 @@
         });
     };
 
+    Topup2Controller.prototype.updatePayOptions = function(){
 
-    // Render Topup Controller
-    Topup2Controller.prototype.render = function(App, transactionObj) {
-        // Transaction Objects Contain The Payment Options :: CARD and NetBanking
+    };
 
+    Topup2Controller.prototype.renderPayOptions = function(App, r){
+        
         this.commonbanks = [];
         this.banklist =  [];
         
-        if(transactionObj.data && transactionObj.data.NB){
-            
-            this.banklist = transactionObj.data.NB;
+        if (r && r.NB){
+            this.banklist = r.NB;
 
-            // Common Banks :: First 6 
             var chunk;
-            if(this.banklist.length < 6) chunk = this.banklist.length ;
+            if (this.banklist.length < 6) chunk = this.banklist.length ;
             else chunk = 6;
 
             for (var i=0; i<this.banklist.length ; i++){
                 this.commonbanks.push(this.banklist[i]);
             }
-            //console.log(this.commonbanks);
-            //console.log(this.banklist);
-
-            
         }
     
-        this.transactionObj = transactionObj;
         this.el = document.createElement('div');
         this.el.className = "topupContainer2 animation_fadein";
+        
         this.el.innerHTML = Mustache.render(this.template, {
-            amt: transactionObj.amt,
+            amt: this.transactionObj.amt,
             commonbanks: this.commonbanks,
             banklist: this.banklist
         });
 
         App.container.appendChild(this.el);
         this.bind(App);
-    
+
+        events.publish('update.loader', {show:false});
+    };
+
+    Topup2Controller.prototype.render = function(App, transactionObj) {
+
+        var that = this;
+
+        this.transactionObj = transactionObj;
+
+        if (platformSdk.appData.helperData.payOptions) that.renderPayOptions(App, platformSdk.appData.helperData.payOptions);
+        else {
+            App.TopupService.getPaymentOptions(function(res){
+
+                try { res = JSON.parse(res); } catch(e) {}
+
+                that.renderPayOptions(App, res.payload);
+
+                if (platformSdk.appData) {
+                    platformSdk.appData.helperData.payOptions = res.payload;
+                    platformSdk.updateHelperData(platformSdk.appData.helperData);
+                }
+            }, this);    
+        }
+
+        this.updatePayOptions();
     };
 
     module.exports = Topup2Controller;

@@ -768,7 +768,7 @@ window.platformSdk = function(window, undefined) {
             platformBridge.deleteAlarm();
         },
         updateHelperData: function(data) {
-            platformBridge.updateHelperData(platformSdk.utils.validateStringifyJson(data));
+            if (platformBridge) platformBridge.updateHelperData(platformSdk.utils.validateStringifyJson(data));
         },
         getBlob: function() {
             var obj = platformBridge.getLargeDataFromCache();

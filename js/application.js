@@ -16,8 +16,7 @@
         utils                = require('./util/utils'),
         PaymentServices      = require('./util/paymentServices'),
         TopupServices        = require('./util/topupServices'),
-        Keyboard             = require('./util/keyboard'),
-        Store                = require('./util/store');
+        Keyboard             = require('./util/keyboard');
 
     // Full Screen Loader 
     var loader = document.getElementById('loader');
@@ -46,7 +45,6 @@
     var Application = function (options) {
         this.container            = options.container;
         this.routeIntent          = options.route;
-        this.store                = new Store();
         this.router               = new Router();
         this.workspaceController  = new WorkspaceController();
         this.transIndexController = new TransIndexController();

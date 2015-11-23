@@ -20,13 +20,8 @@
 
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
-                
                 events.publish('update.loader', {show:true});
-                
-                App.TopupService.getPaymentOptions(function(res){
-                    App.router.navigateTo('/topup2', { amt: display.value, data:res.payload });
-                    events.publish('update.loader', {show:false});    
-                }, this);
+                App.router.navigateTo('/topup2', { amt: display.value });
             } else { 
                 if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Enter Amount");
                 else console.log("Please Enter Amount.");
@@ -49,9 +44,7 @@
             events.publish('keypad.inputPress', {ctx:this, keyEvent:ev});
         };
 
-        // Input Events
         display.addEventListener('keyup', inputMoney);
-    
 
         this.captureKeys = events.subscribe('keypad.key', function(key){
             if (/[0-9]/.test(key)) {

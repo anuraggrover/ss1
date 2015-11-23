@@ -9,6 +9,7 @@
     var swipe = require('script!./libs/js/swipe');
 
     platformSdk.ready(function () {
+        var Store = require('./js/util/store');
         var environment = document.body.getAttribute('data-env'),
             config      = require('./config')(environment),
             Constants   = require('./constants'),
@@ -18,7 +19,30 @@
 
         W.appConfig = config;
 
-        if (platformSdk.appData === undefined) platformSdk.appData = {};
+        if (platformSdk.appData === undefined) {
+            platformSdk.appData = {};
+            platformSdk.appData.helperData = {};
+
+
+            // save all helperData to localStorage
+            platformSdk.events.subscribe('app.noHelperData', function(res){
+                platformSdk.events.publish('app.store.set', {
+                    key: '_helperData',
+                    value: res
+                });
+            });
+
+            platformSdk.events.publish('app.store.get', {
+                key: '_helperData',
+                ctx: this,
+                cb: function(res){
+                    if (res.status === 1){
+                        platformSdk.appData.helperData = res.results;
+                    }
+                }
+            });
+            
+        }
 
         if ((platformSdk.appData && platformSdk.appData.platformUid === undefined) || (platformSdk.appData && platformSdk.appData.platformUid === "")) platformSdk.appData.platformUid = 'VhzmGOSwNYkM6JHE';
         if ((platformSdk.appData && platformSdk.appData.platformToken === undefined) || (platformSdk.appData && platformSdk.appData.platformToken === "")) platformSdk.appData.platformToken = 'mACoHN4G0DI=';

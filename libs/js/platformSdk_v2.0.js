@@ -895,7 +895,8 @@ window.platformSdk = function (window, undefined) {
          * @param {Object} data - new helper data object
          */
         updateHelperData: function (data) {
-            platformBridge.updateHelperData(platformSdk.utils.validateStringifyJson(data));
+            if (typeof platformBridge.updateHelperData === "function") platformBridge.updateHelperData(platformSdk.utils.validateStringifyJson(data));
+            else platformSdk.events.publish('app.noHelperData', data);
         },
 
         /**
