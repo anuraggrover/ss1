@@ -166,11 +166,12 @@
                     platformSdk.nativeReq({
                         fn: 'startContactChooserForMsisdnFilter',
                         ctx: this,
-                        data: '{"list": "", "title": "Select a Contact"}',
+                        data: JSON.stringify({"list": "", "title": "Select a Contact"}),
                         success: onContactChooserResult
                     });
                 } else {
-                    onContactChooserResult(1, '[{"platformUid":"VhzmGOSwNYkM6JHE","msisdn":"+919000000236","thumbnail":"dummy.jpg","name":"9000000236"}]');
+                    var x = encodeURIComponent(JSON.stringify({'result_code': 1, contactInfo: [{"platformUid":"VhzmGOSwNYkM6JHE","msisdn":"+919000000236","thumbnail":"dummy.jpg","name":"9000000236"}]}));
+                    onContactChooserResult(x);
                 }
             });
 

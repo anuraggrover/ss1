@@ -1,6 +1,10 @@
 (function (W, events) {
     'use strict';
 
+    var URL = {
+        processPayment: "http://projectx-staging.hike.in/hike-topup-service/payment/processPayment".
+    };
+
     var Topup2Controller = function (options) {
         this.template = require('raw!../../../../templates/topup/topup2/index.html');                    
     };
@@ -62,32 +66,32 @@
                 };
                 
                 // Initiate Payment Gets Back a URL To Be Intercepted
-                // App.TopupService.initiatePayment(data, function(res){
-                //     if (res.status === "SUCCESS"){
-                //         var url = res.payload.redirectURL;
+                App.TopupService.initiatePayment(data, function(res){
+                    if (res.status === "SUCCESS"){
+                        var url = res.payload.redirectURL;
 
-                //         if (platformSdk.bridgeEnabled){
-                //             PlatformBridge.openFullPage("Complete Payment", url, '{"icpt_url":[{"url":"hike-topup-service/payment/returnFromPg","type":1}]}');
-                //         } else {
-                //             var iframe = document.createElement('iframe');
-                //             iframe.className = "redirect";
-                //             document.body.appendChild(iframe);
+                        if (platformSdk.bridgeEnabled){
+                            PlatformBridge.openFullPage("Complete Payment", url, '{"icpt_url":[{"url":"hike-topup-service/payment/returnFromPg","type":1}]}');
+                        } else {
+                            var iframe = document.createElement('iframe');
+                            iframe.className = "redirect";
+                            document.body.appendChild(iframe);
 
-                //             iframe.src = url;
-                //             iframe.addEventListener('onbeforeunload', function(ev){
-                //                 console.log(ev);
-                //             });
-                //         }
-                //     } else {
-                //         // TODO Handle Failure
-                //     }
-                // }, this);
+                            iframe.src = url;
+                            iframe.addEventListener('onbeforeunload', function(ev){
+                                console.log(ev);
+                            });
+                        }
+                    } else {
+                        // TODO Handle Failure
+                    }
+                }, this);
                 
                 // Add Balance API :: Temp
-                App.PaymentService.addBalance(data_temp, function(res){
-                    // If Add Balance Was Successfull :: Show Success Illustration Or FAilure Illustration Accordingly 
-                    App.router.navigateTo('/', res);
-                }, this);
+                // App.PaymentService.addBalance(data_temp, function(res){
+                //     // If Add Balance Was Successfull :: Show Success Illustration Or FAilure Illustration Accordingly 
+                //     App.router.navigateTo('/', res);
+                // }, this);
             }
             else{
                 if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Select Payment Option.");
