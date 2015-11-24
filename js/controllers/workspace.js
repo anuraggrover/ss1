@@ -37,7 +37,7 @@
         });
 
         btn_sendmoney.addEventListener('click', function(ev){
-            events.publish('update.loader', {show:true});
+            //events.publish('update.loader', {show:true});
             App.router.navigateTo('/sendmoney', _hikeBalance);  
         });
 

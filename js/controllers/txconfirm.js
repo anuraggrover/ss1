@@ -9,15 +9,15 @@
 
     };
 
-    TxConfirm.prototype.bind = function(App){
-        
+    TxConfirm.prototype.bind = function(App, res){
+        console.log(res);
         var that = this;
 
         var backToHome = this.el.getElementsByClassName('confirm_tx_done')[0];
         
         backToHome.addEventListener('click', function(ev){
             console.log("Routing Back To Home");
-            App.router.navigateTo('/');
+            App.router.navigateTo('/', res);
         });
 
     };
@@ -32,7 +32,7 @@
 
         ctr.appendChild(this.el);
         events.publish('update.loader', {show:false});
-        this.bind(App);
+        this.bind(App, data);
     };
 
     module.exports = TxConfirm;

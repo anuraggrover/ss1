@@ -88,7 +88,7 @@
         getPaymentOptions: function(fn, x){
             var params = {
                 'topup': true, 
-                'url':'paymentOptions?currency=INR', 
+                'url':'topup/paymentOptions?currency=INR', 
                 'type': 'GET', 
                 'headers': [['Content-Type', 'application/json']]
             };

@@ -42,6 +42,13 @@ figcaption{
   font-weight: 400;
 }
 
+.confirm_wrapper .confirm_content .confirm_tx h5.confirm_tx_money
+{
+    display: inline-block;
+    float: right;
+    color: #33b87e;
+}
+
 .confirm_wrapper .confirm_content .confirm_tx h4.confirm_tx_id{
   margin-top:7px;
   font-size: 12px;

@@ -158,7 +158,7 @@
                         
                     } else {
                         console.log("Success Response:: Routing To p2p ,Transfer");
-                        console.log("Failed::Add Exception", resultCode, contacts);
+                        console.log("Failed::Add Exception", res.result_code, res.contactInfo);
                     }
                 };
 
