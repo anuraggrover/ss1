@@ -132,14 +132,23 @@
 
             this.router.route('/sendmoney', function(){
 
-                window.onContactChooserResult = function(resultCode, contact) {
-                    if (resultCode == 1){
-                        var res = JSON.parse(contact);
+                var onContactChooserResult = function(res) {
+                    try {
+                        res = JSON.parse(decodeURIComponent(res));
+                    } catch(e){
+
+                    }
+
+                    if (res.result_code == 1){
+                        try { 
+                            res.contactInfo = JSON.parse(res.contactInfo);
+                        } catch(e){}
+
                         var data = {
-                            uid: res[0].platformUid,
+                            uid: res.contactInfo[0].platformUid,
                             currency: "INR",
                             message: "Funds Transfer",
-                            contact: res[0]
+                            contact: res.contactInfo[0]
                         };
 
                         self.container.innerHTML = "";
@@ -153,9 +162,16 @@
                     }
                 };
 
-                if (platformSdk.bridgeEnabled) PlatformBridge.startContactChooserForMsisdnFilter('', 'Select a Contact');
-                else onContactChooserResult(1, '[{"platformUid":"VhzmGOSwNYkM6JHE","msisdn":"+919000000236","thumbnail":"dummy.jpg","name":"9000000236"}]');
-
+                if (platformSdk.bridgeEnabled) {
+                    platformSdk.nativeReq({
+                        fn: 'startContactChooserForMsisdnFilter',
+                        ctx: this,
+                        data: '{"list": "", "title": "Select a Contact"}',
+                        success: onContactChooserResult
+                    });
+                } else {
+                    onContactChooserResult(1, '[{"platformUid":"VhzmGOSwNYkM6JHE","msisdn":"+919000000236","thumbnail":"dummy.jpg","name":"9000000236"}]');
+                }
             });
 
             this.router.route('/txConfirmation', function(data){
