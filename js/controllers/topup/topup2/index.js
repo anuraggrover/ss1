@@ -24,6 +24,14 @@
         var cvv = document.getElementById('card_cvv');
 
         // Add Money To The Wallet Api Call
+
+        var getQueryString = function(name){
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        };
+
         var fn_addMoney = function(ev){
             ev.preventDefault();
 
@@ -67,6 +75,41 @@
                 
                 // Initiate Payment Gets Back a URL To Be Intercepted
                 App.TopupService.initiatePayment(data, function(res){
+
+                    window.urlIntercepted = function(r){
+                        console.log(response);
+                        r = r.split('&');
+
+                        var ob = {};
+                        for (var i = 0; i < r.length; i++){
+                            var ex = r[i].split('=');
+                            ob[ex[0]] = ex[1];
+                        }
+
+                        platformSdk.ajax({
+                            url: URL.processPayment,
+                            type: 'POST',
+                            data: ob,
+                            headers: [['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]],
+                            success: function(res){
+                                try {
+                                    res = JSON.parse(res);
+                                }
+
+                                if (res.status === "SUCCESS"){
+
+                                } else {
+                                    
+                                }
+                            },
+                            error: function(res){
+
+                            }
+                        })
+
+                        window.urlIntercepted = null;
+                    };
+
                     if (res.status === "SUCCESS"){
                         var url = res.payload.redirectURL;
 
