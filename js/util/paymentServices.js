@@ -9,12 +9,16 @@
         this.PaymentService = service;
     };
 
+    var URL = {
+        location: appConfig.API_URL + '/wallet/'
+    };
+
     PaymentService.prototype = {
         
         //Activate a New Wallet (OR FIRST TIME USER ONLY)
         activateWallet: function(fn, x){
             var params = {
-                'url':'activate', 
+                'url': URL.location +  'activate', 
                 'type': 'POST', 
                 'headers':[['Content-Type', 'application/json'],
                             ['platform_uid', platformSdk.appData.platformUid], 
@@ -28,7 +32,7 @@
         // Fetch balance for Waller
         fetchBalance: function(fn, x){
             var params = {
-                'url':'funds', 
+                'url': URL.location + 'funds', 
                 'type': 'GET', 
                 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
             };
@@ -41,7 +45,7 @@
         fetchTxHistory: function(fn, x, sId){
             // Statement ID :: Before For Calling Next Lost Of Transactions
             var params = {
-                'url':'statement/list', 
+                'url': URL.location + 'statement/list', 
                 'type': 'GET', 
                 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
             };
@@ -55,7 +59,7 @@
 
         addBalance: function(data, fn, x){
             var params = {
-                'url':'funds', 
+                'url': URL.location + 'funds', 
                 'type': 'POST', 
                 'data': {
                     "currency": data.currency,
@@ -72,7 +76,7 @@
         fundsTransfer: function(data, fn, x){
 
             var params = {
-                'url':'funds/transfer', 
+                'url': URL.location + 'funds/transfer', 
                 'type': 'POST', 
                 'data': {
                     "currency": data.currency,

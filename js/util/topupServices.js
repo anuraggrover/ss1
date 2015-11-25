@@ -5,6 +5,10 @@
     var Constants = require('../../constants.js');
     var checkTimeout = null;
 
+    var URL = {
+        location: 'http://172.16.3.20:8080/hike-topup-service/'
+    }
+
     var TopupService = function (service) {
         this.PaymentService = service
     };
@@ -15,7 +19,7 @@
         getPaymentOptions: function(fn, x){
             var params = {
                 'topup': true, 
-                'url':'topup/paymentOptions?currency=INR', 
+                'url': URL.location + 'topup/paymentOptions?currency=INR', 
                 'type': 'GET', 
                 'headers': [['Content-Type', 'application/json']]
             };
@@ -28,7 +32,7 @@
         initiatePayment: function(data, fn, x){
             var params = {
                 'initateTopup':true, 
-                'url':'payment/initiatePayment', 
+                'url': URL.location + 'payment/initiatePayment', 
                 'type': 'POST', 
                 'data': data, 
                 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]

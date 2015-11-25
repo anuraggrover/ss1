@@ -12,12 +12,11 @@
         var Store = require('./js/util/store');
         var environment = document.body.getAttribute('data-env'),
             config      = require('./config')(environment),
-            Constants   = require('./constants'),
-            Application = require('./js/application');
-
-        if (platformSdk.bridgeEnabled) platformSdk.bridge.setDebuggableEnabled(environment === Constants.STAGING_ENV || environment === Constants.DEV_ENV);
+            Constants   = require('./constants');
 
         W.appConfig = config;
+
+        var Application = require('./js/application');
 
         if (platformSdk.appData === undefined) {
             platformSdk.appData = {};
@@ -44,6 +43,8 @@
             
         }
 
+        if (platformSdk.bridgeEnabled) platformSdk.bridge.setDebuggableEnabled(environment === Constants.STAGING_ENV || environment === Constants.DEV_ENV);
+        
         if ((platformSdk.appData && platformSdk.appData.platformUid === undefined) || (platformSdk.appData && platformSdk.appData.platformUid === "")) platformSdk.appData.platformUid = 'VhzmGOSwNYkM6JHE';
         if ((platformSdk.appData && platformSdk.appData.platformToken === undefined) || (platformSdk.appData && platformSdk.appData.platformToken === "")) platformSdk.appData.platformToken = 'mACoHN4G0DI=';
 

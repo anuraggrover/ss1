@@ -11,7 +11,7 @@
     TxService.prototype = {
         communicate: function (params, fn, x) {
             var that = this,
-                requestUrl = appConfig.API_URL + '/wallet/' + params.url,
+                requestUrl = params.url,
                 startTime = Date.now(),
                 endTime;
 
