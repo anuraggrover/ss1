@@ -94,7 +94,7 @@
                             success: function(res){
                                 try {
                                     res = JSON.parse(res);
-                                }
+                                } catch (e) { }
 
                                 if (res.status === "SUCCESS"){
 
