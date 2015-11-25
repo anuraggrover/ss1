@@ -16,30 +16,34 @@
   text-align:center;
 }
 
-.confirm_wrapper .confirm_header img{
-  width: 56px;
-  height: 56px;
-  margin-bottom: 18px;
+.confirm_wrapper .confirm_header .confirm_tick_image{
+  width: 70px;
+  height: 70px;
+  margin: 0px auto 24px auto;
+  background:url(images/green_tick.png);
+  background-size: contain;
+  background-repeat: no-repeat;  
 }
 
-figcaption{
+.confirm_wrapper .confirm_header p
+{
   font-size:17px;
   color: #858585;
 }
 
 .confirm_wrapper .confirm_content {
-  margin-top: 35px;
-  padding:0px 50px;
+  margin: 36px auto 0px auto;
+  width:80%
 }
 
 .confirm_content .confirm_tx{
-  margin-bottom: 30px;
+  margin: 0px 10px 30px 10px;
 }
 
 .confirm_wrapper .confirm_content .confirm_tx h3.confirm_tx_name{
   font-size: 14px;
   color: #5B636C;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .confirm_wrapper .confirm_content .confirm_tx h5.confirm_tx_money
@@ -47,12 +51,15 @@ figcaption{
     display: inline-block;
     float: right;
     color: #33b87e;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .confirm_wrapper .confirm_content .confirm_tx h4.confirm_tx_id{
-  margin-top:7px;
+  margin-top:8px;
   font-size: 12px;
   color: #1D1D26;
+  font-weight: 400;
 }
 
 .confirm_wrapper .confirm_content .confirm_tx p.confirm_tx_date{
@@ -67,13 +74,17 @@ figcaption{
   width: 100%;
   border-top :1px dashed rgba(0,0,0,0.14) ;
   border-bottom:1px dashed rgba(0,0,0,0.14);
-  margin-bottom: 35px;
   padding:16px 0px;
+}
+
+.confirm_content .confirm_tx_summary .confirm_tx_summaryRow{
+  padding:0px 10px;
 }
 
 .confirm_content .confirm_tx_summary h3{
   display: inline-block;
   float: left;
+  font-weight:500;
   font-size: 14px;
   color: rgba(0,0,0,0.48);
   line-height: 22px;
@@ -84,6 +95,7 @@ figcaption{
   float: right;
   font-size: 23px;
   color: #5C646D;
+  font-weight: 500
 } 
 
 .confirm_content .confirm_tx_thankyou{
@@ -92,10 +104,7 @@ figcaption{
   color: rgba(0,0,0,0.16);
   text-transform: uppercase;
   text-align:center;
-}
-
-.confirm_wrapper .confirm_cta_wrapper{
-  margin-top :45px;
+  margin:24px 0px 32px 0px;
 }
 
 .confirm_wrapper .confirm_cta_wrapper .cta.blue.confirm_tx_done

@@ -2,7 +2,7 @@
     'use strict';
 
     var URL = {
-        processPayment: "http://projectx-staging.hike.in/hike-topup-service/payment/processPayment".
+        processPayment: "http://projectx-staging.hike.in/hike-topup-service/payment/processPayment"
     };
 
     var Topup2Controller = function (options) {

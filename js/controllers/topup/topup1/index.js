@@ -15,7 +15,8 @@
         var display = document.getElementById('p2pValue');
         var check = this.el.getElementsByClassName('action_next')[0];
         var moneyIn = this.el.getElementsByClassName('inActive')[0];
-        
+        var currencySymbol = this.el.getElementsByClassName('currencySymbol')[0];
+
         display.focus();
 
         check.addEventListener('click', function(ev){
@@ -32,6 +33,11 @@
             // TODO :: SHIFT TO CAPTURE KEY
             //events.publish('keypad.key' , String.fromCharCode(ev.which));
             
+            // console.log(currencySymbol);
+
+            // currencySymbol.innerHTML = this.value;
+            // ev.currentTarget.value = '₹' + this.value;
+
             if(this.value) {
                 moneyIn.classList.add('activate');
                 check.classList.add('activebutton');
@@ -47,6 +53,7 @@
         display.addEventListener('keyup', inputMoney);
 
         this.captureKeys = events.subscribe('keypad.key', function(key){
+
             if (/[0-9]/.test(key)) {
                 if (key.length > 1) display.value = key;
                 else display.value = display.value + key;
@@ -61,6 +68,9 @@
                     check.classList.remove('activebutton');
                 }
             }
+
+            display.focus();
+
         });
     };
 

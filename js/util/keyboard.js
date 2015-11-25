@@ -67,6 +67,16 @@
         var ev_activateAmount = events.subscribe('keypad.activateAmount', function(ctx){
             events.publish('keypad.deactivateAmount');
             ctx.classList.add('activeamount');
+            
+            if (ctx.classList.contains('d1')){
+                ctx.classList.add('borderD1');
+            }
+            else if(ctx.classList.contains('d2')){
+                ctx.classList.add('borderD2');   
+            }
+            else if(ctx.classList.contains('d3')){
+                ctx.classList.add('borderD3');
+            }
         });
 
         // Destroy The Keyboard

@@ -1,10 +1,23 @@
-
+<div class="p2pWrapper">
   <!-- Enter Amount Input Screen -->
+  <h3 class="p2pReceiver">Send money to {{receiver}}</h3>
+    
   <div class="amountInput">
-    <h3>Enter amount to send to {{receiver}}</h3>
-    <div class="p2pAmount">
-    	<span>₹</span>  
-        <input class="inActive" id="p2pValue" value="" type="number" required>
+    <div class="section group p2pAmount">
+    	<div class="col span_1_off_2"><div class="p2pThumb"></div></div>
+    	<div class="col span_2_off_2">
+    		<div class="currentInput">
+    			<span class="currencySymbol">₹</span>
+    			<input class="inActive" id="p2pValue" value="" type="number" required>
+    		</div>
+    		<div class="availBalance">
+    			<p>₹ 800</p>
+    			<span>balance</span>
+    		</div>
+    	</div>
+    	
     </div>
   </div>
 
+  <input type="text" id="p2pComment" class="p2pComment" placeholder="Add Comment (Optional)">
+</div>

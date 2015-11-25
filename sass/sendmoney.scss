@@ -16,41 +16,106 @@
   position: relative;
 }
 
-.p2pContainer h3{
-  padding-top:56px;
-	text-align:center;
-	font-size:12px;
-	color:#A3A8AC;
+.p2pContainer .p2pWrapper{
+  padding:0px 24px;
 }
 
-.p2pContainer input {
+.p2pContainer h3.p2pReceiver{
+  padding-top:30px;
+  padding-bottom:32px;
+	font-size:15px;
+	color:rgba(0,0,0,0.65);
+  font-weight: 500;
+}
+
+.p2pWrapper .p2pAmount{
+  position: relative;
+  display: inline-block;
+}
+
+.p2pWrapper .p2pAmount .currencySymbol{
+  position: absolute;
+  font-size: 30px;
+  color: #a3a8ac;
+  top: 8px;
+}
+
+.amountInput .currentInput{
+  margin-top: 3px;
+}
+
+.p2pContainer #p2pComment{
+  border:none;
+  background:transparent;
+  margin-top: 36px;
+  width: 100%;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  font-size: 12px;
+  padding-bottom:10px;
+  color: rgba(0,0,0,0.80);
+  font-weight: 400;
+}
+
+.p2pContainer #p2pValue {
 	border:none;
 	font-size:30px;
-	font-weight:600;
-  width: 80%;
+	font-weight:500;
+  width: 92%;
+  padding-left :25px;
+  padding-bottom:8px; 
   background:transparent;
-	padding:20px 20px 25px 20px;
-	border-bottom:1px solid #eee;
-	text-align:center;
-  margin-bottom: 77px;
-  margin-left:20px;
+	border-bottom:1px solid rgba(0,0,0,0.08);
+  color: #5c646d;
+}
+
+.p2pContainer .p2pThumb{
+  background:url(https://hmssweblog.files.wordpress.com/2015/08/brad-pitt.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  background-color: #1da8e8;
+  border-radius:50%;
+}
+
+.p2pContainer .availBalance
+{
+ position: absolute;
+ top:12px;
+ right:0px;
+ text-align:right;
+}
+
+.p2pContainer .availBalance p{
+  font-size: 14px;
+  color: #1da8e8;
+  font-weight: 400;
+}
+
+
+.p2pContainer .availBalance span{
+  font-size: 11px;
+  color: rgba(0,0,0,0.40);
+  font-weight: 500;
 }
 
 ::-webkit-input-placeholder {
-   color: #5C646D;
+   color: rgba(0,0,0,0.40);
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   color: #5C646D;  
+   color: rgba(0,0,0,0.40);  
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   color: #5C646D;  
+   color: rgba(0,0,0,0.40);  
 }
 
 :-ms-input-placeholder {  
-   color: #5C646D;  
+   color: rgba(0,0,0,0.40);  
 }
+
 .da-container{
   color: #1da8e8;
   width: 80%;
@@ -95,6 +160,15 @@
   text-align:center;
 }
 
+.span_1_off_2 {
+  width: 20%;
+}
+
+.span_2_off_2 {
+  width: 80%;
+  position: relative;
+}
+
 .hikePayKeyboard{
   width:100%;
   position: absolute;
@@ -118,10 +192,34 @@
   color: #1da8e8;
 }
 
+.borderD1{
+  border-radius:4px 0px 0px 4px;
+}
+
+.borderD2{
+  border-radius:0px;
+}
+
+.borderD3{
+  border-radius:0px 4px 4px 0px;
+}
+
+.d2{
+  border-left:1px solid #efefef;
+  border-right :1px solid #efefef;  
+}
+
+.d1{
+    border-radius:4px 0px 0px 4px;
+}
+
+.d3{
+  border-radius:0px 4px 4px 0px;  
+}
+
 .activeamount{
   background-color:#1da8e8;
   color:white;
-  border:1px solid #1da8e8;
 }
 
 .span_2_of_2 {
@@ -159,7 +257,7 @@
 .action_next{
   background: #1da8e8;
   color: white;
-  padding: 20px 0px;
+  padding: 18px 0px;
   margin-top: 70px;
   text-align: center;
 }
@@ -175,7 +273,11 @@
 
 .action_next p{
   display: inline-block;
-  margin-left: 10px;
+    margin-left: 10px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+    vertical-align: middle;
 }
 
 .action_cross{
@@ -197,3 +299,4 @@
 .activebutton{
   background-color: #1da8e8 !important;
 }
+
