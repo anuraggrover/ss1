@@ -3,19 +3,25 @@
     
     var WorkspaceController  = require('./controllers/workspace'),
         TransIndexController = require('./controllers/transactions/index'),
-        SendMoneyController  = require('./controllers/sendmoney/index'),
+        
         TxConfirm            = require('./controllers/txconfirm'),
+        SendMoneyController  = require('./controllers/sendmoney/index'),
         Topup1Controller     = require('./controllers/topup/topup1/index'),
         Topup2Controller     = require('./controllers/topup/topup2/index'),
+        
         Ftue1Controller      = require('./controllers/ftue/ftuestep1/index'),
         Ftue2Controller      = require('./controllers/ftue/ftuestep2/index'),
         Ftue3Controller      = require('./controllers/ftue/ftuestep3/index'),
         Ftue4Controller      = require('./controllers/ftue/ftuestep4/index'),
         FtueTourController   = require('./controllers/ftue/ftuetour/index'),
+        
         Router               = require('./util/router'),
         utils                = require('./util/utils'),
+        
+        TxService            = require('./util/txServices'),
         PaymentServices      = require('./util/paymentServices'),
         TopupServices        = require('./util/topupServices'),
+
         Keyboard             = require('./util/keyboard');
 
     // Full Screen Loader 
@@ -45,20 +51,26 @@
     var Application = function (options) {
         this.container            = options.container;
         this.routeIntent          = options.route;
+        
         this.router               = new Router();
+        
         this.workspaceController  = new WorkspaceController();
         this.transIndexController = new TransIndexController();
+        
         this.topup1Controller     = new Topup1Controller();
         this.topup2Controller     = new Topup2Controller();
         this.sendMoneyController  = new SendMoneyController();
         this.txConfirmController  = new TxConfirm();
+        
         this.ftuestep1Controller  = new Ftue1Controller();
         this.ftuestep2Controller  = new Ftue2Controller();
         this.ftuestep3Controller  = new Ftue3Controller();
         this.ftuestep4Controller  = new Ftue4Controller();
         this.ftuetourController   = new FtueTourController();
-        this.PaymentService       = new PaymentServices();
-        this.TopupService         = new TopupServices(); 
+        
+        this.TxService            = new TxService(); 
+        this.PaymentService       = new PaymentServices(this.TxService);
+        this.TopupService         = new TopupServices(this.TxService);
     };
     
     Application.prototype = {
@@ -113,9 +125,9 @@
             });
 
             this.router.route('/transactions', function(data){
-                self.transIndexController.render(self.container, data);
-                utils.toggleBackNavigation(true);
                 self.container.innerHTML = "";
+                self.transIndexController.render(self.container, self, data);
+                utils.toggleBackNavigation(true);
             });
 
             this.router.route('/topup1', function(){
