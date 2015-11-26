@@ -105,7 +105,7 @@
                             error: function(res){
 
                             }
-                        })
+                        });
 
                         window.urlIntercepted = null;
                     };

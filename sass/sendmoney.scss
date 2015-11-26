@@ -60,12 +60,20 @@
 	border:none;
 	font-size:30px;
 	font-weight:500;
-  width: 92%;
+  width: 91%;
   padding-left :25px;
   padding-bottom:8px; 
   background:transparent;
 	border-bottom:1px solid rgba(0,0,0,0.08);
   color: #5c646d;
+}
+
+.p2pWrapper .activate{
+  border-bottom:1px solid #1da8e8!important;
+}
+
+.p2pWrapper .activatelowbalance{
+  border-bottom:1px solid red!important;
 }
 
 .p2pContainer .p2pThumb{
@@ -81,10 +89,15 @@
 
 .p2pContainer .availBalance
 {
+ display: block;
  position: absolute;
  top:12px;
  right:0px;
  text-align:right;
+}
+
+.p2pContainer .availBalance.hideAlert{
+  display: none;
 }
 
 .p2pContainer .availBalance p{
@@ -93,8 +106,37 @@
   font-weight: 400;
 }
 
-
 .p2pContainer .availBalance span{
+  font-size: 11px;
+  color: rgba(0,0,0,0.40);
+  font-weight: 500;
+}
+
+
+
+.p2pContainer .addMoneyAlert
+{
+ display: none;
+ position: absolute;
+ top:8px;
+ right:0px;
+ text-align:right;
+}
+
+.p2pContainer .addMoneyAlert.showAlert{
+  display: block;
+}
+
+.p2pContainer .alertAdd{
+  background-image: url(images/add_money_alert.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 18px;
+  height: 18px;
+  margin-left:40px;
+}
+
+.p2pContainer .addMoneyAlert span{
   font-size: 11px;
   color: rgba(0,0,0,0.40);
   font-weight: 500;
@@ -114,17 +156,6 @@
 
 :-ms-input-placeholder {  
    color: rgba(0,0,0,0.40);  
-}
-
-.da-container{
-  color: #1da8e8;
-  width: 80%;
-  border-radius:4px;
-  border:1px solid #efefef;
-  text-decoration: none;
-  margin: 0px auto !important;
-  font-weight: 500;
-  display: block;
 }
 
 /*  SECTIONS  */
@@ -150,15 +181,6 @@
 .group:after {
   clear:both;
 }
-.span_1_of_3 {
-  width: 33.3%;
-  text-align:center;
-}
-
-.span_1_of_2 {
-  width: 75%;
-  text-align:center;
-}
 
 .span_1_off_2 {
   width: 20%;
@@ -169,100 +191,17 @@
   position: relative;
 }
 
-.hikePayKeyboard{
-  width:100%;
-  position: absolute;
-  bottom:0px;
-}
-
-.number_numpad{
-  display: inline-block;
-  padding:16px 40px;
-  background-color:white;
-  font-weight: 500;
-  font-size: 20px;
-  color: rgba(0, 0, 0, 0.60);
-}
-
-.amount{
-  padding:13px 15px;
-  font-size: 18px;
-  font-weight: 400;
-  background-color:white;
-  color: #1da8e8;
-}
-
-.borderD1{
-  border-radius:4px 0px 0px 4px;
-}
-
-.borderD2{
-  border-radius:0px;
-}
-
-.borderD3{
-  border-radius:0px 4px 4px 0px;
-}
-
-.d2{
-  border-left:1px solid #efefef;
-  border-right :1px solid #efefef;  
-}
-
-.d1{
-    border-radius:4px 0px 0px 4px;
-}
-
-.d3{
-  border-radius:0px 4px 4px 0px;  
-}
-
-.activeamount{
-  background-color:#1da8e8;
-  color:white;
-}
-
-.span_2_of_2 {
-  width: 25%;
-  height: 100%;
-  text-align:center;
-}
-
-.cross-icon{
-  vertical-align: middle;
-  display: inline-block;
-  margin: 0px auto;
-  background-image: url(images/cross-icon.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 21px;
-  height: 15px;
-}
-
-.tick-icon{
-  vertical-align: middle;
-  display: inline-block;
-  margin: 0px auto;
-  width: 23px;
-  height: 17px;
-  background-image: url(images/tick-icon.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.hikePad{
-  height: 208px;
-}
-
-.action_next{
+.action_send_money{
   background: #1da8e8;
   color: white;
   padding: 18px 0px;
-  margin-top: 70px;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
   text-align: center;
 }
 
-.action_next .next_tick{
+.action_send_money .next_tick{
   width: 12px;
   height: 10px;
   display: inline-block;
@@ -271,7 +210,7 @@
   background-repeat: no-repeat;
 }
 
-.action_next p{
+.action_send_money p{
   display: inline-block;
     margin-left: 10px;
     font-size: 15px;
@@ -280,23 +219,6 @@
     vertical-align: middle;
 }
 
-.action_cross{
-  height: 25%;
-}
-
-.action_next span{
-  height: 100%;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.action_cross span{
-  height: 100%;
-  display: inline-block;
-  vertical-align: middle;
-}
-
 .activebutton{
   background-color: #1da8e8 !important;
 }
-

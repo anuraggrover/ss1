@@ -7,10 +7,10 @@
 
     var URL = {
         location: 'http://172.16.3.20:8080/hike-topup-service/'
-    }
+    };
 
     var TopupService = function (service) {
-        this.PaymentService = service
+        this.PaymentService = service;
     };
 
     TopupService.prototype = {

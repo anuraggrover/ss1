@@ -11,13 +11,22 @@
     			<input class="inActive" id="p2pValue" value="" type="number" required>
     		</div>
     		<div class="availBalance">
-    			<p>₹ 800</p>
+    			<p id="wBalance" data-balance="{{availBalance}}">₹ {{availBalance}}</p>
     			<span>balance</span>
+    		</div>
+    		<!-- Show Only When Alert Triggered -->
+    		<div class="addMoneyAlert">
+    			<div class="alertAdd"></div>
+    			<span>Add Money</span>
     		</div>
     	</div>
     	
     </div>
   </div>
 
-  <input type="text" id="p2pComment" class="p2pComment" placeholder="Add Comment (Optional)">
+  <input type="text" id="p2pComment" value="" class="p2pComment" placeholder="Add Comment (Optional)">
+</div>
+
+<div class="action_send_money">
+   <div class="next_tick"></div><p>Send Money</p>
 </div>

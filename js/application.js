@@ -130,9 +130,9 @@
                 utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/topup1', function(){
+            this.router.route('/topup1', function(data){
                 self.container.innerHTML = "";
-                self.topup1Controller.render(self);
+                self.topup1Controller.render(self, data);
                 utils.toggleBackNavigation(true);
             });
 
@@ -142,9 +142,12 @@
                 utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/sendmoney', function(){
+            this.router.route('/sendmoney', function(data){
+
+                var available_hikeBalance = data;
 
                 var onContactChooserResult = function(res) {
+
                     try {
                         res = JSON.parse(decodeURIComponent(res));
                     } catch(e){
@@ -160,7 +163,8 @@
                             uid: res.contactInfo[0].platformUid,
                             currency: "INR",
                             message: "Funds Transfer",
-                            contact: res.contactInfo[0]
+                            contact: res.contactInfo[0],
+                            walletAvailBalance: available_hikeBalance
                         };
 
                         self.container.innerHTML = "";

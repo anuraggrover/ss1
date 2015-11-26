@@ -11,11 +11,18 @@
         this.captureKeys.remove();
     };
 
-    Topup1Controller.prototype.bind = function(App){
+    Topup1Controller.prototype.bind = function(App, data){
         var display = document.getElementById('p2pValue');
         var check = this.el.getElementsByClassName('action_next')[0];
         var moneyIn = this.el.getElementsByClassName('inActive')[0];
         var currencySymbol = this.el.getElementsByClassName('currencySymbol')[0];
+
+        // If any data exists Fill
+        if(data.lowBalance){
+            display.value = data.addMoney;
+            moneyIn.classList.add('activate');
+            check.classList.add('activebutton');
+        }
 
         display.focus();
 
@@ -74,7 +81,7 @@
         });
     };
 
-    Topup1Controller.prototype.render = function(App) {
+    Topup1Controller.prototype.render = function(App, data) {
 
         this.el = document.createElement('div');
         this.el.className = "topupContainer1 animation_fadein";
@@ -83,9 +90,8 @@
         new Keypad(this.el);
 
         App.container.appendChild(this.el);
-        events.publish('update.loader', {show:false});
-        
-        this.bind(App);
+        events.publish('update.loader', {show:false});   
+        this.bind(App,data);
     };
 
     module.exports = Topup1Controller;
