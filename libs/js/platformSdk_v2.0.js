@@ -1658,7 +1658,7 @@ platformSdk.ajax = function (window, platformSdk) {
      */
     var ajaxError = function (xhr, callback, errorMsg) {
         if (callback && typeof callback === 'function')
-            callback(xhr.responseText, xhr.status);
+            callback(xhr.responseText, xhr.status, xhr);
         if (errorMsg)
             platformBridge.showToast(errorMsg);
     };

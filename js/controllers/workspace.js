@@ -38,16 +38,16 @@
 
         btn_sendmoney.addEventListener('click', function(ev){
             //events.publish('update.loader', {show:true});
-            App.router.navigateTo('/sendmoney', _hikeBalance);  
+            App.router.navigateTo('/sendMoney', _hikeBalance);  
         });
 
         btn_addmoney.addEventListener('click', function(ev){
             //events.publish('update.loader', {show:true});
-            App.router.navigateTo('/topup1', _hikeBalance);   
+            App.router.navigateTo('/addMoney', _hikeBalance);   
         });
 
         settingsIcon.addEventListener('click', function(ev){
-            PlatformBridge.openFullPage("Google", "http://google.com", '{"icpt_url":[{"url":"ndtv","type":1},{"url":"techinsider.com","type":1}]}');
+            // PlatformBridge.openFullPage("Google", "http://google.com", '{"icpt_url":[{"url":"ndtv","type":1},{"url":"techinsider.com","type":1}]}');
         });
 
 

@@ -2,11 +2,15 @@
     'use strict';
 
     var URL = {
-        processPayment: "http://projectx-staging.hike.in/hike-topup-service/payment/processPayment"
+        processPayment: "http://172.16.3.20:8080/hike-topup-service/payment/processPayment"
     };
 
     var Topup2Controller = function (options) {
         this.template = require('raw!../../../../templates/topup/topup2/index.html');                    
+    };
+
+    Topup2Controller.prototype.errorHandling = function(App){
+
     };
 
     Topup2Controller.prototype.bind = function(App){
@@ -76,8 +80,15 @@
                 // Initiate Payment Gets Back a URL To Be Intercepted
                 App.TopupService.initiatePayment(data, function(res){
 
+                    var errorContainer = that.errorContainer || "";
+
                     window.urlIntercepted = function(r){
-                        console.log(response);
+                        console.log(r);
+
+                        try { 
+                            r = r.split('?')[1];
+                        } catch (e) {}
+
                         r = r.split('&');
 
                         var ob = {};
@@ -91,19 +102,27 @@
                             type: 'POST',
                             data: ob,
                             headers: [['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]],
-                            success: function(res){
+                            success: function(re){
                                 try {
-                                    res = JSON.parse(res);
+                                    re = JSON.parse(re);
                                 } catch (e) { }
 
-                                if (res.status === "SUCCESS"){
+                                console.log(re);
 
-                                } else {
-                                    
-                                }
+                                App.router.navigateTo('/txConfirmation', re);
                             },
-                            error: function(res){
+                            error: function(re, status, xhrOb){
+                                var li = document.createElement('li');
 
+                                try { re = JSON.parse(re); } catch(e) {}
+
+                                switch (status){
+                                    case 500: 
+                                        li.innerHTML = re.errorMessage;
+                                        errorContainer.appendChild(li);
+                                        errorContainer.classList.remove('hide');
+                                    break;
+                                };
                             }
                         });
 
@@ -112,6 +131,8 @@
 
                     if (res.status === "SUCCESS"){
                         var url = res.payload.redirectURL;
+
+                        that.errorContainer.classList.add('hide');
 
                         if (platformSdk.bridgeEnabled){
                             PlatformBridge.openFullPage("Complete Payment", url, '{"icpt_url":[{"url":"hike-topup-service/payment/returnFromPg","type":1}]}');
@@ -135,8 +156,8 @@
                 //     // If Add Balance Was Successfull :: Show Success Illustration Or FAilure Illustration Accordingly 
                 //     App.router.navigateTo('/', res);
                 // }, this);
-            }
-            else{
+            } else {
+                
                 if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Select Payment Option.");
                 else console.log("Please Select Some Payment Option.");
             }
@@ -462,6 +483,8 @@
         });
 
         App.container.appendChild(this.el);
+        
+        this.errorContainer = this.el.getElementsByClassName('errorContainer')[0];
         this.bind(App);
 
         events.publish('update.loader', {show:false});

@@ -28,8 +28,8 @@
 
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
-                events.publish('update.loader', {show:true});
-                App.router.navigateTo('/topup2', { amt: display.value });
+                events.publish('update.loader', { show: true });
+                App.router.navigateTo('/addMoney_paymentMethod', { amt: display.value });
             } else { 
                 if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Enter Amount");
                 else console.log("Please Enter Amount.");

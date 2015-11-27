@@ -130,19 +130,19 @@
                 utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/topup1', function(data){
+            this.router.route('/addMoney', function(data){
                 self.container.innerHTML = "";
                 self.topup1Controller.render(self, data);
                 utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/topup2', function(data){
+            this.router.route('/addMoney_paymentMethod', function(data){
                 self.container.innerHTML = "";
                 self.topup2Controller.render(self, data);
                 utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/sendmoney', function(data){
+            this.router.route('/sendMoney', function(data){
 
                 var available_hikeBalance = data;
 

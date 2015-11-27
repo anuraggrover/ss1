@@ -38,7 +38,7 @@
                 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
             };
             
-            if (typeof fn === "function") return this.PaymentService.communicate(params, fn);
+            if (typeof fn === "function") return this.PaymentService.communicate(params, fn, x);
             else this.PaymentService.communicate(params);
         }
 
