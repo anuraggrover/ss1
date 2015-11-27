@@ -53,6 +53,8 @@ table {
   border-spacing: 0;
 }
 
+input, textarea, select{font-family:inherit;}
+
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
@@ -528,4 +530,10 @@ a:visited {
 }
 
 .hide { display: none !important; }
+
+.tapState{
+  color: white!important;
+  background-color:#1da8e8!important;
+}
+
     
