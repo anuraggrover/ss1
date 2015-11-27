@@ -1,12 +1,7 @@
 /*Transaction History*/
 .iblock {
   display: inline-block !important;
-  vertical-align: middle;
-}
-
-.tapState{
-  color: white!important;
-  background-color:#1da8e8!important;
+  vertical-align: top;
 }
 
 .txHistoryContainer {
@@ -26,29 +21,12 @@
   font-size: 16px;
   color: #5C646D;
   font-weight: 600;
-  padding-top: 10px; }
+  padding-top: 9px; }
 
 .txHistoryContainer .txHistoryList {
   border-bottom: 1px solid #eee; 
   padding:16px 0px;
-}
-
-.txHistoryContainer .txHistoryList p.timestamp_date{
-  color:#5B636C;
-  line-height: 22px;
-  vertical-align: middle;
-  font-size: 14px;
-  font-weight: 500;
-  text-align:center;
-}
-
-.txHistoryContainer .txHistoryList p.timestamp_month{
-  text-align:center;
-  color:#5B636C;
-  line-height: 10px;
-  vertical-align: middle;
-  font-size: 10px;
-  text-transform: uppercase;
+  position: relative;
 }
 
 .txListContainer{
@@ -61,32 +39,49 @@
 }
 
 .txHistoryContainer .txHistoryList .itemText{
-  margin-left: 11px;
+  margin-left: 12px;
 }
 
 .txHistoryContainer .txHistoryList .itemText p.itemHeading{
-  color:#5B636C;
+  color: rgba(0,0,0,0.85);
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
+  width: 80%;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .txHistoryContainer .txHistoryList .itemText p.itemSubheading{
-  color:#A3A8AC;
-  font-weight: 500;
+  color: rgba(0,0,0,0.70);
+  font-weight: 400;
   font-size: 12px;
-  padding-top:5px;
+  clear: both;
+  float: left;
+  padding-top:6px;
+}
+
+.txHistoryContainer .txHistoryList .itemText p.itemDate{
+  color: rgba(0,0,0,0.40);
+  padding-top:6px;
+  font-weight: 400;
+  font-size: 12px;
+  clear: both;
+  float: left;
 }
 
 .txHistoryContainer .txHistoryList .txHistoryList-item-details {
-  float: left; }
+  float: left; 
+}
 
 .txHistoryContainer .txHistoryList .txHistoryList-item-amount {
-  font-size: 12px;
-  padding-top: 10px;
-  display: inline-block;
-  vertical-align: middle;
+  font-size: 14px;
+  position: absolute;
+  right: 0px;
   font-weight: 500;
-  float: right; }
+  float: right; 
+}
 
 .CREDIT{
   color: #33B87E;
@@ -100,8 +95,10 @@
 .txHistoryContainer .txHistoryList .txHistoryList-item-details .itemIcon {
   width: 36px;
   height: 36px;
-  background-color: rgba(0,0,0,0.04);
-  border-radius: 5px; }
+  background: url(images/amazon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 50%; }
 
 #load-bar {
   display: block;

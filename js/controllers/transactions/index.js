@@ -29,15 +29,16 @@
                             'sId': res.payload[i].statementId,
                             'tStatus': res.payload[i].transactionStatus,
                             'tType': res.payload[i].transactionType,
-                            'tMonth': monthNames[res.payload[i].transactionDate.split('-')[0]].substr(0,3),
-                            'tDay': res.payload[i].transactionDate.split('-')[1],
+                            'tDate': res.payload[i].transactionDate,
+                            // 'tMonth': monthNames[res.payload[i].transactionDate.split('-')[0]].substr(0,3),
+                            // 'tDay': res.payload[i].transactionDate.split('-')[1],
                             'currency': res.payload[i].currency,
                             'amount': res.payload[i].amount,
                             'tMessage': res.payload[i].transactionMessage
                         };
                         
                         var div = document.createElement('div');
-                        div.innerHTML = '<div data-sid="' + new_t.sId + '" class="txHistoryList clearfix"><div class="txHistoryList-item-details"><div class="itemIcon iblock"><p class="timestamp_date">'+new_t.tDay+'</p><p class="timestamp_month">'+new_t.tMonth+'</p></div><div class="itemText iblock"><p class="itemHeading">'+new_t.tMessage+'</p><p class="itemSubheading">Trans. ID - '+new_t.sId+'</p></div></div><div class="txHistoryList-item-amount"><p class="'+new_t.tType+'">₹ '+new_t.amount+'</p></div></div>';
+                        div.innerHTML = '<div data-sid="' + new_t.sId + '" class="txHistoryList clearfix"><div class="txHistoryList-item-details"><div class="itemIcon iblock"></div><div class="itemText iblock"><p class="itemHeading">'+new_t.tMessage+'</p><p class="itemSubheading">Trans. ID - '+new_t.sId+'</p><p class="itemDate">'+new_t.tDate+'</p></div></div><div class="txHistoryList-item-amount"><p class="'+new_t.tType+'">₹ '+new_t.amount+'</p></div></div>';
                         
                         tx.appendChild(div.children[0]);
                     }
@@ -74,8 +75,9 @@
                         'sId': res.payload[i].statementId,
                         'tStatus': res.payload[i].transactionStatus,
                         'tType': res.payload[i].transactionType,
-                        'tMonth': monthNames[res.payload[i].transactionDate.split('-')[0]].substr(0,3),
-                        'tDay': res.payload[i].transactionDate.split('-')[1],
+                        'tDate': res.payload[i].transactionDate,
+                        // 'tMonth': monthNames[res.payload[i].transactionDate.split('-')[0]].substr(0,3),
+                        // 'tDay': res.payload[i].transactionDate.split('-')[1],
                         'currency': res.payload[i].currency,
                         'amount': res.payload[i].amount,
                         'tMessage': res.payload[i].transactionMessage

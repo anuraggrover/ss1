@@ -53,6 +53,8 @@ table {
   border-spacing: 0;
 }
 
+input, textarea, select{font-family:inherit;}
+
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
@@ -525,5 +527,10 @@ a:visited {
 @-o-keyframes fadeout {
     from { opacity: 1; }
     to   { opacity: 0; }
+}
+
+.tapState{
+  color: white!important;
+  background-color:#1da8e8!important;
 }
     
