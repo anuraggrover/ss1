@@ -12,6 +12,7 @@
     };
 
     Topup1Controller.prototype.bind = function(App, data){
+
         var display = document.getElementById('p2pValue');
         var form = document.forms[0];
         var check = this.el.getElementsByClassName('action_next')[0];
@@ -42,7 +43,14 @@
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
                 events.publish('update.loader', { show: true });
-                App.router.navigateTo('/addMoney_paymentMethod', { amt: display.value });
+                // If Coming From Send Money Or Third Party Topup
+                if(data.reRoute){
+                    App.router.navigateTo('/addMoney_paymentMethod', { amt: display.value , reRouteData:data});
+                }
+                // If Normal Wallet Topup From Home Page
+                else{
+                    App.router.navigateTo('/addMoney_paymentMethod', { amt: display.value });
+                }
             } else { 
                 if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Enter Amount");
                 else console.log("Please Enter Amount.");

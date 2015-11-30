@@ -64,7 +64,7 @@
         this.App = App;
 
         App.PaymentService.fetchTxHistory(function(res){
-            
+            console.log(res);
             // Transactions List
             this.transactions =[];
             

@@ -144,7 +144,7 @@
 
             this.router.route('/sendMoney', function(data){
 
-                var available_hikeBalance = data;
+                var available_hikeBalance = data.balance;
 
                 var onContactChooserResult = function(res) {
 
@@ -186,7 +186,7 @@
                         success: onContactChooserResult
                     });
                 } else {
-                    var x = encodeURIComponent(JSON.stringify({'result_code': 1, contactInfo: [{"platformUid":"VhzmGOSwNYkM6JHE","msisdn":"+919000000236","thumbnail":"dummy.jpg","name":"9000000236"}]}));
+                    var x = encodeURIComponent(JSON.stringify({'result_code': 1, contactInfo: [{"platformUid":"VhzmGOSwNYkM6JHE","msisdn":"+919000000236","thumbnail":"","name":"9000000236"}]}));
                     onContactChooserResult(x);
                 }
             });

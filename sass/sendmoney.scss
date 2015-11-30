@@ -78,10 +78,10 @@
 }
 
 .p2pContainer .p2pThumb{
-  background:url(https://hmssweblog.files.wordpress.com/2015/08/brad-pitt.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
   display: inline-block;
+}
+
+.p2pContainer .p2pThumb img.p2pThumb_image{
   width: 48px;
   height: 48px;
   background-color: #1da8e8;

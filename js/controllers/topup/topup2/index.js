@@ -13,7 +13,7 @@
 
     };
 
-    Topup2Controller.prototype.bind = function(App){
+    Topup2Controller.prototype.bind = function(App, data){
 
         var that = this;
         var valid = {};
@@ -108,8 +108,17 @@
                                 } catch (e) { }
 
                                 console.log(re);
-
+                                // console.log(data);
+                                // if(data.reRouteData.reRoute && data.reRouteData.reRouteData){
+                                //     // New Hike Balance is older plus amount being added by user to be rerouted back to send money
+                                //     data.reRouteData.walletAvailBalance = parseInt(data.reRouteData.walletAvailBalance) + parseInt(display.value);
+                                //     App.router.navigateTo('/sendMoney', {balance:data.reRouteData.walletAvailBalance, reRouteData: data.reRouteData});
+                                // }
+                                // else{
+                                //     App.router.navigateTo('/txConfirmation', re);
+                                // }
                                 App.router.navigateTo('/txConfirmation', re);
+                                
                             },
                             error: function(re, status, xhrOb){
                                 var li = document.createElement('li');
@@ -122,7 +131,7 @@
                                         errorContainer.appendChild(li);
                                         errorContainer.classList.remove('hide');
                                     break;
-                                };
+                                }
                             }
                         });
 
@@ -485,7 +494,7 @@
         App.container.appendChild(this.el);
         
         this.errorContainer = this.el.getElementsByClassName('errorContainer')[0];
-        this.bind(App);
+        this.bind(App, this.transactionObj);
 
         events.publish('update.loader', {show:false});
     };

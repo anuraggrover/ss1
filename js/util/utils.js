@@ -74,13 +74,15 @@
         loadImage: function (params) {
             var imageEl = document.createElement('img');
 
+            imageEl.src = params.src;
+            
             imageEl.onload = function () {
-                params.success(imageEl) || noop();
+                params.success(imageEl,params.src);
             };
 
-            imageEl.onerror = params.error || noop;
-
-            imageEl.src = params.src;
+            imageEl.onError = function(){
+                params.error(imageEl);
+            };
         },
 
         toOptimizeForImages: function (connectionType) {
@@ -94,7 +96,7 @@
         getNodeIndex: function (elem) {
             var index = 0;
 
-            while(elem = elem.previousElementSibling) {
+            while(elem == elem.previousElementSibling) {
                 index++;
             }
 

@@ -2,7 +2,7 @@
     'use strict';
     
     //var Keypad = require('../../util/keyboard');
-
+    
     var SendMoneyController = function (options) {
         this.template = require('raw!../../../templates/sendmoney/index.html');
     };
@@ -11,7 +11,7 @@
         //this.captureKeys.remove();
     };
 
-    SendMoneyController.prototype.bind = function(App){
+    SendMoneyController.prototype.bind = function(App, data){
         
         var that = this;
         var display = document.getElementById('p2pValue');
@@ -21,15 +21,45 @@
         var wBalance = document.getElementById('wBalance');
         var addAlert = this.el.getElementsByClassName('addMoneyAlert')[0];
         var balAlert = this.el.getElementsByClassName('availBalance')[0];
-            
+        var contactImage = this.el.getElementsByClassName('p2pThumb')[0];
+
         display.focus();
+
+        // If Re Routed Back From Add Money Controller.
+        if(data.reRoute && data.reRouteData){
+            console.log("Coming From Re Routed");
+            console.log(data);
+        }
+
+        var loadImage_Thumb = function(src){
+            var elem = null;
+            
+            elem = document.createElement("img");
+            elem.className = "p2pThumb_image";
+            
+            // Add Default Image Path
+            if(src) elem.setAttribute("src", src);
+            else elem.setAttribute("src", "https://hmssweblog.files.wordpress.com/2015/08/brad-pitt.jpg");
+
+            contactImage.appendChild(elem);
+        };
+
+        if(data.contact.thumbnail && data.contact.thumbnail !== "") loadImage_Thumb(data.contact.thumbnail);
+        else loadImage_Thumb();
+
+        var image_thumb_asset = contactImage.getElementsByTagName('img')[0];
+
+        image_thumb_asset.addEventListener('error', function(){
+            // Add Default Image Path
+            this.setAttribute("src", "https://hmssweblog.files.wordpress.com/2015/08/brad-pitt.jpg");
+        });
 
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){
                 that.data.amount = parseInt(display.value);
                 that.data.message = p2pMessage.value;
                 events.publish('update.loader', {show:true});
-                App.PaymentService.fundsTransfer(that.data, function(res){   
+                App.PaymentService.fundsTransfer(that.data, function(res){ 
                     if (res.payload){
                         res.contact = that.data.contact;
                         App.router.navigateTo('/txConfirmation', res);
@@ -47,8 +77,9 @@
 
         // Add Money Alert Shortcut
         addAlert.addEventListener('click', function(ev){
-            // Route To Toup 1 with Filled Value
-            App.router.navigateTo('/topup1', {lowBalance:true,addMoney:parseInt(display.value) - parseInt(wBalance.getAttribute('data-balance'))} );
+            // If Low On Balance Routes To Add Money Flow
+            var diffAmount = parseInt(display.value) - parseInt(wBalance.getAttribute('data-balance'));
+            App.router.navigateTo('/addMoney', {lowBalance:true, addMoney:diffAmount, reRoute:true, reRouteData:that.data} );
         });
 
         var act = events.subscribe('input.activate', function(){
@@ -122,7 +153,7 @@
 
         ctr.appendChild(this.el);
         events.publish('update.loader', {show:false});
-        this.bind(App);
+        this.bind(App, data);
     };
 
     module.exports = SendMoneyController;

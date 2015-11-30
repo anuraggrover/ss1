@@ -38,7 +38,7 @@
 
         btn_sendmoney.addEventListener('click', function(ev){
             //events.publish('update.loader', {show:true});
-            App.router.navigateTo('/sendMoney', _hikeBalance);  
+            App.router.navigateTo('/sendMoney', {balance:_hikeBalance});  
         });
 
         btn_addmoney.addEventListener('click', function(ev){
@@ -80,12 +80,12 @@
             console.log(data);
 
             that.el.innerHTML = Mustache.render(that.template, {
-                cardbalance: data.payload.walletBalance
+                cardbalance: data.payload.wallet.walletBalance
             });
             
             ctr.appendChild(that.el);
 
-            _hikeBalance = data.payload.walletBalance;            
+            _hikeBalance = data.payload.wallet.walletBalance;            
             events.publish('update.loader', {show:false});
             events.publish('app.store.set', {
                 key: '_wallet',
@@ -127,7 +127,6 @@
 
                 } else {
                     App.PaymentService.fetchBalance(function(res){
-                        
                         _hikeBalance = res.payload.walletBalance;
 
                         that.el.innerHTML = Mustache.render(that.template, {

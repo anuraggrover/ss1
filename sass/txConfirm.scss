@@ -44,6 +44,10 @@
   font-size: 14px;
   color: #5B636C;
   font-weight: 500;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .confirm_wrapper .confirm_content .confirm_tx h5.confirm_tx_money
