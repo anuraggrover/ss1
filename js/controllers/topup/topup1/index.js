@@ -13,6 +13,7 @@
 
     Topup1Controller.prototype.bind = function(App, data){
         var display = document.getElementById('p2pValue');
+        var form = document.forms[0];
         var check = this.el.getElementsByClassName('action_next')[0];
         var moneyIn = this.el.getElementsByClassName('inActive')[0];
         var currencySymbol = this.el.getElementsByClassName('currencySymbol')[0];
@@ -25,6 +26,18 @@
         }
 
         display.focus();
+
+        form.addEventListener('submit', function(ev){
+            ev.preventDefault();
+
+            if (this.classList.contains('activebutton')){
+                events.publish('update.loader', { show: true });
+                App.router.navigateTo('/addMoney_paymentMethod', { amt: display.value });
+            } else { 
+                if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Please Enter Amount");
+                else console.log("Please Enter Amount.");
+            }
+        });
 
         check.addEventListener('click', function(ev){
             if (this.classList.contains('activebutton')){

@@ -2,7 +2,7 @@
     'use strict';
 
     var URL = {
-        processPayment: "http://172.16.3.20:8080/hike-topup-service/payment/processPayment"
+        processPayment: appConfig.API_URL + appConfig.SERVICE_URL + "/payment/processPayment"
     };
 
     var Topup2Controller = function (options) {

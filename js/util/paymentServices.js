@@ -10,7 +10,7 @@
     };
 
     var URL = {
-        location: appConfig.API_URL + '/wallet/'
+        location: appConfig.API_URL + appConfig.SERVICE_URL + '/wallet/'
     };
 
     PaymentService.prototype = {
