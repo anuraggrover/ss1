@@ -46,7 +46,7 @@
                 try { res = JSON.parse(decodeURIComponent(res)); } 
                 catch(e) { return false; }
 
-                if (res.status === "SUCCESS") fn.call(x, res);
+                if (res) fn.call(x, res);
             };
 
             var error = function(res){

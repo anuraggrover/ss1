@@ -398,7 +398,11 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .topupContainer2 .boxInputs-card #card_number{
-	width:93%;
+	width:100%;
+}
+
+.topupContainer2 .boxInputs-card #card_name{
+  width:100%;
 }
 
 .topupContainer2 .boxInputs-card #card_expiry{

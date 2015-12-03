@@ -24,17 +24,17 @@
                 barLoader.toggleClass('loadingBar', false);
 
                 that.App.PaymentService.fetchTxHistory(function(res){
-                    for (var i =0; i < res.payload.length; i++){
+                    for (var i =0; i < res.statementList.length; i++){
                         var new_t ={
-                            'sId': res.payload[i].statementId,
-                            'tStatus': res.payload[i].transactionStatus,
-                            'tType': res.payload[i].transactionType,
-                            'tDate': res.payload[i].transactionDate,
-                            // 'tMonth': monthNames[res.payload[i].transactionDate.split('-')[0]].substr(0,3),
-                            // 'tDay': res.payload[i].transactionDate.split('-')[1],
-                            'currency': res.payload[i].currency,
-                            'amount': res.payload[i].amount,
-                            'tMessage': res.payload[i].transactionMessage
+                            'sId': res.statementList[i].statementId,
+                            'tStatus': res.statementList[i].transactionStatus,
+                            'tType': res.statementList[i].transactionType,
+                            'tDate': res.statementList[i].transactionDate,
+                            // 'tMonth': monthNames[res.statementList[i].transactionDate.split('-')[0]].substr(0,3),
+                            // 'tDay': res.statementList[i].transactionDate.split('-')[1],
+                            'currency': res.statementList[i].currency,
+                            'amount': res.statementList[i].amount,
+                            'tMessage': res.statementList[i].transactionMessage
                         };
                         
                         var div = document.createElement('div');
@@ -69,18 +69,18 @@
             this.transactions =[];
             
             // Date MM-DD-YYYY
-            if (res.payload.length > 0){
-                for (var i = 0; i < res.payload.length; i++){
+            if (res.statementList.length > 0){
+                for (var i = 0; i < res.statementList.length; i++){
                     var t = {
-                        'sId': res.payload[i].statementId,
-                        'tStatus': res.payload[i].transactionStatus,
-                        'tType': res.payload[i].transactionType,
-                        'tDate': res.payload[i].transactionDate,
-                        // 'tMonth': monthNames[res.payload[i].transactionDate.split('-')[0]].substr(0,3),
-                        // 'tDay': res.payload[i].transactionDate.split('-')[1],
-                        'currency': res.payload[i].currency,
-                        'amount': res.payload[i].amount,
-                        'tMessage': res.payload[i].transactionMessage
+                        'sId': res.statementList[i].statementId,
+                        'tStatus': res.statementList[i].transactionStatus,
+                        'tType': res.statementList[i].transactionType,
+                        'tDate': res.statementList[i].transactionDate,
+                        // 'tMonth': monthNames[res.statementList[i].transactionDate.split('-')[0]].substr(0,3),
+                        // 'tDay': res.statementList[i].transactionDate.split('-')[1],
+                        'currency': res.statementList[i].currency,
+                        'amount': res.statementList[i].amount,
+                        'tMessage': res.statementList[i].transactionMessage
                     };
 
                     this.transactions.push(t);

@@ -23,7 +23,7 @@
 
     TxConfirm.prototype.render = function(ctr, App, data) {
 
-        this.data = data.payload.statement;
+        this.data = data.statement;
         this.el = document.createElement('div');
         this.el.className = "confirmationMessage animation_fadein";
         this.el.innerHTML = Mustache.render(this.template, { tName:this.data.transactionMessage, tAmount:this.data.amount, tId:this.data.statementId, tDate:this.data.transactionDate });

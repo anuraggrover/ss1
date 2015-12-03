@@ -20,7 +20,7 @@
         var currencySymbol = this.el.getElementsByClassName('currencySymbol')[0];
 
         // If any data exists Fill
-        if(data.lowBalance){
+        if(data && data.lowBalance){
             display.value = data.addMoney;
             moneyIn.classList.add('activate');
             check.classList.add('activebutton');

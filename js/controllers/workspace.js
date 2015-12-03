@@ -14,15 +14,15 @@
         var $el = $(this.el);
         var card = document.getElementsByClassName('cardImage')[0];
         var walletBalanceEl = this.el.getElementsByClassName('balance_value')[0];
-        var settingsIcon = document.getElementsByClassName('settingsIcon')[0];
+        var btn_recharge = this.el.getElementsByClassName('settingsIcon')[0];
         var btn_transactions = this.el.getElementsByClassName('walletHistory')[0];
         var btn_sendmoney = this.el.getElementsByClassName('sendMoney')[0];
         var btn_addmoney = this.el.getElementsByClassName('addMoney')[0];
-
+        
         W.urlIntercepted = function(response){
             console.log(response);
         };
-
+        
         btn_transactions.addEventListener('click', function(ev){
             events.publish('update.loader', {show:true});
             App.router.navigateTo('/transactions', _hikeBalance); 
@@ -46,7 +46,9 @@
             App.router.navigateTo('/addMoney', _hikeBalance);   
         });
 
-        settingsIcon.addEventListener('click', function(ev){
+        btn_recharge.addEventListener('click', function(ev){
+            //events.publish('update.loader', {show:true});
+            App.router.navigateTo('/recharge', _hikeBalance);
             // PlatformBridge.openFullPage("Google", "http://google.com", '{"icpt_url":[{"url":"ndtv","type":1},{"url":"techinsider.com","type":1}]}');
         });
 
@@ -80,12 +82,12 @@
             console.log(data);
 
             that.el.innerHTML = Mustache.render(that.template, {
-                cardbalance: data.payload.wallet.walletBalance
+                cardbalance: data.wallet.walletBalance
             });
             
             ctr.appendChild(that.el);
 
-            _hikeBalance = data.payload.wallet.walletBalance;            
+            _hikeBalance = data.wallet.walletBalance;            
             events.publish('update.loader', {show:false});
             events.publish('app.store.set', {
                 key: '_wallet',
@@ -102,10 +104,10 @@
             cb: function(r){
                 if (r.status === 1){
 
-                    _hikeBalance = r.results.payload.walletBalance;
+                    _hikeBalance = r.results.wallet.walletBalance;
 
                     that.el.innerHTML = Mustache.render(that.template, {
-                        cardbalance: r.results.payload.walletBalance
+                        cardbalance: r.results.wallet.walletBalance
                     });
                     
                     ctr.appendChild(that.el);
@@ -114,8 +116,8 @@
 
                     App.PaymentService.fetchBalance(function(res){
                         console.log(res);
-                        if (_hikeBalance != res.payload.walletBalance){
-                            _hikeBalance = res.payload.walletBalance;
+                        if (_hikeBalance != res.wallet.walletBalance){
+                            _hikeBalance = res.wallet.walletBalance;
 
                             events.publish('wallet.updateBalance', _hikeBalance);
                             events.publish('app.store.set', {
@@ -127,10 +129,10 @@
 
                 } else {
                     App.PaymentService.fetchBalance(function(res){
-                        _hikeBalance = res.payload.walletBalance;
+                        _hikeBalance = res.wallet.walletBalance;
 
                         that.el.innerHTML = Mustache.render(that.template, {
-                            cardbalance: res.payload.walletBalance
+                            cardbalance: res.wallet.walletBalance
                         });
 
                         ctr.appendChild(that.el);

@@ -14,6 +14,7 @@
         Ftue3Controller      = require('./controllers/ftue/ftuestep3/index'),
         Ftue4Controller      = require('./controllers/ftue/ftuestep4/index'),
         FtueTourController   = require('./controllers/ftue/ftuetour/index'),
+        RechargeController   = require('./controllers/recharge/index'),
         
         Router               = require('./util/router'),
         utils                = require('./util/utils'),
@@ -67,6 +68,7 @@
         this.ftuestep3Controller  = new Ftue3Controller();
         this.ftuestep4Controller  = new Ftue4Controller();
         this.ftuetourController   = new FtueTourController();
+        this.rechargeController   = new RechargeController();
         
         this.TxService            = new TxService(); 
         this.PaymentService       = new PaymentServices(this.TxService);
@@ -127,6 +129,12 @@
             this.router.route('/transactions', function(data){
                 self.container.innerHTML = "";
                 self.transIndexController.render(self.container, self, data);
+                utils.toggleBackNavigation(true);
+            });
+
+            this.router.route('/recharge', function(data){
+                self.container.innerHTML = "";
+                self.rechargeController.render(self, data);
                 utils.toggleBackNavigation(true);
             });
 

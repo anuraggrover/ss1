@@ -2,7 +2,7 @@
     'use strict';
 
     var URL = {
-        processPayment: appConfig.API_URL + appConfig.SERVICE_URL + "/payment/processPayment"
+        processPayment: appConfig.API_URL + appConfig.SERVICE_TOPUP_URL + "/payment/processPayment"
     };
 
     var Topup2Controller = function (options) {
@@ -17,6 +17,7 @@
 
         var that = this;
         var valid = {};
+        var inherited_data = data.reRouteData;
         
         var addMoney = this.el.getElementsByClassName('addMoney')[0];
         var paymentMethod = document.getElementById('card_number');
@@ -26,6 +27,7 @@
         var cardicon = this.el.getElementsByClassName('card-type-icon')[0];
         var expiry = document.getElementById('card_expiry');
         var cvv = document.getElementById('card_cvv');
+        var cardname = document.getElementById('card_name');
 
         // Add Money To The Wallet Api Call
 
@@ -44,7 +46,7 @@
                 // Identify Payment Method
                 var pmethod = paymentMethod.getAttribute('data-method');
                 var data;
-
+                
                 switch(pmethod){
                     case 'NB':
                         data ={
@@ -55,14 +57,14 @@
                          }; 
                     break;
                     case 'CARD':
-                         var ctype = cardnum.getAttribute('data-cardtype');
+                         var ctype = cardnum.getAttribute('data-cardtype').toUpperCase();
                          data ={
                               "paymodeId": pmethod,
-                              "payOptCode": pmethod+'_'+ctype,
+                              "payOptCode": pmethod+'_'+ctype+'_'+'INR',
                               "cardNumber": cardnum.value.replace(/\D/g, ''),
-                              "cardExpiry": expiry.value,
+                              "cardExpiry": expiry.value.split('/')[0]+'/'+'20'+expiry.value.split('/')[1],
                               "cvv": cvv.value,
-                              "nameOnCard": "Hemank Sabharwal",
+                              "nameOnCard": cardname.value,
                               "currency": "INR",
                               "amount": that.transactionObj.amt
                          }; 
@@ -108,17 +110,18 @@
                                 } catch (e) { }
 
                                 console.log(re);
-                                // console.log(data);
-                                // if(data.reRouteData.reRoute && data.reRouteData.reRouteData){
+                                console.log(inherited_data);
+                                
+                                App.router.navigateTo('/txConfirmation', re);
+                                
+                                // if(inherited_data.reRoute && inherited_data.reRouteData){
                                 //     // New Hike Balance is older plus amount being added by user to be rerouted back to send money
-                                //     data.reRouteData.walletAvailBalance = parseInt(data.reRouteData.walletAvailBalance) + parseInt(display.value);
-                                //     App.router.navigateTo('/sendMoney', {balance:data.reRouteData.walletAvailBalance, reRouteData: data.reRouteData});
+                                //     inherited_data.reRouteData.walletAvailBalance = parseInt(inherited_data.reRouteData.walletAvailBalance) + parseInt(inherited_data.reRoute);
+                                //     App.router.navigateTo('/sendMoney', {balance:inherited_data.reRouteData.walletAvailBalance, reRouteData: inherited_data.reRouteData});
                                 // }
                                 // else{
                                 //     App.router.navigateTo('/txConfirmation', re);
                                 // }
-                                App.router.navigateTo('/txConfirmation', re);
-                                
                             },
                             error: function(re, status, xhrOb){
                                 var li = document.createElement('li');
@@ -138,8 +141,8 @@
                         window.urlIntercepted = null;
                     };
 
-                    if (res.status === "SUCCESS"){
-                        var url = res.payload.redirectURL;
+                    if (res.status === "REDIRECT"){
+                        var url = res.redirectUrl;
 
                         that.errorContainer.classList.add('hide');
 
@@ -273,6 +276,7 @@
         // Set the Card Type According To the Card Number Being Entered 
         var fn_validateCardType = function(ev){
             
+            var that = this;
             // Backspace
             if (ev.which === 8) {
                 // Reset Card Icon If Value Less than 2
@@ -285,19 +289,20 @@
             
             var $target, digit, length, re, upperLength, value;
             
-            digit = String.fromCharCode(ev.which);      // Number Always Else The Key Code
+            //digit = String.fromCharCode(ev.which);
 
             // If Anything Except Numbers is Entered return and Dont Check Also Remove 
-            if (!/^\d+$/.test(digit)) {
-                this.value = this.value.replace(/\D/g, '');     // Actual Length 
-                return;
-            }
+            // if (!/^\d+$/.test(digit)) {
+            //     this.value = this.value.replace(/\D/g, '');     // Actual Length 
+            //     return;
+            // }
 
             // After the First Two Digits
             if (this.value.length >= 2){
                 var start = this.value.substr(0, 2);
                 // Visa 
                 if (/^4[0-9]/.test(start)){
+                    that.classList.remove('error');
                     cardicon.className = "card-type-icon visa";
                     cardnum.setAttribute('data-cardtype', "Visa");
                     re = /(?:^|\s)(\d{4})$/;
@@ -305,7 +310,8 @@
                     this.maxLength = 19;
                 } 
                 // Master Card
-                else if (/^5[1-5]/.test(start)){
+                else if (/^5[0-5]/.test(start)){
+                    that.classList.remove('error');
                     cardicon.className = "card-type-icon mastercard";
                     cardnum.setAttribute('data-cardtype', "MasterCard");
                     re = /(?:^|\s)(\d{4})$/;
@@ -314,11 +320,16 @@
                 }
                 // Amex Card 
                 else if (/^3[47]/.test(start)){
+                    that.classList.remove('error');
                     cardicon.className = "card-type-icon amex";
                     cardnum.setAttribute('data-cardtype', "Amex");
                     re = /^(\d{4}|\d{4}\s\d{6})$/;
                     upperLength = 15;
                     this.maxLength = 17;
+                }
+                // No Other Card Found
+                else{
+                    that.classList.add('error');
                 }
             } 
             // First Two Digits Not Present
@@ -341,10 +352,7 @@
                     });
                 }
                 if (re.test(value)) {
-                    ev.preventDefault();
-                    return setTimeout(function() {
-                        return $target.val(value + ' ');
-                    });
+                    return $target.val(value + ' ');
                 }
             } 
         };
@@ -396,9 +404,28 @@
             }
         };
 
+        var fn_cardname = function(){
+            if(this.value.length > 0) events.publish('validate.payment', {key: 'cname', value: true });
+            else events.publish('validate.payment', {key: 'cname', value: false });     
+        };
+
+        var fn_validateCardName = function(){
+            
+            var that = this;
+            
+            if(cardname.value){
+                that.classList.remove('error');
+                events.publish('validate.payment', {key: 'cname', value: true });
+            }
+            else{
+                events.publish('validate.payment', {key: 'cname', value: true });
+                that.classList.add('error');
+            }
+        };
+
         // If All the Things are Validated Correctly :: Add Money Button Corrected Accordingly
         var validateObject = function(){
-            if (valid.type === "cc" && valid.cc && valid.cvv && valid.expires){
+            if (valid.type === "cc" && valid.cc && valid.cvv && valid.expires && valid.cname){
                 addMoney.classList.add('activebutton');
                 paymentMethod.setAttribute('data-method', "CARD");
             } else if (valid.type === "netbanking" && valid.bank){
@@ -422,6 +449,9 @@
         cardnum.addEventListener('keyup', fn_validateCardType);   // Add VISA/MASTER/AMEX
         cardnum.addEventListener('blur', fn_validateCard);        // Validate The Card
         
+        cardname.addEventListener('keyup', fn_cardname);
+        cardname.addEventListener('blur', fn_validateCardName);
+
         // CVV Events
         cvv.addEventListener('blur', fn_validateCvv);
         cvv.addEventListener('keyup', fn_validateCvv);
@@ -511,10 +541,10 @@
 
                 try { res = JSON.parse(res); } catch(e) {}
 
-                that.renderPayOptions(App, res.payload);
+                that.renderPayOptions(App, res.paymentOptionMap);
 
                 if (platformSdk.appData) {
-                    platformSdk.appData.helperData.payOptions = res.payload;
+                    platformSdk.appData.helperData.payOptions = res.paymentOptionMap;
                     platformSdk.updateHelperData(platformSdk.appData.helperData);
                 }
             }, this);    

@@ -12,6 +12,8 @@
     };
 
     SendMoneyController.prototype.bind = function(App, data){
+
+        console.log(data);
         
         var that = this;
         var display = document.getElementById('p2pValue');
@@ -26,9 +28,10 @@
         display.focus();
 
         // If Re Routed Back From Add Money Controller.
+
         if(data.reRoute && data.reRouteData){
-            console.log("Coming From Re Routed");
-            console.log(data);
+            console.log("Filling Re Routed Contact Details");
+            console.log(data.reRouteData.contact);
         }
 
         var loadImage_Thumb = function(src){
@@ -60,7 +63,7 @@
                 that.data.message = p2pMessage.value;
                 events.publish('update.loader', {show:true});
                 App.PaymentService.fundsTransfer(that.data, function(res){ 
-                    if (res.payload){
+                    if (res.wallet && res.statement){
                         res.contact = that.data.contact;
                         App.router.navigateTo('/txConfirmation', res);
                         // App.router.navigateTo('/', res);

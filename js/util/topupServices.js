@@ -6,7 +6,7 @@
     var checkTimeout = null;
 
     var URL = {
-        location: appConfig.API_URL + '/hike-topup-service/'
+        location: appConfig.API_URL + appConfig.SERVICE_TOPUP_URL 
     };
 
     var TopupService = function (service) {
@@ -19,7 +19,7 @@
         getPaymentOptions: function(fn, x){
             var params = {
                 'topup': true, 
-                'url': URL.location + 'topup/paymentOptions?currency=INR', 
+                'url': URL.location + '/topup/paymentOptions?currency=INR', 
                 'type': 'GET', 
                 'headers': [['Content-Type', 'application/json']]
             };
@@ -32,7 +32,7 @@
         initiatePayment: function(data, fn, x){
             var params = {
                 'initateTopup':true, 
-                'url': URL.location + 'payment/initiatePayment', 
+                'url': URL.location + '/payment/initiatePayment', 
                 'type': 'POST', 
                 'data': data, 
                 'headers':[['Content-Type', 'application/json'],['platform_uid', platformSdk.appData.platformUid], ['platform_token', platformSdk.appData.platformToken]]
