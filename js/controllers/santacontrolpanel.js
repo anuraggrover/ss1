@@ -39,11 +39,11 @@
                 santeeButton.classList.add('assigned');   
             }
         }
-        
+
         // Gift Shelter Button
 
         giftShelter.addEventListener('click', function(ev){
-            
+            events.publish('update.loader', {show:true});
             if(platformSdk.bridgeEnabled){
                     App.SantaService.getRewards(function(res){
                     console.log(res);
@@ -67,13 +67,14 @@
                                 App.router.navigateTo('/giftenabled_r_s', res);
                             }
                         }
+                        // Disabled State To Get The Counter Timestamp
                         else if(res.state == 'disabled'){
                             console.log("Disabled State :: Get Timestamp");
                             App.router.navigateTo('/giftcounter', res);
                         }
                     }
                     else{
-                        if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Some Error Occured");
+                        if (platformSdk.bridgeEnabled) platformSdk.showToast("Some Error Occured");
                         else console.log("Some Error Occured");
                     }            
                 });
@@ -132,7 +133,7 @@
                     PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '+hike3+', 'isBot' : false}");    
                 }
             } else { 
-                if (platformSdk.bridgeEnabled) PlatformBridge.showToast("We are working to find you a Santa. Please try again after some time");
+                if (platformSdk.bridgeEnabled) platformSdk.showToast("We are working to find you a Santa. Please try again after some time");
                 else console.log("We are working to find you a Santa. Please try again after some time");
             }
         });
@@ -146,7 +147,7 @@
                     PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '+hike5+', 'isBot' : false}");    
                 }
             } else { 
-                if (platformSdk.bridgeEnabled) PlatformBridge.showToast("We are working to make you someone's santa. Please try again after some time");
+                if (platformSdk.bridgeEnabled) platformSdk.showToast("We are working to make you someone's santa. Please try again after some time");
                 else console.log("We are working to make you someone's santa. Please try again after some time");
             }
         });

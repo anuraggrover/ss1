@@ -25,7 +25,7 @@
                     PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '+hike3+', 'isBot' : false}");    
                 }
             } else { 
-                if (platformSdk.bridgeEnabled) PlatformBridge.showToast("We are working to find you a Santa. Please try again after some time");
+                if (platformSdk.bridgeEnabled) platformSdk.showToast("We are working to find you a Santa. Please try again after some time");
                 else console.log("We are working to find you a Santa. Please try again after some time");
             }
         });        
@@ -49,7 +49,7 @@
 
         this.el.innerHTML = Mustache.render(this.template, { secretsantaoffers:this.ssoffers });
         ctr.appendChild(this.el);
-        //events.publish('update.loader', {show:false});
+        events.publish('update.loader', {show:false});
         this.bind(App, data);
     };
 

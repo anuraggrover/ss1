@@ -15,7 +15,7 @@
         var faqConfirm = this.el.getElementsByClassName('faqConfirm')[0];
 
         faqConfirm.addEventListener('click', function(ev){
-            
+            events.publish('update.loader', {show:true});    
             if(platformSdk.bridgeEnabled){
                 App.SantaService.getAssignmentStatus(function(res){
                     console.log(res);

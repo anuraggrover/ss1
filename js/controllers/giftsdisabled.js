@@ -35,7 +35,7 @@
 
         this.el.innerHTML = Mustache.render(this.template, { tdays:1,thours:2,tminutes:50, tseconds:30 });
         ctr.appendChild(this.el);
-        //events.publish('update.loader', {show:false});
+        events.publish('update.loader', {show:false});
         this.bind(App, data);
     };
 

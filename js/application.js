@@ -105,6 +105,7 @@
 
         // Setting Up The Three Dot Menu
         initOverflowMenu: function(){
+        console.log("Defining the three dot");
         var omList = [{
             "title": platformSdk.block === "true" ? "Unblock" : "Block",
             "en": "true",

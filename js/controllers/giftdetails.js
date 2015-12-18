@@ -39,14 +39,14 @@
             }
             // Confirm and Send
             else if(this.classList.contains('sGift')){
-                
+                events.publish('update.loader', {show:true});
                 var data = {'coupon_id': res.offer_id };
                 if(platformSdk.bridgeEnabled){
                     App.SantaService.sendGift(data, function(res){
                         console.log(res);
                         if(res.stat == 'success'){
-                            // Assignment Call Response Here
-                            App.router.navigateTo('/santacontrolpanel');
+                            // Navigate To Control Panel and Pick up Santa and Santi From Helper Data
+                            App.router.navigateTo('/');
                         }    
                     });    
                 }
@@ -55,7 +55,7 @@
                 }
             }
             else{
-                if (platformSdk.bridgeEnabled) PlatformBridge.showToast("Some other Error Occured");
+                if (platformSdk.bridgeEnabled) platformSdk.showToast("Some other Error Occured");
                 else console.log("Some other Error Occured");
                 return;
             }
@@ -84,12 +84,10 @@
         }
 
         this.giftDetailsPage.offerterms = this.giftDetailsPage.offerterms.split('\n');
-        
-        console.log(this.giftDetailsPage);
 
         this.el.innerHTML = Mustache.render(this.template, {giftDetailsPage:this.giftDetailsPage});
         ctr.appendChild(this.el);
-        //events.publish('update.loader', {show:false});
+        events.publish('update.loader', {show:false});
         this.bind(App, this.giftDetailsPage);
     };
 

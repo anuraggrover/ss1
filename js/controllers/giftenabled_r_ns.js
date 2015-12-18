@@ -16,6 +16,7 @@
         var ssOffer = this.el.getElementsByClassName('ssOffer');
 
         rGiftButton.addEventListener('click', function(ev){
+            events.publish('update.loader', {show:true});
             App.SantaService.revealGift(function(res){
                 console.log(res);
                 if(res.stat == "success"){
@@ -60,7 +61,7 @@
 
         this.el.innerHTML = Mustache.render(this.template, { secretsantaoffers:this.ssoffers });
         ctr.appendChild(this.el);
-        //events.publish('update.loader', {show:false});
+        events.publish('update.loader', {show:false});
         this.bind(App, data);
     };
 

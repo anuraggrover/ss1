@@ -16,7 +16,7 @@
          var btn_santaIn = this.el.getElementsByClassName('santaSubscribe')[0];
                  
         btn_santaIn.addEventListener('click', function(ev){
-            //events.publish('update.loader', {show:true});
+            events.publish('update.loader', {show:true});
             if(platformSdk.bridgeEnabled){
                 App.SantaService.subscribeToSecretSanta(function(res){
                     if(res.stat == "success"){
@@ -49,61 +49,6 @@
         ctr.appendChild(that.el);
         events.publish('update.loader', {show:false});
         that.bind(App);
-
-        // events.publish('app.store.get', {
-        //     key: '_wallet',
-        //     ctx: this,
-        //     cb: function(r){
-        //         if (r.status === 1){
-
-        //             _hikeBalance = r.results.wallet.walletBalance;
-
-        //             that.el.innerHTML = Mustache.render(that.template, {
-        //                 cardbalance: r.results.wallet.walletBalance
-        //             });
-                    
-        //             ctr.appendChild(that.el);
-        //             events.publish('update.loader', {show:false});
-        //             that.bind(App);
-
-        //             App.PaymentService.fetchBalance(function(res){
-        //                 console.log(res);
-        //                 if (_hikeBalance != res.wallet.walletBalance){
-        //                     _hikeBalance = res.wallet.walletBalance;
-
-        //                     events.publish('wallet.updateBalance', _hikeBalance);
-        //                     events.publish('app.store.set', {
-        //                         key: '_wallet',
-        //                         value: res
-        //                     });
-        //                 }
-        //             });
-
-        //         } else {
-        //             App.PaymentService.fetchBalance(function(res){
-        //                 _hikeBalance = res.wallet.walletBalance;
-
-        //                 that.el.innerHTML = Mustache.render(that.template, {
-        //                     cardbalance: res.wallet.walletBalance
-        //                 });
-
-        //                 ctr.appendChild(that.el);
-        //                 events.publish('update.loader', {show:false});
-        //                 that.bind(App);
-
-        //                 // save it to store
-        //                 events.publish('app.store.set', {
-        //                     key: '_wallet',
-        //                     value: res,
-        //                     ctx: this,
-        //                     cb: function(r){
-
-        //                     }
-        //                 });
-        //             }, this);
-        //         }
-        //     }
-        // });
     };
 
     WorkspaceController.prototype.destroy = function(){
