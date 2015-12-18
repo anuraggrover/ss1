@@ -1,8 +1,8 @@
-@import 'ftue';
-@import 'transactionHistory';
-@import 'topup';
-@import 'sendmoney';
-@import 'txConfirm';
+@import 'secretsantapanel';
+@import 'giftreceiver';
+@import 'giftcounter';
+@import 'giftsender';
+@import 'giftdetails';
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -139,179 +139,94 @@ a:visited {
 .clearfix {
   display: block; }
 
-/* Wallet Main Page CSS*/
-
-  .walletContainer{
-    display: table-cell;
-    vertical-align: middle;
-  }
-
-  .walletContent{
-    width: 100%;
-    position: absolute;
-    top:50%;
-    left:50%;
-    -webkit-transform:translate(-50%,-50%);
-  }
-
-  // .hikeCard{
-  //   background:url(images/hikeCard.png);
-  //   background-size: contain;
-  //   width: 250px;
-  //   height: 160px;
-  //   background-repeat: no-repeat;
-  // }
-
-  .walletContainer-balance{
-    text-align: center;
-  }
-
-.walletContainer .walletBalance p.balance_heading{
-  font-size: 12px;
-  color: #A3A8AC;
-  font-weight: 500;
+.align-center{
+  text-align:center;
 }
 
-.walletContainer .walletBalance p.balance_value{
-  font-size: 28px;
-  color:#5C646D;
-  padding-top:10px;
-  font-weight: 600;
+/* Christams CSS */
+
+.christmasContainer{
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color:#E8382D;
 }
 
-.walletContainer .walletContainer-balance .walletHistory{
-    border:1px solid #1da8e8;
-    border-radius:4px;
-    padding: 8px 16px;
-    text-transform: uppercase;
-    font-size: 10px;
-    color: #1da8e8;
-    display: inline-block;
-    line-height:11px;
-    margin-top: 20px;
+.secretSanta{
+  height: 45%;
+  position: relative;
 }
 
-.walletContainer .walletContainer-balance .walletIntro{
-  margin-top:48px;
-  color: rgba(0,0,0,0.49);
-  font-size: 14px;
-}
-
-.walletContainer .walletContainer-balance hr{
-    width: 36px;
-    border: 1px solid #1da8e8;
-    margin-top: 14px;
-}
-
-.walletAction{
-  border:1px solid rgba(151,151,151,0.28);
-  margin: 20px 30px;
-  border-radius:4px;
-}
-
-.walletAction li{
-  padding:16px 0px 20px 21px;
-  -webkit-tap-highlight-color:#f5f5f5;
-}
-
-.walletAction li.addMoney{
-  border-bottom: 1px solid rgba(151,151,151,0.28);
-}
-
-.walletAction li.sendMoney{
-  border-bottom: 1px solid rgba(151,151,151,0.28);
-}
-
-.walletAction hr{
-  border:1px solid rgba(0,0,0,0.08);
-}
-
-.walletAction .content{
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 11px;
-}
-
-.walletAction span{
-  vertical-align: middle;
-  color: rgba(0,0,0,0.40);
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.walletAction p{
-  font-size: 16px;
-  color: rgba(0,0,0,0.80);
-  font-weight: 500;
-  margin-bottom: 3px;
-}
-
-.icon-add{
-    background:url(images/icon-add.png);
-    background-size: contain;
-    width: 30px;
-    height: 30px;
-    vertical-align: middle;
-    display: inline-block;
-    background-repeat: no-repeat;  
-    margin-top :2px; 
-}
-
-.icon-send{
-    background:url(images/icon-send.png);
-    background-size: contain;
-    width: 30px;
-    height: 30px;
-    vertical-align: middle;
-    display: inline-block;background-repeat: no-repeat;  
-    margin-top :2px;
-}
-
-.icon-settings{
-    margin-top :2px;
-    background:url(images/icon-recharge.png);
+.secretSanta .logo{
+    background: url(images/secretsantalogo.png);
     background-size: contain;
     background-repeat: no-repeat;
-    width: 30px;
-    height: 30px;
-    vertical-align: middle;
-    display: inline-block;  
+    width: 90%;
+    height: 62%;
+    bottom: 0px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 }
-  .cardImage {
-    #side-1 {
-          transform:         rotateY( 0deg );
-          -moz-transform:    rotateY( 0deg );
-          -ms-transform:     rotateY( 0deg );
-          -o-transform:      rotateY( 0deg );
-          -webkit-transform: rotateY( 0deg );
-    }
 
-    #side-2 {
-          transform:         rotateY( 180deg );
-          -moz-transform:    rotateY( 180deg );
-          -ms-transform:     rotateY( 180deg );
-          -o-transform:      rotateY( 180deg );
-          -webkit-transform: rotateY( 180deg );
-    }
-  }
+.christmasContainer p.ssintro{
+  color: rgba(255,255,255,0.80);
+  font-size: 15px;
+  margin:18px 56px 68px 56px;
+  font-weight: 400;
+  line-height:20px;
+}
 
-  .cardImage.flip {
-    #side-1 {
-          transform:         rotateY( 180deg );
-          -moz-transform:    rotateY( 180deg );
-          -ms-transform:     rotateY( 180deg );
-          -o-transform:      rotateY( 180deg );
-          -webkit-transform: rotateY( 180deg );
-    }
+#snow{
+  background: none;
+  font-family: Androgyne;
+  background-image: url('images/snowflake_1.png'), url('images/snowflake_2.png'), url('images/snowflake_3.png');
+  width: 100%;
+  z-index:1;
+  -webkit-animation: snow 10s linear infinite;
+  -moz-animation: snow 10s linear infinite;
+  -ms-animation: snow 10s linear infinite;
+  animation: snow 10s linear infinite;
+}
+@keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}
+@-moz-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 400px 1000px, 200px 400px, 100px 300px;}
+}
+@-webkit-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}
+@-ms-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+} 
 
-    #side-2 {
-          transform:         rotateY( 0deg );
-          -moz-transform:    rotateY( 0deg );
-          -ms-transform:     rotateY( 0deg );
-          -o-transform:      rotateY( 0deg );
-          -webkit-transform: rotateY( 0deg );
-    }
-  }
+.secretSantaButton .santaSubscribe{
+    border: 1px solid rgba(255,255,255,0.80);
+    display: inline-block;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 18px 30px 16px 30px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+#canvas_half {
+  z-index: 10;
+  bottom: 0px;
+}
 
 .spinner-ctr {
   margin-top: -12.5px;
@@ -440,19 +355,108 @@ a:visited {
 }
 
 #nointernet {
-  background-color: #1da8e8;
+  background-color: #fff;
+  opacity: 0.90;
+  width:100%;
+  height: 100%;
   color: white;
   font-weight: 300;
   display: none;
   left: 0;
   right: 0;
-  padding: 10px 0;
   position: fixed;
   text-align: center;
   z-index:101; }
 
+.no-internet-msg .bellIcon{
+  background: url(images/nointernet.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 72px;
+  height: 100px;  
+  margin: 0px auto;
+}  
+
 #nointernet.no-internet-msg{
-  display: block;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.noInternetWrapper h3{
+  color: #A00000;
+  font-size: 24px;
+  font-weight: 300;
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+.noInternetWrapper p{
+  color: #6D0000;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.noInternetWrapper, .blockScreenWrapper{
+  width: 90%;
+  position: absolute;
+  top:50%;
+  left:50%;
+  -webkit-transform:translate(-50%,-50%);
+}
+
+.blockScreenWrapper h3{
+  font-size: 24px;
+  font-weight: 300;
+  color: #fff;
+  margin-top: 25px;
+  margin-bottom: 9px;
+}
+
+.blockScreenWrapper p{
+  font-size:14px;
+  font-weight: 400;
+  color: #fff;
+  line-height:18px;
+  margin-bottom: 40px;
+}
+
+.blockScreenWrapper .unblockButton{
+  border-radius:4px;
+  border:1px solid #fff;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding:12px 55px;
+  display: inline-block;
+  text-align:center;
+}
+
+#blockScreen {
+  background-color: #1F2E79;
+  opacity: 0.90;
+  width:100%;
+  height: 100%;
+  color: white;
+  font-weight: 300;
+  display: none;
+  left: 0;
+  right: 0;
+  position: fixed;
+  text-align: center;
+  z-index:101; }
+
+.block-msg .blockIcon{
+  background: url(images/blocked.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 72px;
+  height: 100px;
+  margin: 0px auto; 
+}  
+
+#blockScreen.block-msg{
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .animation_fadein{
@@ -531,32 +535,26 @@ a:visited {
 
 .hide { display: none !important; }
 
+
 .tapState{
-  color: white!important;
-  background-color:#1da8e8!important;
+  color: #2FB2F4!important;
+  background-color:#fff!important;
+}  
+
+.tapStateRed{
+  color: #E8382D!important;
+  background-color:#fff!important;
+}  
+
+.tapStateOffer{
+  background:rgba(240,240,240,1)!important; 
 }
 
-.rechargeContainer{
-    display: table-cell;
-    vertical-align: middle;
-  }
-
-.rechargeWrapper{
-    width: 100%;
-    height: 100%;
-    background-color:#1da8e8;
-    position: absolute;
-    top:50%;
-    left:50%;
-    -webkit-transform:translate(-50%,-50%);
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
-
-.comingSoon{
-    background:url(images/rechargecomingsoon.png);
-    background-size: contain;
-    width: 100%;
-    height: 300px;
-    background-repeat: no-repeat;    
-}
-
-    

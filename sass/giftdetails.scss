@@ -1,0 +1,122 @@
+ // Gift Details CSS
+
+ .giftDetailsContainer{
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color:#2FB2F4;
+  position: relative;
+  z-index: -100;
+ }
+
+ .giftDetailsContainer .giftsEnabledBg{
+  background: url(images/mountainsnowupdated.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  padding-top:95%;
+  z-index: -10;  
+}
+
+ .giftDetailsWrapper{
+  padding: 40px 22px 50px 22px;
+ }
+
+ .giftDetailsWrapper .giftHeader .gdIcon{
+  background: url(images/santachat.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 65px;
+  height: 65px;
+ }
+
+ .giftConfirmSend{
+  position: absolute;
+  bottom: 0px;
+  background-color:#1F71A8;
+  padding:16px 0px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  width: 100%;
+  text-transform: uppercase;
+  z-index: 10;
+ }
+
+.giftDetailsWrapper .ssOffer{
+  margin: 0px auto 18px auto;
+  background: #fff;
+  border-radius: 4px;
+  width: 90%;
+  padding: 12px 0px;
+}
+
+.giftDetailsWrapper .ssOffer .offerIcon{
+  background: url(images/santachat.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.giftDetailsWrapper .ssOffer .offerContent{
+  padding-left :12px;
+  text-align:left;
+  border-right:1px solid rgba(61, 71, 91, 0.34);
+}
+
+.giftDetailsWrapper .ssOffer .offerContent p.ohead{
+  color: #3D475B;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  opacity: 0.80;
+}
+
+.giftDetailsWrapper .ssOffer .offerContent p.osubhead{
+  color: #3D475B;
+  font-size: 12px;
+  font-weight: 300;
+  margin-top: 7px; 
+  opacity: 0.80;
+}
+
+.giftDetailsWrapper .ssOffer .offerValue{
+  color: #3D475B;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 31px;
+}
+
+.giftDetailsWrapper .giftCodeValue{
+    border: 1px dashed #fff;
+    padding: 14px 0px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 300;
+    border-radius: 4px;
+    width: 95%;
+    margin: 0px auto 18px auto;
+}
+
+.giftDetailsWrapper .tcContainer{
+    background: rgba(255,255,255,0.20);
+    border-radius: 4px;
+    padding:20px 5px 30px 15px;
+}
+
+.giftDetailsWrapper .tcContainer h3{
+  font-size: 16px;
+  color: #1F71A8;
+  margin-bottom: 10px;
+}
+
+.giftDetailsWrapper .tcContainer li{
+  font-size: 14px;
+  color: #fff;
+  font-weight:400;
+  margin-bottom: 10px;
+}

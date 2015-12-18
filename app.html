@@ -4,21 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 
-    <title>Payments</title>
+    <title>Secret Santa</title>
     <link href="app.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="http://localhost:48626/takana.js"></script>
-     <script type="text/javascript">
-        //takanaClient.run({host: 'localhost:48626'});
-     </script>
   </head>
 
   <body data-app-type="NM" data-env="dev" data-platform-version="{{#platform_version}}{{platform_version}}{{/platform_version}}" data-message-id="{{#message_id}}{{message_id}}{{/message_id}}">
 
-    <!-- <div id="header"></div>-->
     <div id="container"></div>
     <!-- No Internet Connection -->
-    <div id="nointernet" class="">No Internet Connection</div>
-
+    <div id="nointernet" class="">
+      <div class="noInternetWrapper align-center">
+        <div class="bellIcon"></div>
+        <h3>No Internet Connection</h3>
+        <p>Try turning on your Wifi or Mobile Data</p>
+      </div>
+    </div>
+    <!-- Blocked -->
+    <div id="blockScreen" class="">
+      <div class="blockScreenWrapper align-center">    
+        <div class="blockIcon"></div>
+        <h3>Blocked</h3>
+        <p>Don’t keep your Christmas Elf waiting! Unblock & embrace the joy this holiday season.</p>
+        <div class="unblockButton">Unblock</div>
+      </div> 
+    </div>
+    
     <!-- Overall Loader -->
     <div id="loader" class="loading">
       <div class="spinner-ctr">

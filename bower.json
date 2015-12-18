@@ -1,6 +1,6 @@
 {
-  "name": "payments-frontend",
-  "version": "0.0.0",
+  "name": "secretsanta-frontend",
+  "version": "0.0.1",
   "license": "MIT",
   "ignore": [
     "**/.*",

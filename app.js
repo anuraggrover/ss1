@@ -6,8 +6,7 @@
     
     var platformSdk = require('./libs/js/platformSdk_v2.0');
     var utils = require('./js/util/utils');
-    var swipe = require('script!./libs/js/swipe');
-
+    
     platformSdk.ready(function () {
         var Store = require('./js/util/store');
         var environment = document.body.getAttribute('data-env'),

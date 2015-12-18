@@ -25,7 +25,9 @@
                         ctx: this,
                         data: "",
                         success: function(response){
-                            if (typeof fn === "function") fn.call(ctx,response);
+                            if (typeof fn === "function") {
+                                fn.call(ctx, response);
+                            }
                         }
                     }); 
                 } else {
@@ -38,19 +40,31 @@
             }; 
 
             var success = function(res){
+                console.log("Success", res);
                 
-                // If No Internet Connection Was There
-                
+                var response;
+
                 events.publish('app/offline', {show:false});
                 
                 try { res = JSON.parse(decodeURIComponent(res)); } 
                 catch(e) { return false; }
 
-                if (res) fn.call(x, res);
+                if (res && res.status === "success") {
+                    response = JSON.parse(res.response);
+                    fn.call(x, response);
+                }
+                else{
+                    if (platformSdk.bridgeEnabled) {
+                        platformSdk.showToast("Something went wrong. Please try again later.");
+                    }
+                    else{
+                        console.log("Something went wrong. Please try again later.");  
+                    } 
+                }
             };
 
             var error = function(res){
-
+                
                 // Check For Internet Connection
                 
                 checkConnection(function(type){
@@ -69,31 +83,40 @@
                 }, this);
             };
 
-            if (platformSdk.isDevice){
-                var data = JSON.stringify({
-                    url: requestUrl,
-                    params: params.data
-                });
+            
+            if(params.type === "GET"){
+                
+                console.log('calling service GET', requestUrl);
 
                 platformSdk.nativeReq({
-                    fn: type === "GET" ? 'doGetRequest' : 'doPostRequest',
+                    fn: 'doGetRequest',
                     ctx: params.ctx || that,
-                    data: params,
-                    success: success,
-                    error: error
-                });
-
-            } else {
-                platformSdk.ajax({
-                    type: params.type,
-                    url: requestUrl,
-                    timeout: 30000,
-                    data: params.data !== undefined ? JSON.stringify(params.data) : null,
-                    headers: params.headers,
-                    success: success,
-                    error: error
+                    data: requestUrl,
+                    success: success
                 });
             }
+
+            else if(params.type === "POST"){
+
+                var data = {};
+                data.url = params.url;
+
+                if (params.data) {
+                    data.params = params.data; 
+                }
+                else{
+                    data.params = {};
+                }
+
+                console.log('calling service POST', data);
+                data = JSON.stringify(data);    
+                platformSdk.nativeReq({
+                    fn: 'doPostRequest',
+                    ctx: params.ctx || this,
+                    data: data,
+                    success: success
+                });
+            }      
         }
     };
 

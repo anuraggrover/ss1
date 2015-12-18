@@ -1,29 +1,26 @@
 (function (W, events) {
     'use strict';
-    
+
     var WorkspaceController  = require('./controllers/workspace'),
-        TransIndexController = require('./controllers/transactions/index'),
+        SantaControlPanel    = require('./controllers/santacontrolpanel'),
         
-        TxConfirm            = require('./controllers/txconfirm'),
-        SendMoneyController  = require('./controllers/sendmoney/index'),
-        Topup1Controller     = require('./controllers/topup/topup1/index'),
-        Topup2Controller     = require('./controllers/topup/topup2/index'),
+        GiftCounter          = require('./controllers/giftsdisabled'),
         
-        Ftue1Controller      = require('./controllers/ftue/ftuestep1/index'),
-        Ftue2Controller      = require('./controllers/ftue/ftuestep2/index'),
-        Ftue3Controller      = require('./controllers/ftue/ftuestep3/index'),
-        Ftue4Controller      = require('./controllers/ftue/ftuestep4/index'),
-        FtueTourController   = require('./controllers/ftue/ftuetour/index'),
-        RechargeController   = require('./controllers/recharge/index'),
+        GiftEnabled_NR_NS    = require('./controllers/giftenabled_nr_ns'),
+        GiftEnabled_NR_S     = require('./controllers/giftenabled_nr_s'),
+        GiftEnabled_R_NS     = require('./controllers/giftenabled_r_ns'),
+        GiftEnabled_R_S      = require('./controllers/giftenabled_r_s'),
+    
+        GiftDetails          = require('./controllers/giftdetails'),
+
+        Faq                  = require('./controllers/faq'),
+        Legal                = require('./controllers/legal'),
         
         Router               = require('./util/router'),
         utils                = require('./util/utils'),
         
         TxService            = require('./util/txServices'),
-        PaymentServices      = require('./util/paymentServices'),
-        TopupServices        = require('./util/topupServices'),
-
-        Keyboard             = require('./util/keyboard');
+        SantaServices        = require('./util/santaServices');
 
     // Full Screen Loader 
     var loader = document.getElementById('loader');
@@ -31,22 +28,52 @@
         loader.toggleClass('loading', params.show);
     });
 
-    // Vertical Bar Loader
-    // var loaderVertical = document.getElementById('loader');
-    // var loadObjectVertical = events.subscribe('update.loaderVertical', function(params){
-    //     loader.toggleClass('loading', params.show);
-    // });
+    // Tap State Events :: Touch Start And Touch End
 
-    // // Transaction Div Loader 
-    // var loaderTx = document.getElementById('loader');
-    // var loadObjectTx = events.subscribe('update.loaderTx', function(params){
-    //     loader.toggleClass('loading', params.show);
-    // });
+    document.addEventListener('touchstart', function(e) {
+        e = e || window.event;
+        var target = e.target;
+        if(target.classList.contains('buttonTap')){
+            target.classList.add('tapState');     
+        }
+        else if(target.classList.contains('buttonTapRed')){
+            target.classList.add('tapStateRed');   
+        }
+        else if(target.classList.contains('buttonTapOffer')){
+            target.classList.add('tapStateOffer');
+        }
+        else{
+            return;
+        }
+    }, false);
+
+    document.addEventListener('touchend', function(e) {
+        e = e || window.event;
+        var target = e.target;
+        if(target.classList.contains('buttonTap')){
+            target.classList.remove('tapState');     
+        }   
+        else if(target.classList.contains('buttonTapRed')){
+            target.classList.remove('tapStateRed');   
+        }
+        else if(target.classList.contains('buttonTapOffer')){
+            target.classList.remove('tapStateOffer');
+        }
+        else{
+            return;
+        }
+    }, false);
 
     // No Internet Connection Tab 
     var noInternet = document.getElementById('nointernet');
     var noInternetObject = events.subscribe('app/offline', function(params){
         noInternet.toggleClass('no-internet-msg', params.show);
+    });
+
+    // Block Connection Tab 
+    var isblock = document.getElementById('blockScreen');
+    var isBlockObject = events.subscribe('app/block', function(params){
+        isBlock.toggleClass('block-msg', params.show);
     });
     
     var Application = function (options) {
@@ -56,26 +83,85 @@
         this.router               = new Router();
         
         this.workspaceController  = new WorkspaceController();
-        this.transIndexController = new TransIndexController();
+        this.SantaControlPanel    = new SantaControlPanel();
         
-        this.topup1Controller     = new Topup1Controller();
-        this.topup2Controller     = new Topup2Controller();
-        this.sendMoneyController  = new SendMoneyController();
-        this.txConfirmController  = new TxConfirm();
+        this.GiftCounter          = new GiftCounter();
         
-        this.ftuestep1Controller  = new Ftue1Controller();
-        this.ftuestep2Controller  = new Ftue2Controller();
-        this.ftuestep3Controller  = new Ftue3Controller();
-        this.ftuestep4Controller  = new Ftue4Controller();
-        this.ftuetourController   = new FtueTourController();
-        this.rechargeController   = new RechargeController();
+        this.GiftEnabled_NR_NS    = new GiftEnabled_NR_NS();
+        this.GiftEnabled_NR_S     = new GiftEnabled_NR_S();
+        this.GiftEnabled_R_NS     = new GiftEnabled_R_NS();
+        this.GiftEnabled_R_S      = new GiftEnabled_R_S();
+
+        this.GiftDetails          = new GiftDetails();
+
+        this.Faq                  = new Faq();
+        this.Legal                = new Legal(); 
         
         this.TxService            = new TxService(); 
-        this.PaymentService       = new PaymentServices(this.TxService);
-        this.TopupService         = new TopupServices(this.TxService);
+        this.SantaService         = new SantaServices(this.TxService);
     };
     
     Application.prototype = {
+
+        // Setting Up The Three Dot Menu
+        initOverflowMenu: function(){
+        var omList = [{
+            "title": platformSdk.block === "true" ? "Unblock" : "Block",
+            "en": "true",
+            "eventName": "app.menu.om.block"
+        },
+        {
+            "title": "Notifications",
+            "en": "true",
+            "eventName": "app.menu.om.mute",
+            "is_checked": platformSdk.mute === "true" ? "false" : "true"
+        }];
+
+        // Notifications  
+        platformSdk.events.subscribe('app.menu.om.mute', function(id){
+            id = "" + platformSdk.retrieveId('app.menu.om.mute');
+            if (platformSdk.mute == "true"){
+                platformSdk.mute = "false";
+                platformSdk.muteChatThread();
+                platformSdk.updateOverflowMenu(id, {
+                    "is_checked": "true"
+                });
+            } else {
+                platformSdk.mute = "true";
+                platformSdk.muteChatThread();
+                platformSdk.updateOverflowMenu(id, {
+                    "is_checked": "false"
+                });
+            }
+        });
+        // Block
+        platformSdk.events.subscribe('app.menu.om.block', function(id){
+            id = "" + platformSdk.retrieveId('app.menu.om.block');
+            if (platformSdk.block === "true"){
+                platformSdk.block = "false";
+                if (platformSdk.bridgeEnabled) platformSdk.unblockChatThread();
+                platformSdk.events.publish('app.state.block.hide');
+                platformSdk.updateOverflowMenu(id, {
+                    "title": "Block"
+                });
+
+                events.publish('app/offline', {show:false});
+                events.publish('app/block', {show:false});
+
+            } else {
+                platformSdk.block = "true";
+                platformSdk.blockChatThread();
+                platformSdk.events.publish('app.state.block.show');
+                platformSdk.updateOverflowMenu(id, {
+                    "title": "Unblock"
+                });
+                
+                events.publish('app/block', {show:true});
+                events.publish('app/offline', {show:false});
+            }
+        });
+        platformSdk.setOverflowMenu(omList);
+    },
 
         backPressTrigger: function() {
             this.router.back();            
@@ -120,143 +206,117 @@
                 self.backPressTrigger();
             });
 
-            this.router.route('/', function(data){
+            // Subscribe :: Workspace
+            this.router.route('/optin', function(data){
                 self.container.innerHTML = "";
                 self.workspaceController.render(self.container, self, data);
                 utils.toggleBackNavigation(false);
             });
 
-            this.router.route('/transactions', function(data){
+            // Subscribe :: FAQ's
+            this.router.route('/faq', function(data){
                 self.container.innerHTML = "";
-                self.transIndexController.render(self.container, self, data);
+                self.Faq.render(self.container, self, data);
+                utils.toggleBackNavigation(false);
+            });
+
+            // Subscribe :: Legal Screen
+            this.router.route('/legal', function(data){
+                self.container.innerHTML = "";
+                self.Legal.render(self.container, self, data);
+                utils.toggleBackNavigation(false);
+            });
+
+            // Santa Secret Panel Is Home
+            this.router.route('/', function(data){
+                self.container.innerHTML = "";
+                self.SantaControlPanel.render(self.container, self, data);
+                utils.toggleBackNavigation(false);
+            });
+
+            this.router.route('/giftcounter', function(data){
+                self.container.innerHTML = "";
+                self.GiftCounter.render(self.container, self, data);
                 utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/recharge', function(data){
+            // Christmas Gift Panel Here (4 States To Be Handelled Here NR/NS :: NR/S :: R/NS :: R/S)
+            // NR - Not Received
+            // NS - Not Sent 
+            // S - Sent
+            // R - Received            
+            // R/S :: giftenabled_r_s
+
+            this.router.route('/giftenabled_r_s', function(data){
                 self.container.innerHTML = "";
-                self.rechargeController.render(self, data);
+                self.GiftEnabled_R_S.render(self.container, self, data);
                 utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/addMoney', function(data){
+            // NR/NS :: gftenabled_nr_ns
+
+            this.router.route('/giftenabled_nr_ns', function(data){
                 self.container.innerHTML = "";
-                self.topup1Controller.render(self, data);
+                self.GiftEnabled_NR_NS.render(self.container, self, data);
                 utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/addMoney_paymentMethod', function(data){
+            // R/NS :: giftenabled_r_ns
+
+            this.router.route('/giftenabled_r_ns', function(data){
                 self.container.innerHTML = "";
-                self.topup2Controller.render(self, data);
+                self.GiftEnabled_R_NS.render(self.container, self, data);
                 utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/sendMoney', function(data){
+            //NR/S :: giftenabled_nr_s
 
-                var available_hikeBalance = data.balance;
-
-                var onContactChooserResult = function(res) {
-
-                    try {
-                        res = JSON.parse(decodeURIComponent(res));
-                    } catch(e){
-
-                    }
-
-                    if (res.result_code == 1){
-                        try { 
-                            res.contactInfo = JSON.parse(res.contactInfo);
-                        } catch(e){}
-
-                        var data = {
-                            uid: res.contactInfo[0].platformUid,
-                            currency: "INR",
-                            message: "Funds Transfer",
-                            contact: res.contactInfo[0],
-                            walletAvailBalance: available_hikeBalance
-                        };
-
-                        self.container.innerHTML = "";
-                        self.sendMoneyController.render(self.container, self, data);
-
-                        utils.toggleBackNavigation(true);
-                        
-                    } else {
-                        console.log("Success Response:: Routing To p2p ,Transfer");
-                        console.log("Failed::Add Exception", res.result_code, res.contactInfo);
-                    }
-                };
-
-                if (platformSdk.bridgeEnabled) {
-                    platformSdk.nativeReq({
-                        fn: 'startContactChooserForMsisdnFilter',
-                        ctx: this,
-                        data: JSON.stringify({"list": "", "title": "Select a Contact"}),
-                        success: onContactChooserResult
-                    });
-                } else {
-                    var x = encodeURIComponent(JSON.stringify({'result_code': 1, contactInfo: [{"platformUid":"VhzmGOSwNYkM6JHE","msisdn":"+919000000236","thumbnail":"","name":"9000000236"}]}));
-                    onContactChooserResult(x);
-                }
-            });
-
-            this.router.route('/txConfirmation', function(data){
+            this.router.route('/giftenabled_nr_s', function(data){
                 self.container.innerHTML = "";
-                self.txConfirmController.render(self.container, self, data);
+                self.GiftEnabled_NR_S.render(self.container, self, data);
                 utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/ftue_step_1', function(){
-                self.$el.html(self.ftuestep1Controller.render().el);
+            // Gift Details Here Received Or Sent
+
+            this.router.route('/giftdetails', function(data){
+                self.container.innerHTML = "";
+                self.GiftDetails.render(self.container, self, data);
+                utils.toggleBackNavigation(true);
             });
 
-            this.router.route('/ftue_step_2', function(){
-                self.$el.html(self.ftuestep2Controller.render().el);
-            });
-
-            this.router.route('/ftue_step_3', function(){
-                self.$el.html(self.ftuestep3Controller.render().el);
-            });
-
-            this.router.route('/ftue_step_4', function(){
-                self.$el.html(self.ftuestep4Controller.render().el);
-            });
-
-            this.router.route('/ftue_tour', function(){
-                self.$el.html(self.ftuetourController.render().el);
-            });
-
-            // To Navigate TO FTUE DEPENDING ON HELPER DATA :: HELPER DATA NOT AVAILABLE AT DEV
-            // Here The Activate Wallet Needs To Be Run As Well
-
-            if (platformSdk.bridgeEnabled && !platformSdk.appData.helperData.walletActive){
-                this.PaymentService.activateWallet(function(res){
-                    self.getRoute();
-                    platformSdk.appData.helperData.walletActive = true;
-                    platformSdk.updateHelperData(platformSdk.appData.helperData);
-                }, this);
+            // First Time User
+            if(platformSdk.block =="true"){
+                console.log("User has blocked the Application");
+                events.publish('app/block', {show:false});
+            }      
+            else if(!platformSdk.appData.helperData.SecretSantaActive){
+                console.log("First Time User");
+                self.router.navigateTo('/optin');
             } else {
-                self.getRoute();
-            }   
+                console.log("Regular User");
+                if(platformSdk.bridgeEnabled){
+                    // Get Assignment Status
+                    events.publish('update.loader', {show:true});
+                    this.SantaService.getAssignmentStatus(function(res){
+                        console.log(res);
+                        if(res.stat == "success"){
+                            if(res.showLegal){
+                                console.log("Show Legal Screen Here :: With The Terms Key");
+                                self.router.navigateTo('/legal', res);
+                            }
+                            else{
+                                console.log("Show Normal Panel Screen");
+                                self.router.navigateTo('/', res);        
+                            }
+                        }
+                    }, this);
+                }
+                else{
+                    self.router.navigateTo('/', {santa:true, santi:true});
+                }
 
-            if(platformSdk && platformSdk.isDevice){
-                setTimeout(function(){
-                    // Existing User
-                    // if(platformSdk.helperData.ftueDone && platformSdk.helperData.ftueDone == 1){
-                    //     utils.toggleBackNavigation(true);
-                    //     self.router.navigateTo('/');
-                    // }
-                    // New User :: Activate Wallet For The New User
-                    // else{
-                    //     this.PaymentService.activateWallet(function(res){
-                    //         utils.toggleBackNavigation(true);           // Set To False :: Later
-                    //         self.router.navigateTo('/ftue_step_1');     // FTUE STEP
-                    //     }, this);
-                    //     // Updates The Helper Data
-                    //     platformSdk.helperData = {'ftueDone': 1};
-                    //     platformSdk.updateHelperData(platformSdk.helperData);
-                    // }
-                }, 0);
-            }
+            }   
         }
     };
 
