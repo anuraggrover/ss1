@@ -11,9 +11,12 @@
 
     GiftEnabled_nr.prototype.bind = function(App, res){
         var that = this;
-
         var santaChatButton = this.el.getElementsByClassName('santaChatButton')[0];
         
+        if(platformSdk.appData.helperData.userSanta){
+            santaChatButton.classList.add('assigned');
+        }
+
         // Talk To Santa Button
 
         santaChatButton.addEventListener('click', function(ev){

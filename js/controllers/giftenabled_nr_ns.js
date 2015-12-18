@@ -15,6 +15,10 @@
         var santaChatButton = this.el.getElementsByClassName('santaChatButton')[0];
         var ssOffer = this.el.getElementsByClassName('ssOffer');
 
+        if(platformSdk.appData.helperData.userSanta){
+            santaChatButton.classList.add('assigned');
+        }
+
         var coupon_select = function() {
             var oid = this.getAttribute("data-oid");
             var offer = null;

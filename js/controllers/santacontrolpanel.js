@@ -19,13 +19,27 @@
 
         // Santa and Santee Status Inside the Res
 
-        if(res.santa){
-            santaButton.classList.add('assigned');
+        if(res){
+            if(res.santa){
+                santaButton.classList.add('assigned');
+                platformSdk.appData.helperData.userSanta = true;
+                platformSdk.updateHelperData(platformSdk.appData.helperData);
+            }
+            if(res.santi){
+                santeeButton.classList.add('assigned');
+                platformSdk.appData.helperData.userSanti = true;
+                platformSdk.updateHelperData(platformSdk.appData.helperData);
+            }
         }
-        if(res.santi){
-            santeeButton.classList.add('assigned');
+        else{
+            if(platformSdk.appData.helperData.userSanta){
+                santaButton.classList.add('assigned');
+            }
+            if(platformSdk.appData.helperData.userSanti){
+                santeeButton.classList.add('assigned');   
+            }
         }
-
+        
         // Gift Shelter Button
 
         giftShelter.addEventListener('click', function(ev){
