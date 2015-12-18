@@ -50,7 +50,6 @@
                     catch (e) {
                         return false;
                     }
-
                     if (res && res.status === "success") {
                         response = JSON.parse(res.response);
                         fn.call(x, response);

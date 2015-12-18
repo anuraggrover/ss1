@@ -36,6 +36,14 @@
                 App.router.navigateTo('/', {santa: true, santi: false});
             }
         });
+
+        termsAndConditions.addEventListener('click', function(ev){
+            var url = 'https://hike.in/secretsanta/terms/';
+            if(platformSdk.bridgeEnabled){
+                platformSdk.bridge.openFullPage('Terms and Conditions', url);
+            }
+        });
+
     };
 
     WorkspaceController.prototype.render = function (ctr, App, data) {
