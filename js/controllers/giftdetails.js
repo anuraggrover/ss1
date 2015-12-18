@@ -55,7 +55,9 @@
                 }
             }
             else{
-                if (platformSdk.bridgeEnabled) platformSdk.showToast("Some other Error Occured");
+                if (platformSdk.bridgeEnabled) {
+                    platformSdk.ui.showToast("Some other Error Occured");
+                }
                 else console.log("Some other Error Occured");
                 return;
             }

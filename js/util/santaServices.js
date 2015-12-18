@@ -19,7 +19,7 @@
         subscribeToSecretSanta: function(fn, x){
             var params = {
                 'url': URL.location+'/subscribe', 
-                'type': 'POST', 
+                'type': 'POST'
             };
             if (typeof fn === "function") return this.SantaService.communicate(params, fn, x);
             else this.SantaService.communicate(params);
