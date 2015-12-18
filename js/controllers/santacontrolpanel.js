@@ -74,8 +74,12 @@
                         }
                     }
                     else{
-                        if (platformSdk.bridgeEnabled) platformSdk.showToast("Some Error Occured");
-                        else console.log("Some Error Occured");
+                        if (platformSdk.bridgeEnabled) {
+                            platformSdk.ui.showToast("Some Error Occured");
+                        }
+                        else {
+                            console.log("Some Error Occured");
+                        }
                     }            
                 });
             }
@@ -133,8 +137,12 @@
                     PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '+hike3+', 'isBot' : false}");    
                 }
             } else { 
-                if (platformSdk.bridgeEnabled) platformSdk.showToast("We are working to find you a Santa. Please try again after some time");
-                else console.log("We are working to find you a Santa. Please try again after some time");
+                if (platformSdk.bridgeEnabled) {
+                    platformSdk.ui.showToast("We are working to find you a Santa. Please try again after some time");
+                }
+                else {
+                    console.log("We are working to find you a Santa. Please try again after some time");
+                }
             }
         });
 
@@ -147,8 +155,12 @@
                     PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '+hike5+', 'isBot' : false}");    
                 }
             } else { 
-                if (platformSdk.bridgeEnabled) platformSdk.showToast("We are working to make you someone's santa. Please try again after some time");
-                else console.log("We are working to make you someone's santa. Please try again after some time");
+                if (platformSdk.bridgeEnabled) {
+                    platformSdk.ui.showToast("We are working to make you someone's santa. Please try again after some time");
+                }
+                else {
+                    console.log("We are working to make you someone's santa. Please try again after some time");
+                }
             }
         });
     };

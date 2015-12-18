@@ -5,118 +5,110 @@
     var checkTimeout = null;
 
     var Constants = require('../../constants.js');
-    
-    var TxService = function () {};
-    
+
+    var TxService = function () {
+        },
+        checkConnection = function (fn, ctx) {
+
+            // For Devices, else case to run on Chrome's onLine method
+
+            if (platformSdk.bridgeEnabled) {
+                platformSdk.nativeReq({
+                    fn: 'checkConnection',
+                    ctx: this,
+                    data: "",
+                    success: function (response) {
+                        if (typeof fn === "function") {
+                            fn.call(ctx, response);
+                        }
+                    }
+                });
+            } else {
+                if (navigator.onLine) {
+                    if (typeof fn === "function") fn.call(ctx, navigator.onLine);
+                } else {
+                    if (typeof fn === "function") fn.call(ctx, -1);
+                }
+            }
+        };
+
     TxService.prototype = {
         communicate: function (params, fn, x) {
             var that = this,
                 requestUrl = params.url,
-                startTime = Date.now(),
-                endTime;
 
-            var checkConnection = function(fn, ctx){
-                
-                // For Devices, else case to run on Chrome's onLine method
+                successCb = function (res) {
+                    console.log("Success", res);
 
-                if (platformSdk.bridgeEnabled){
-                    platformSdk.nativeReq({
-                        fn: 'checkConnection',
-                        ctx: this,
-                        data: "",
-                        success: function(response){
-                            if (typeof fn === "function") {
-                                fn.call(ctx, response);
-                            }
+                    var response;
+
+                    events.publish('app/offline', {show: false});
+
+                    try {
+                        res = JSON.parse(decodeURIComponent(res));
+                    }
+                    catch (e) {
+                        return false;
+                    }
+
+                    if (res && res.status === "success") {
+                        response = JSON.parse(res.response);
+                        fn.call(x, response);
+                    }
+                    else {
+                        if (platformSdk.bridgeEnabled) {
+                            platformSdk.ui.showToast("Something went wrong. Please try again later.");
                         }
-                    }); 
-                } else {
-                    if (navigator.onLine){
-                        if (typeof fn === "function") fn.call(ctx,navigator.onLine);
-                    } else {
-                        if (typeof fn === "function") fn.call(ctx,-1);
+                        else {
+                            console.log("Something went wrong. Please try again later.");
+                        }
                     }
+                };
+
+            checkConnection(function (connType) {
+                if (connType === Constants.ConnectionTypes.NO_NETWORK) {
+                    // Show no internet screen.
+                    platformSdk.events.publish('app/offline', {
+                        show: true
+                    });
+
+                    return;
                 }
-            }; 
 
-            var success = function(res){
-                console.log("Success", res);
-                
-                var response;
-
-                events.publish('app/offline', {show:false});
-                
-                try { res = JSON.parse(decodeURIComponent(res)); } 
-                catch(e) { return false; }
-
-                if (res && res.status === "success") {
-                    response = JSON.parse(res.response);
-                    fn.call(x, response);
-                }
-                else{
-                    if (platformSdk.bridgeEnabled) {
-                        platformSdk.showToast("Something went wrong. Please try again later.");
-                    }
-                    else{
-                        console.log("Something went wrong. Please try again later.");  
-                    } 
-                }
-            };
-
-            var error = function(res){
-                
-                // Check For Internet Connection
-                
-                checkConnection(function(type){
-                    if (type !== 0 && type !== -1){
-                        console.log("Internet Connection Working :: Some Other Error Occured");
-                        events.publish('app/offline', {show:false});
-
-                        fn.call(x, res);
-                    } else {
-                        console.log("No Internet Connection Found");
-                        events.publish('app/offline', {show:true});
-                        
-                        // Set A Awake Call
-                        //checkTimeout = setTimeout(checkConnection, 5000);
-                    }
-                }, this);
-            };
-
-            
-            if(params.type === "GET"){
-                
-                console.log('calling service GET', requestUrl);
-
-                platformSdk.nativeReq({
-                    fn: 'doGetRequest',
-                    ctx: params.ctx || that,
-                    data: requestUrl,
-                    success: success
+                platformSdk.events.publish('app/offline', {
+                    show: false
                 });
-            }
 
-            else if(params.type === "POST"){
+                if (params.type === 'GET') {
+                    console.log('calling service GET', requestUrl);
 
-                var data = {};
-                data.url = params.url;
+                    platformSdk.nativeReq({
+                        fn: 'doGetRequest',
+                        ctx: params.ctx || that,
+                        data: requestUrl,
+                        success: successCb
+                    });
+                } else if (params.type === 'POST') {
+                    var data = {};
+                    data.url = params.url;
 
-                if (params.data) {
-                    data.params = params.data; 
+                    if (params.data) {
+                        data.params = params.data;
+                    } else {
+                        data.params = {};
+                    }
+
+                    console.log('calling service POST', data);
+                    data = JSON.stringify(data);
+
+                    platformSdk.nativeReq({
+                        fn: 'doPostRequest',
+                        ctx: params.ctx || this,
+                        data: data,
+                        success: successCb
+                    });
                 }
-                else{
-                    data.params = {};
-                }
-
-                console.log('calling service POST', data);
-                data = JSON.stringify(data);    
-                platformSdk.nativeReq({
-                    fn: 'doPostRequest',
-                    ctx: params.ctx || this,
-                    data: data,
-                    success: success
-                });
-            }      
+            });
         }
     };
 

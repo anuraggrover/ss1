@@ -8,7 +8,6 @@
     var utils = require('./js/util/utils');
     
     platformSdk.ready(function () {
-        var Store = require('./js/util/store');
         var environment = document.body.getAttribute('data-env'),
             config      = require('./config')(environment),
             Constants   = require('./constants');
@@ -59,6 +58,6 @@
         });
 
         application.start();
-    }, this);
+    });
 
 })(window);
