@@ -12,7 +12,6 @@
 
     WorkspaceController.prototype.bind = function(App){
 
-
          var $el = $(this.el);
          var btn_santaIn = this.el.getElementsByClassName('santaSubscribe')[0];
                  
@@ -23,7 +22,7 @@
                     if(res.stat == "success"){
                         platformSdk.appData.helperData.SecretSantaActive = true;
                         platformSdk.updateHelperData(platformSdk.appData.helperData);
-                        App.router.navigateTo('/', res);    
+                        App.router.navigateTo('/faq', res);
                     }
                     else if(res.stat === ""){
                         console.log("Run assignment and take to panel");

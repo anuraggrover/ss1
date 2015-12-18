@@ -217,14 +217,14 @@
             this.router.route('/faq', function(data){
                 self.container.innerHTML = "";
                 self.Faq.render(self.container, self, data);
-                utils.toggleBackNavigation(false);
+                utils.toggleBackNavigation(true);
             });
 
             // Subscribe :: Legal Screen
             this.router.route('/legal', function(data){
                 self.container.innerHTML = "";
                 self.Legal.render(self.container, self, data);
-                utils.toggleBackNavigation(false);
+                utils.toggleBackNavigation();
             });
 
             // Santa Secret Panel Is Home
