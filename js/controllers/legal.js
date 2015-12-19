@@ -11,7 +11,14 @@
 
     Legal.prototype.bind = function(App, res){
         var that = this;
-        
+
+        var infoActionButton = this.el.getElementsByClassName('infoActionButton')[0];
+
+        faqConfirm.addEventListener('click', function (ev) {
+            events.publish('update.loader', {show: true});
+            console.log(res);
+            App.router.navigateTo('/', res);
+        });
     };
 
     Legal.prototype.render = function(ctr, App, data) {

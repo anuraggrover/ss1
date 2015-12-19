@@ -24,6 +24,19 @@
             }); 
         });
 
+        var offerIcon = this.el.getElementsByClassName('offerIcon');
+
+        for(var j=0;j<offerIcon.length;j++){
+            if(offerIcon[j]){
+                offerIcon[j].style.background = "url('"+res.coupons[j].offericon+"')";
+            }    
+            else{
+                offerIcon[j].style.background = "url('images/giftclosed.png')";
+            } 
+            offerIcon[j].style.backgroundSize = "contain";
+            offerIcon[j].style.backgroundRepeat = "no-repeat";
+        }
+
     };
 
     GiftEnabled_nr.prototype.render = function(ctr, App, data) {

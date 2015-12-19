@@ -14,6 +14,19 @@
 
         var santaChatButton = this.el.getElementsByClassName('santaChatButton')[0];
         var ssOffer = this.el.getElementsByClassName('ssOffer');
+        var offerIcon = this.el.getElementsByClassName('offerIcon');
+
+        for(var j=0;j<offerIcon.length;j++){
+
+            if(offerIcon[j]){
+                offerIcon[j].style.background = "url('"+res[j].offericon+"')";
+            }    
+            else{
+                offerIcon[j].style.background = "url('images/giftclosed.png')";
+            } 
+            offerIcon[j].style.backgroundSize = "contain";
+            offerIcon[j].style.backgroundRepeat = "no-repeat";
+        }   
 
         if(platformSdk.appData.helperData.userSanta){
             santaChatButton.classList.add('assigned');
@@ -40,7 +53,11 @@
         santaChatButton.addEventListener('click', function(ev){
             if (this.classList.contains('assigned')){
                 if(platformSdk.bridgeEnabled){
-                    PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '+hike3+', 'isBot' : false}");    
+                    if(platformSdk.appData.helperData.santa_msisdn){
+                        PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '"+platformSdk.appData.helperData.santa_msisdn+"', 'isBot' : false}");    
+                    }else{
+                        platformSdk.ui.showToast("Some Error Occured");
+                    }    
                 }
             } else { 
                 if (platformSdk.bridgeEnabled) {

@@ -51,6 +51,7 @@
         _routerCache['history'] = this.history;
 
         unload();
+
     };
 
     Router.prototype.back = function(){

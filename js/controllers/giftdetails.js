@@ -14,7 +14,19 @@
         
         var giftConfirmSend = this.el.getElementsByClassName('giftConfirmSend')[0];
         var giftCodeValue = this.el.getElementsByClassName('giftCodeValue')[0];
+        var offerIcon = this.el.getElementsByClassName('offerIcon')[0];
 
+        if(offerIcon){
+            offerIcon.style.background = "url('"+res.offericon.medium+"')";
+            offerIcon.style.backgroundSize = "contain";
+            offerIcon.style.backgroundRepeat = "no-repeat";
+        }    
+        else{
+            offerIcon.style.background = "url('images/giftclosed.png')";
+            offerIcon.style.backgroundSize = "contain";
+            offerIcon.style.backgroundRepeat = "no-repeat";
+        } 
+        
         // Remove The Gift Code For Confirm and Send
         if(res && res.giftStatus == 'sGift'){
             giftCodeValue.remove();
@@ -30,7 +42,9 @@
                         ctx: this,
                         data: "+hikecoupons+",
                         success: function(response){
-                            console.log(response);
+                            if(response == 'Failure'){
+                                platformSdk.ui.showToast("Some Error Occured.");
+                            }
                         }
                     }); 
                 } else {

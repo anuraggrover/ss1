@@ -13,6 +13,7 @@
     WorkspaceController.prototype.bind = function (App) {
         var $el = $(this.el);
         var btn_santaIn = this.el.getElementsByClassName('santaSubscribe')[0];
+        var termsAndConditions = this.el.getElementsByClassName('termsAndConditions')[0];
 
         btn_santaIn.addEventListener('click', function (ev) {
             events.publish('update.loader', {show: true});
@@ -24,11 +25,13 @@
                         platformSdk.updateHelperData(platformSdk.appData.helperData);
                         App.router.navigateTo('/faq', res);
                     }
+                    // Remove this if always success coming
                     else if (res.stat === "") {
                         console.log("Run assignment and take to panel");
                     }
                     else {
-                        platformSdk.ui.showToast("Something Went Wrong");
+                        events.publish('update.loader', {show: false});
+                        platformSdk.ui.showToast("Something Went Wrong. Please try after some time");
                     }
                 });
             }
@@ -41,6 +44,8 @@
             var url = 'https://hike.in/secretsanta/terms/';
             if(platformSdk.bridgeEnabled){
                 platformSdk.bridge.openFullPage('Terms and Conditions', url);
+            }else{
+                console.log(url);
             }
         });
 

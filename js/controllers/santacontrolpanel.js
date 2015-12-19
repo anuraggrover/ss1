@@ -75,6 +75,7 @@
                     }
                     else{
                         if (platformSdk.bridgeEnabled) {
+                            events.publish('update.loader', {show:false});
                             platformSdk.ui.showToast("Some Error Occured");
                         }
                         else {
@@ -134,14 +135,18 @@
             if (this.classList.contains('assigned')){
                 if(platformSdk.bridgeEnabled){
                     // No Wrapper IN SDK For This Call
-                    PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '+hike3+', 'isBot' : false}");    
+                    if(platformSdk.appData.helperData.santa_msisdn){
+                        PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '"+platformSdk.appData.helperData.santa_msisdn+"', 'isBot' : false}");    
+                    }else{
+                        platformSdk.ui.showToast("Some Error Occured");
+                    }    
                 }
             } else { 
                 if (platformSdk.bridgeEnabled) {
-                    platformSdk.ui.showToast("We are working to find you a Santa. Please try again after some time");
+                    platformSdk.ui.showToast("We are working to find you a Santa. Please try again after some time.");
                 }
                 else {
-                    console.log("We are working to find you a Santa. Please try again after some time");
+                    console.log("We are working to find you a Santa. Please try again after some time.");
                 }
             }
         });
@@ -152,14 +157,18 @@
             if (this.classList.contains('assigned')){
                 if(platformSdk.bridgeEnabled){
                     // No Wrapper IN SDK For This Call
-                    PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '+hike5+', 'isBot' : false}");    
+                    if(platformSdk.appData.helperData.santi_msisdn){
+                        PlatformBridge.openActivity("{'screen' : 'chatthread', 'msisdn' : '"+platformSdk.appData.helperData.santi_msisdn+"', 'isBot' : false}");    
+                    }else{
+                        platformSdk.ui.showToast("Some Error Occured");
+                    }
                 }
             } else { 
                 if (platformSdk.bridgeEnabled) {
-                    platformSdk.ui.showToast("We are working to make you someone's santa. Please try again after some time");
+                    platformSdk.ui.showToast("We are working to make you someone's Santa. Please try again after some time.");
                 }
                 else {
-                    console.log("We are working to make you someone's santa. Please try again after some time");
+                    console.log("We are working to make you someone's Santa. Please try again after some time.");
                 }
             }
         });

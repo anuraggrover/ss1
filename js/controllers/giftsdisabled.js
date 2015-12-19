@@ -14,26 +14,49 @@
         
     };
 
+    GiftCounter.prototype.timeConversion = function(t){
+
+        var milliseconds = t*1000;
+        var diffTime = {};
+
+        function numberEnding (number) {
+            return (number > 1) ? 's' : '';
+        }
+
+        var temp = Math.floor(milliseconds / 1000);
+
+        var days = Math.floor((temp %= 31536000) / 86400);
+        if (days) {
+            diffTime.days = days;
+        }
+        var hours = Math.floor((temp %= 86400) / 3600);
+        if (hours) {
+            diffTime.hours = hours;
+        }
+        var minutes = Math.floor((temp %= 3600) / 60);
+        if (minutes) {
+            diffTime.minutes = minutes;
+        }
+        var seconds = temp % 60;
+        if (seconds) {
+            diffTime.seconds = seconds;
+        }
+        if(diffTime){
+            return diffTime;
+        }
+        else{
+            return  0;
+        }
+    };
+
     GiftCounter.prototype.render = function(ctr, App, data) {
 
-        var days = Math.floor(data.timestamp / 86400);
-        var hours = Math.floor((data.timestamp - (days * 86400)) / 3600);
-        var minutes = Math.floor((data.timestamp - ((hours * 3600) + (days * 86400))) / 60);
-        var seconds = data.timestamp - ((days * 86400) + (hours * 3600) + (minutes * 60));
-        var result = new String();
-
-        if((days > 0) === true){result += days + ' days,';}
-        if((hours > 0) === true){result += ' ' + hours + ' hours, ';}
-        if((minutes > 0) === true){result += ' ' + minutes + ' minutes,';}
-        if((seconds > 0)){result += ' ' + seconds + ' seconds,';}
-
-        result = result.slice(0, -1);
-        console.log(result);
-
+        this.diffTimeObject = this.timeConversion(data.delta);
+        
         this.el = document.createElement('div');
         this.el.className = "panelContainer animation_fadein";
 
-        this.el.innerHTML = Mustache.render(this.template, { tdays:1,thours:2,tminutes:50, tseconds:30 });
+        this.el.innerHTML = Mustache.render(this.template, { timeCounter:this.diffTimeObject });
         ctr.appendChild(this.el);
         events.publish('update.loader', {show:false});
         this.bind(App, data);

@@ -24,11 +24,6 @@
             TOGGLE_BLOCK: 'app.menu.om.block',
             RESET_APP: 'app.reset'
         },
-
-        ChatBots:{
-            SANTA: '+hikesanta+',
-            SANTEE: '+hikesantee+'
-        }
     };
 
 })();
