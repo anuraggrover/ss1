@@ -99,7 +99,7 @@
             this.giftDetailsPage.giftStatus ='rGift';
         }
         else{
-            this.giftDetailsPage = data;
+            this.giftDetailsPage = JSON.parse(JSON.stringify(data)); // Clone object
             this.giftDetailsPage.buttonHeading = 'Confirm and Send';
             this.giftDetailsPage.giftStatus ='sGift';
         }

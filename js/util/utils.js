@@ -127,7 +127,8 @@
 
             if (platformSdk.bridgeEnabled) {
                 platformSdk.bridge.allowBackPress(enable);
-                platformSdk.bridge.allowUpPress(enable);
+                // Allow up press in only available since Platform Version 5
+                platformSdk.bridge.allowUpPress && platformSdk.bridge.allowUpPress(enable);
             }
         },
 

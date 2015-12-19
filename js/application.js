@@ -90,6 +90,7 @@
             "title": "Block"
         });
 
+        // ToDo: Why is offline screen being turned to show: false
         events.publish('app/offline', {show: false});
         events.publish('app/block', {show: false});
     };
@@ -180,6 +181,7 @@
         getRoute: function () {
             var that = this;
 
+            // ToDo: Remvove tihs if block from here?
             if (this.routeIntent !== undefined) {
 
             } else {

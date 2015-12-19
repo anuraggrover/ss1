@@ -54,7 +54,7 @@
 
         var application = new Application({
             container: document.getElementById("container"),
-            route: platformSdk.link && platformSdk.link.route
+            route: platformSdk.link && platformSdk.link.route // ToDo: Where is this link being set from
         });
 
         application.start();
