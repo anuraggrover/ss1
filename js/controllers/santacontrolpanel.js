@@ -66,6 +66,11 @@
                             else if(res.gift_received && res.gift_sent){
                                 App.router.navigateTo('/giftenabled_r_s', res);
                             }
+                            // If some Exception Occurs
+                            else{
+                                events.publish('update.loader', {show:true});
+                                platformSdk.ui.showToast("Some Error Occured. Please Try Again Later");
+                            }
                         }
                         // Disabled State To Get The Counter Timestamp
                         else if(res.state == 'disabled'){

@@ -59,9 +59,14 @@
                     App.SantaService.sendGift(data, function(res){
                         console.log(res);
                         if(res.stat == 'success'){
-                            // Navigate To Control Panel and Pick up Santa and Santi From Helper Data
+                            platformSdk.ui.showToast("Gift successfully sent"); 
                             App.router.navigateTo('/');
-                        }    
+                        }
+                        else if(res.stat == "fail"){
+                            events.publish('update.loader', {show:false});
+                            platformSdk.ui.showToast("Some other Error Occured"); 
+                        }   
+                        // Handle state deleted 
                     });    
                 }
                 else{

@@ -25,9 +25,9 @@
                         platformSdk.updateHelperData(platformSdk.appData.helperData);
                         App.router.navigateTo('/faq', res);
                     }
-                    // Remove this if always success coming
-                    else if (res.stat === "") {
-                        console.log("Run assignment and take to panel");
+                    else if(res.stat == "fail"){
+                        events.publish('update.loader', {show: false});
+                        platformSdk.ui.showToast("Something Went Wrong. Please try after some time");
                     }
                     else {
                         events.publish('update.loader', {show: false});

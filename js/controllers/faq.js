@@ -45,7 +45,15 @@
         this.el = document.createElement('div');
         this.el.className = "faqContainer animation_fadein";
 
-        this.el.innerHTML = Mustache.render(this.template, {});
+        this.HowToUseList = [
+            {'itemCount':1,'item':'You will be matched randomly with some Santa from the hike user base.'},
+            {'itemCount':2,'item':'It will be fully anonymous and your identity will not be revealed.'},
+            {'itemCount':3,'item':'Start chatting with your Santa. Be nice and you’ll get a gift from them.'},
+            {'itemCount':4,'item':'Find out more about your match by chatting with them.'},
+            {'itemCount':5,'item':'On 24th Dec, your Gift basket will get activated.'}
+        ];
+
+        this.el.innerHTML = Mustache.render(this.template, {HowToUseList:this.HowToUseList});
         ctr.appendChild(this.el);
         events.publish('update.loader', {show: false});
         this.bind(App, data);

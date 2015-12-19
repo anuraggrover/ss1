@@ -1,2 +1,19 @@
-<p> Terms and Conditions</p>
-<div class="faqConfirm">OKAY</div>
+<div class="faqWrapperContainer">
+	<div class="faqWrapper">
+		<div class="infoHeading align-center">
+			<div class="infoIcon"></div>
+			<p>How To Use</p>
+		</div>
+		<ul class="itemList">
+			{{#HowToUseList}}
+			<li>
+				<div class="itemIndex"><p>{{itemCount}}</p></div>
+				<p class="itemContent">{{item}}</p>
+			</li>
+			{{/HowToUseList}}
+		</ul>
+		<div class="faqConfirm align-center">
+			<div class="faqConfirmInner">Okay</div>
+		</div>
+	</div>
+</div>

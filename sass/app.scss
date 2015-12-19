@@ -3,6 +3,7 @@
 @import 'giftcounter';
 @import 'giftsender';
 @import 'giftdetails';
+@import 'faq';
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -146,86 +147,59 @@ a:visited {
 /* Christams CSS */
 
 .christmasContainer{
-  display: block;
+  vertical-align: middle;
   width: 100%;
   height: 100%;
   background-color:#E8382D;
-}
-
-.secretSanta{
-  height: 45%;
   position: relative;
 }
 
-.secretSanta .logo{
+.christmasContainer .optInWrapper{
+  width: 100%;
+  position: absolute;
+  top:50%;
+  left:50%;
+  -webkit-transform:translate(-50%,-50%);
+}
+
+.termsAndConditions{
+  position: absolute;
+  bottom:20px;
+  font-size:14px; 
+  font-weight: 400;
+  color: rgba(255,255,255,0.80);
+  margin: 0px auto;
+  left: 0px;
+  right: 0px;
+}
+
+.secretSantaLogo{
     background: url(images/secretsantalogo.png);
     background-size: contain;
     background-repeat: no-repeat;
-    width: 90%;
-    height: 62%;
-    bottom: 0px;
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
+    width: 280px;
+    height: 154px;
+    margin: 0px auto;
 }
 
 .christmasContainer p.ssintro{
   color: rgba(255,255,255,0.80);
   font-size: 15px;
-  margin:18px 56px 68px 56px;
+  margin:32px 43px 64px 43px;
   font-weight: 400;
   line-height:20px;
 }
 
-#snow{
-  background: none;
-  font-family: Androgyne;
-  background-image: url('images/snowflake_1.png'), url('images/snowflake_2.png'), url('images/snowflake_3.png');
-  width: 100%;
-  z-index:1;
-  -webkit-animation: snow 10s linear infinite;
-  -moz-animation: snow 10s linear infinite;
-  -ms-animation: snow 10s linear infinite;
-  animation: snow 10s linear infinite;
-}
-@keyframes snow {
-  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
-  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
-}
-@-moz-keyframes snow {
-  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
-  100% {background-position: 400px 1000px, 200px 400px, 100px 300px;}
-}
-@-webkit-keyframes snow {
-  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
-  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
-}
-@-ms-keyframes snow {
-  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
-  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
-} 
-
 .secretSantaButton .santaSubscribe{
-    border: 1px solid rgba(255,255,255,0.80);
+    border: 1px solid rgba(255,255,255,1);
     display: inline-block;
     text-transform: uppercase;
     color: white;
     font-weight: 500;
-    font-size: 17px;
-    padding: 18px 30px 16px 30px;
+    font-size: 14px;
+    padding: 12px 24px;
     border-radius: 4px;
     vertical-align: middle;
-}
-
-#canvas_half {
-  z-index: 10;
-  bottom: 0px;
 }
 
 .spinner-ctr {
@@ -557,4 +531,10 @@ a:visited {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+@media screen and (max-height: 510px) and (-webkit-max-device-pixel-ratio: 1.9) {
+  .secretSantaLogo{width: 240px;height: 132px;}
+  .christmasContainer p.ssintro{margin:28px 43px 54px 43px;font-size:14px;}
+  .secretSantaButton .santaSubscribe{font-size :12px;padding:10px 20px}
 }

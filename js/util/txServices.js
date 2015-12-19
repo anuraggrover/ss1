@@ -56,6 +56,8 @@
                     }
                     else {
                         if (platformSdk.bridgeEnabled) {
+                            // Switch Off Loader and Show Toast
+                            events.publish('update.loader', {show: false});
                             platformSdk.ui.showToast("Something went wrong. Please try again later.");
                         }
                         else {
