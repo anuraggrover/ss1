@@ -240,6 +240,7 @@
                 utils.toggleBackNavigation();
             });
 
+            // ToDo: As discussed, the home route should be registered for the optin screen which should route to Santa Secret panel when required.
             // Santa Secret Panel Is Home
             this.router.route('/', function (data) {
                 self.container.innerHTML = "";

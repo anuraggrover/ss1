@@ -38,18 +38,14 @@
     };
 
     Router.prototype.navigateTo = function (route, data) {
-        if (this.currentRoute) {
-            this.history.push({
-                route: this.currentRoute,
-                data: this.prevData
-            });
-        }
-
         this.currentRoute = this.routes[route];
-        this.prevData = data;
-        this.currentRoute(data);
 
-        if (route === "/") this.history = [];
+        this.history.push({
+            route: this.currentRoute,
+            data: data
+        });
+
+        this.currentRoute(data);
 
         _routerCache['route'] = route;
         _routerCache['cache'] = data;
@@ -60,11 +56,14 @@
     };
 
     Router.prototype.back = function () {
-        var historyItem;
+        var history = this.history,
+            historyItem;
 
-        if (this.history.length === 0) { return; }
+        if (history.length !== 1) {
+            history.pop();
+        }
 
-        historyItem = this.history.pop();
+        historyItem = history[history.length - 1];
         this.currentRoute = historyItem.route;
         this.currentRoute(historyItem.data);
     };
